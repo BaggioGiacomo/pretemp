@@ -26,17 +26,5 @@
       </main>
       <%= render "shared/footer" %>
     </div>
-    <script>
-      // Simple mobile nav toggle
-      document.addEventListener("DOMContentLoaded", () => {
-        const btn = document.getElementById("mobile-menu-button");
-        const menu = document.getElementById("mobile-menu");
-        if (!btn || !menu) return;
-
-        btn.addEventListener("click", () => {
-          menu.classList.toggle("hidden");
-        });
-      });
-    </script>
   </body>
 </html>

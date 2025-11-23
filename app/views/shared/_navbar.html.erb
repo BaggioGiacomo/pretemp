@@ -1,4 +1,4 @@
-<header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40">
+<header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40" data-controller="sidebar">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
@@ -86,18 +86,19 @@
           </div>
         </div>
       </nav>
-      <!-- Mobile menu button -->
       <div class="md:hidden">
-        <button id="mobile-menu-button"
-                class="inline-flex items-center justify-center rounded-xl border border-slate-700 p-2 text-slate-200 hover:bg-slate-800"
-                aria-label="Apri menu">
+        <button 
+          data-action="click->sidebar#toggle"
+          data-sidebar-target="button"
+          class="inline-flex items-center justify-center rounded-xl border border-slate-700 text-slate-200 hover:bg-slate-800 w-10 h-10"
+          aria-label="Apri menu">
           ☰
         </button>
       </div>
     </div>
   </div>
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="md:hidden hidden border-t border-slate-800 bg-slate-950">
+  <div data-sidebar-target="panel" data-hidden="true" class="border-t border-slate-800 bg-slate-950">
     <div class="max-w-6xl mx-auto px-4 py-3 space-y-2 text-sm">
       <div data-controller="dropdown">
         <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Pretemp</div>

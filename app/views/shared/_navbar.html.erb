@@ -1,0 +1,153 @@
+<header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <div class="flex items-center gap-2">
+        <%= link_to root_path, class: "flex items-center gap-2" do %>
+          <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-sky-400 to-amber-300 flex items-center justify-center shadow-lg shadow-sky-500/30">
+            <!-- Simple icon -->
+            <span class="text-xl font-black text-slate-950">P</span>
+          </div>
+          <div class="leading-tight">
+            <div class="font-semibold tracking-tight">PRETEMP</div>
+            <div class="text-[11px] text-slate-400">
+              Previsioni temporali sperimentali
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <!-- PRETEMP -->
+        <div data-controller="dropdown" class="relative group">
+          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
+            PRETEMP
+            <span class="text-xs">▾</span>
+          </button>
+          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
+            <%= link_to "Chi siamo", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Team", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Obiettivi", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Contatti", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "La previsione", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          </div>
+        </div>
+        <%= link_to "Radar", "#", class: "text-slate-200 hover:text-sky-300 transition" %>
+        <%= link_to "Pseudosondaggi", "#", class: "text-slate-200 hover:text-sky-300 transition" %>
+        <!-- Modelli -->
+        <div data-controller="dropdown" class="relative group">
+          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
+            Modelli
+            <span class="text-xs">▾</span>
+          </button>
+          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
+            <%= link_to "WRF – Meteonetwork", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "WRF – Modellzentrale", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Altri modelli", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          </div>
+        </div>
+        <%= link_to "Segnalazioni", "#", class: "text-slate-200 hover:text-sky-300 transition" %>
+        <!-- Studi PRETEMP -->
+        <div data-controller="dropdown" class="relative group">
+          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
+            Studi PRETEMP
+            <span class="text-xs">▾</span>
+          </button>
+          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
+            <%= link_to "PRETEMP Index", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Studi", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Analisi post evento", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Vecchie validazioni", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          </div>
+        </div>
+        <!-- Didattica -->
+        <div data-controller="dropdown" class="relative group">
+          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
+            Didattica
+            <span class="text-xs">▾</span>
+          </button>
+          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
+            <%= link_to "Didattica web", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "SWI", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <%= link_to "Cambiamenti climatici", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          </div>
+        </div>
+        <!-- Archivio -->
+        <div class="relative group" data-controller="dropdown">
+          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
+            Archivio
+            <span class="text-xs">▾</span>
+          </button>
+          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 grid grid-cols-2 gap-1">
+            <% (2015..Time.current.year).to_a.reverse.each do |year| %>
+              <%= link_to year, "#",
+                  class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button id="mobile-menu-button"
+                class="inline-flex items-center justify-center rounded-xl border border-slate-700 p-2 text-slate-200 hover:bg-slate-800"
+                aria-label="Apri menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden hidden border-t border-slate-800 bg-slate-950">
+    <div class="max-w-6xl mx-auto px-4 py-3 space-y-2 text-sm">
+      <div data-controller="dropdown">
+        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Pretemp</div>
+        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
+          <%= link_to "Chi siamo", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Team", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Obiettivi", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Contatti", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "La previsione", "#", class: "block py-1 text-slate-200" %>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <%= link_to "Radar", "#", class: "block py-1 text-slate-200" %>
+        <%= link_to "Pseudosondaggi", "#", class: "block py-1 text-slate-200" %>
+        <%= link_to "Segnalazioni", "#", class: "block py-1 text-slate-200" %>
+      </div>
+      <div data-controller="dropdown">
+        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Modelli</div>
+        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
+          <%= link_to "WRF – Meteonetwork", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "WRF – Modellzentrale", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Altri modelli", "#", class: "block py-1 text-slate-200" %>
+        </div>
+      </div>
+      <div data-controller="dropdown">
+        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Studi PRETEMP</div>
+        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
+          <%= link_to "PRETEMP Index", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Studi", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Analisi post evento", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Vecchie validazioni", "#", class: "block py-1 text-slate-200" %>
+        </div>
+      </div>
+      <div data-controller="dropdown">
+        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Didattica</div>
+        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
+          <%= link_to "Didattica web", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "SWI", "#", class: "block py-1 text-slate-200" %>
+          <%= link_to "Cambiamenti climatici", "#", class: "block py-1 text-slate-200" %>
+        </div>
+      </div>
+      <div data-controller="dropdown">
+        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Archivio</div>
+        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="flex flex-wrap gap-2 text-xs">
+          <% (2015..Time.current.year).to_a.reverse.each do |year| %>
+            <%= link_to year, "#",
+                class: "px-2 py-1 rounded-full border border-slate-700 text-slate-200" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -8,24 +8,43 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <body class="bg-slate-950 text-slate-50 antialiased">
+    <div class="min-h-screen flex flex-col">
+      <%= render "shared/navbar" %>
+      <main class="flex-1">
+        <%= yield %>
+      </main>
+      <footer class="border-t border-slate-800 mt-16">
+        <div class="max-w-6xl mx-auto px-4 py-6 text-xs text-slate-400 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <p>© <%= Time.current.year %> PRETEMP – Previsioni temporali sperimentali dal 2015.</p>
+          <p class="space-x-3">
+            <a href="#" class="hover:text-slate-200 transition">Privacy</a>
+            <a href="#" class="hover:text-slate-200 transition">Contatti</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+    <script>
+      // Simple mobile nav toggle
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+        if (!btn || !menu) return;
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+        btn.addEventListener("click", () => {
+          menu.classList.toggle("hidden");
+        });
+      });
+    </script>
   </body>
 </html>

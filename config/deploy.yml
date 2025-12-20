@@ -2,12 +2,12 @@
 service: pretemp
 
 # Name of the container image (use your-user/app-name on external registries).
-image: pretemp
+image: baggiogiacomo/pretemp
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    - 91.98.123.139
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -20,21 +20,19 @@ servers:
 #
 # Don't use this when deploying to multiple web servers (then you have to terminate SSL at your load balancer).
 #
-# proxy:
-#   ssl: true
-#   host: app.example.com
+proxy:
+  ssl: true
+  host: pretemp.duckdns.org
 
 # Where you keep your container images.
 registry:
   # Alternatives: hub.docker.com / registry.digitalocean.com / ghcr.io / ...
-  server: localhost:5555
-
   # Needed for authenticated registries.
-  # username: your-user
+  username: baggiogiacomo
 
   # Always use an access token rather than real password when possible.
-  # password:
-  #   - KAMAL_REGISTRY_PASSWORD
+  password:
+    - KAMAL_REGISTRY_PASSWORD
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
@@ -76,7 +74,6 @@ volumes:
 # version inside the asset_path.
 asset_path: /rails/public/assets
 
-
 # Configure the image builder.
 builder:
   arch: amd64
@@ -90,7 +87,6 @@ builder:
   # secrets:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
-
 # Use a different ssh user than root
 # ssh:
 #   user: app

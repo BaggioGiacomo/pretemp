@@ -1,11 +1,9 @@
 <header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40" data-controller="sidebar">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
       <div class="flex items-center gap-2">
         <%= link_to root_path, class: "flex items-center gap-2" do %>
-          <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-sky-400 to-amber-300 flex items-center justify-center shadow-lg shadow-sky-500/30">
-            <!-- Simple icon -->
+          <div class="h-9 w-9 rounded-xl bg-linear-to-tr from-sky-400 to-amber-300 flex items-center justify-center shadow-lg shadow-sky-500/30">
             <span class="text-xl font-black text-slate-950">P</span>
           </div>
           <div class="leading-tight">
@@ -16,73 +14,157 @@
           </div>
         <% end %>
       </div>
-      <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <!-- PRETEMP -->
-        <div data-controller="dropdown" class="relative group">
-          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
-            PRETEMP
-            <span class="text-xs">▾</span>
+      <nav class="hidden md:flex items-center gap-1 text-sm">
+        <div 
+          data-controller="dropdown" 
+          data-dropdown-hover-value="true" 
+          class="relative"
+          data-action="mouseenter->dropdown#mouseEnter mouseleave->dropdown#mouseLeave"
+          >
+          <button 
+            type="button"
+            data-dropdown-target="trigger"
+            data-action="click->dropdown#toggle"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors"
+            >
+            Previsione
+            <svg data-dropdown-target="icon" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
           </button>
-          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
-            <%= link_to "Chi siamo", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Team", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Obiettivi", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Contatti", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "La previsione", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          <div 
+            data-dropdown-target="panel"
+            class="hidden absolute left-0 top-full pt-2 z-50"
+          >
+            <div class="w-48 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-sm shadow-xl shadow-slate-950/60 p-1.5">
+              <%= link_to "Archivio", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "La previsione", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Modelli", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+            </div>
           </div>
         </div>
-        <%= link_to "Radar", "#", class: "text-slate-200 hover:text-sky-300 transition" %>
-        <%= link_to "Pseudosondaggi", "#", class: "text-slate-200 hover:text-sky-300 transition" %>
-        <!-- Modelli -->
-        <div data-controller="dropdown" class="relative group">
-          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
-            Modelli
-            <span class="text-xs">▾</span>
+        <div 
+          data-controller="dropdown" 
+          data-dropdown-hover-value="true" 
+          class="relative"
+          data-action="mouseenter->dropdown#mouseEnter mouseleave->dropdown#mouseLeave"
+          >
+          <button 
+            type="button"
+            data-dropdown-target="trigger"
+            data-action="click->dropdown#toggle"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors"
+            >
+            Monitoraggio
+            <svg data-dropdown-target="icon" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
           </button>
-          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
-            <%= link_to "WRF – Meteonetwork", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "WRF – Modellzentrale", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Altri modelli", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          <div 
+            data-dropdown-target="panel"
+            class="hidden absolute left-0 top-full pt-2 z-50"
+          >
+            <div class="w-48 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-sm shadow-xl shadow-slate-950/60 p-1.5">
+              <%= link_to "Radar", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Fulmini", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Satellite", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Stazioni meteo", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Radiosondaggi", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+            </div>
           </div>
         </div>
-        <%= link_to "Segnalazioni", "#", class: "text-slate-200 hover:text-sky-300 transition" %>
-        <!-- Studi PRETEMP -->
-        <div data-controller="dropdown" class="relative group">
-          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
-            Studi PRETEMP
-            <span class="text-xs">▾</span>
+        <div 
+          data-controller="dropdown" 
+          data-dropdown-hover-value="true" 
+          class="relative"
+          data-action="mouseenter->dropdown#mouseEnter mouseleave->dropdown#mouseLeave"
+          >
+          <button 
+            type="button"
+            data-dropdown-target="trigger"
+            data-action="click->dropdown#toggle"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors"
+            >
+            Segnalazioni
+            <svg data-dropdown-target="icon" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
           </button>
-          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
-            <%= link_to "PRETEMP Index", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Studi", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Analisi post evento", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Vecchie validazioni", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          <div 
+            data-dropdown-target="panel"
+            class="hidden absolute left-0 top-full pt-2 z-50"
+          >
+            <div class="w-52 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-sm shadow-xl shadow-slate-950/60 p-1.5">
+              <%= link_to "Progetto Storm Report", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Guida Storm Report", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+            </div>
           </div>
         </div>
-        <!-- Didattica -->
-        <div data-controller="dropdown" class="relative group">
-          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
-            Didattica
-            <span class="text-xs">▾</span>
+        <div 
+          data-controller="dropdown" 
+          data-dropdown-hover-value="true" 
+          class="relative"
+          data-action="mouseenter->dropdown#mouseEnter mouseleave->dropdown#mouseLeave"
+          >
+          <button 
+            type="button"
+            data-dropdown-target="trigger"
+            data-action="click->dropdown#toggle"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors"
+            >
+            Ricerca
+            <svg data-dropdown-target="icon" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
           </button>
-          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 flex flex-col gap-1">
-            <%= link_to "Didattica web", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "SWI", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <%= link_to "Cambiamenti climatici", "#", class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
+          <div 
+            data-dropdown-target="panel"
+            class="hidden absolute left-0 top-full pt-2 z-50"
+          >
+            <div class="w-56 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-sm shadow-xl shadow-slate-950/60 p-1.5">
+              <%= link_to "Pubblicazioni scientifiche", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Report tecnici", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Validazioni", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+            </div>
           </div>
         </div>
-        <!-- Archivio -->
-        <div class="relative group" data-controller="dropdown">
-          <button data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300 transition">
-            Archivio
-            <span class="text-xs">▾</span>
+        <%= link_to "Didattica", "#", class: "px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors" %>
+        <div 
+          data-controller="dropdown" 
+          data-dropdown-hover-value="true" 
+          class="relative"
+          data-action="mouseenter->dropdown#mouseEnter mouseleave->dropdown#mouseLeave"
+          >
+          <button 
+            type="button"
+            data-dropdown-target="trigger"
+            data-action="click->dropdown#toggle"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors"
+            >
+            Chi siamo
+            <svg data-dropdown-target="icon" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
           </button>
-          <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="absolute right-0 mt-2 w-52 rounded-xl border border-slate-800 bg-slate-900/95 shadow-xl shadow-slate-950/60 p-2 grid grid-cols-2 gap-1">
-            <% (2015..Time.current.year).to_a.reverse.each do |year| %>
-              <%= link_to year, "#",
-                  class: "block px-3 py-2 rounded-lg text-sm hover:bg-slate-800" %>
-            <% end %>
+          <div 
+            data-dropdown-target="panel"
+            class="hidden absolute right-0 top-full pt-2 z-50"
+          >
+            <div class="w-52 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-sm shadow-xl shadow-slate-950/60 p-1.5">
+              <%= link_to "Team", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Obiettivi e struttura", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Contatti", "#", class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+            </div>
           </div>
         </div>
       </nav>
@@ -97,58 +179,117 @@
       </div>
     </div>
   </div>
-  <!-- Mobile menu -->
   <div data-sidebar-target="panel" data-hidden="true" class="border-t border-slate-800 bg-slate-950">
-    <div class="max-w-6xl mx-auto px-4 py-3 space-y-2 text-sm">
-      <div data-controller="dropdown">
-        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Pretemp</div>
-        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
-          <%= link_to "Chi siamo", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Team", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Obiettivi", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Contatti", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "La previsione", "#", class: "block py-1 text-slate-200" %>
+    <nav class="max-w-6xl mx-auto px-4 py-4 space-y-1 text-sm">
+      <div data-controller="accordion" data-accordion-group-value="mobile-nav">
+        <button 
+        type="button"
+        data-accordion-target="trigger"
+        data-action="click->accordion#toggle"
+          aria-expanded="false"
+          class="w-full flex items-center justify-between py-2.5 text-slate-200 hover:text-white transition-colors"
+          >
+          <span class="text-xs font-semibold uppercase tracking-wide">Previsione</span>
+          <svg data-accordion-target="icon" class="w-4 h-4 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div data-accordion-target="panel" class="hidden overflow-hidden transition-[height] duration-200 ease-out">
+          <div class="pb-2 pl-3 space-y-0.5">
+            <%= link_to "Archivio", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "La previsione", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Modelli", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+          </div>
         </div>
       </div>
-      <div class="space-y-1">
-        <%= link_to "Radar", "#", class: "block py-1 text-slate-200" %>
-        <%= link_to "Pseudosondaggi", "#", class: "block py-1 text-slate-200" %>
-        <%= link_to "Segnalazioni", "#", class: "block py-1 text-slate-200" %>
-      </div>
-      <div data-controller="dropdown">
-        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Modelli</div>
-        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
-          <%= link_to "WRF – Meteonetwork", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "WRF – Modellzentrale", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Altri modelli", "#", class: "block py-1 text-slate-200" %>
+      <div data-controller="accordion" data-accordion-group-value="mobile-nav">
+        <button 
+        type="button"
+        data-accordion-target="trigger"
+        data-action="click->accordion#toggle"
+          aria-expanded="false"
+          class="w-full flex items-center justify-between py-2.5 text-slate-200 hover:text-white transition-colors"
+          >
+          <span class="text-xs font-semibold uppercase tracking-wide">Monitoraggio</span>
+          <svg data-accordion-target="icon" class="w-4 h-4 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div data-accordion-target="panel" class="hidden overflow-hidden transition-[height] duration-200 ease-out">
+          <div class="pb-2 pl-3 space-y-0.5">
+            <%= link_to "Radar", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Fulmini", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Satellite", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Stazioni meteo", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Radiosondaggi", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+          </div>
         </div>
       </div>
-      <div data-controller="dropdown">
-        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Studi PRETEMP</div>
-        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
-          <%= link_to "PRETEMP Index", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Studi", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Analisi post evento", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Vecchie validazioni", "#", class: "block py-1 text-slate-200" %>
+      <div data-controller="accordion" data-accordion-group-value="mobile-nav">
+        <button 
+        type="button"
+        data-accordion-target="trigger"
+        data-action="click->accordion#toggle"
+          aria-expanded="false"
+          class="w-full flex items-center justify-between py-2.5 text-slate-200 hover:text-white transition-colors"
+          >
+          <span class="text-xs font-semibold uppercase tracking-wide">Segnalazioni</span>
+          <svg data-accordion-target="icon" class="w-4 h-4 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div data-accordion-target="panel" class="hidden overflow-hidden transition-[height] duration-200 ease-out">
+          <div class="pb-2 pl-3 space-y-0.5">
+            <%= link_to "Progetto Storm Report", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Guida Storm Report", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+          </div>
         </div>
       </div>
-      <div data-controller="dropdown">
-        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Didattica</div>
-        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="space-y-1 bl border-l border-slate-800 pl-2">
-          <%= link_to "Didattica web", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "SWI", "#", class: "block py-1 text-slate-200" %>
-          <%= link_to "Cambiamenti climatici", "#", class: "block py-1 text-slate-200" %>
+      <div data-controller="accordion" data-accordion-group-value="mobile-nav">
+        <button 
+        type="button"
+        data-accordion-target="trigger"
+        data-action="click->accordion#toggle"
+          aria-expanded="false"
+          class="w-full flex items-center justify-between py-2.5 text-slate-200 hover:text-white transition-colors"
+          >
+          <span class="text-xs font-semibold uppercase tracking-wide">Ricerca</span>
+          <svg data-accordion-target="icon" class="w-4 h-4 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div data-accordion-target="panel" class="hidden overflow-hidden transition-[height] duration-200 ease-out">
+          <div class="pb-2 pl-3 space-y-0.5">
+            <%= link_to "Pubblicazioni scientifiche", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Report tecnici", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Validazioni", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+          </div>
         </div>
       </div>
-      <div data-controller="dropdown">
-        <div data-action="click->dropdown#toggle" data-action="click->dropdown#toggle mouseenter->dropdown#open" class="text-[11px] font-semibold uppercase tracking-wide text-slate-500 mb-1">Archivio</div>
-        <div data-dropdown-target="panel" data-hidden="true" data-action="mouseleave->dropdown#close" class="flex flex-wrap gap-2 text-xs">
-          <% (2015..Time.current.year).to_a.reverse.each do |year| %>
-            <%= link_to year, "#",
-                class: "px-2 py-1 rounded-full border border-slate-700 text-slate-200" %>
-          <% end %>
+      <%= link_to "#", class: "flex items-center py-2.5 text-slate-200 hover:text-white transition-colors" do %>
+        <span class="text-xs font-semibold uppercase tracking-wide">Didattica</span>
+      <% end %>
+      <div data-controller="accordion" data-accordion-group-value="mobile-nav">
+        <button 
+        type="button"
+        data-accordion-target="trigger"
+        data-action="click->accordion#toggle"
+          aria-expanded="false"
+          class="w-full flex items-center justify-between py-2.5 text-slate-200 hover:text-white transition-colors"
+          >
+          <span class="text-xs font-semibold uppercase tracking-wide">Chi siamo</span>
+          <svg data-accordion-target="icon" class="w-4 h-4 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div data-accordion-target="panel" class="hidden overflow-hidden transition-[height] duration-200 ease-out">
+          <div class="pb-2 pl-3 space-y-0.5">
+            <%= link_to "Team", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Obiettivi e struttura", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Contatti", "#", class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+          </div>
         </div>
       </div>
-    </div>
+    </nav>
   </div>
 </header>

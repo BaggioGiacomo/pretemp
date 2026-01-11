@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  get "archivio" => "archive#index", as: :archive
+  get "archivio/:year" => "archive#show", as: :archive_year
+
+  get "modelli" => "templates#index", as: :templates
+  get "modelli/:category" => "templates#show", as: :template_category
+
   # Defines the root path route ("/")
   root "home#index"
 end

@@ -10,5 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 0) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_11_142143) do
+  create_table "template_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "template_category_id"
+    t.datetime "updated_at", null: false
+    t.string "url"
+    t.index ["template_category_id"], name: "index_templates_on_template_category_id"
+  end
+
+  add_foreign_key "templates", "template_categories"
 end

@@ -6,12 +6,6 @@ module Authentication
     helper_method :authenticated?, :current_user
   end
 
-  class_methods do
-    def allow_unauthenticated_access(**options)
-      skip_before_action :require_authentication, **options
-    end
-  end
-
   private
 
     def authenticated?
@@ -19,7 +13,6 @@ module Authentication
     end
 
     def current_user
-      puts "Current session: #{Current.session.inspect}"
       Current.session&.user
     end
 

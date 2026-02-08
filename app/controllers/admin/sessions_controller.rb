@@ -1,7 +1,9 @@
-class Admin::SessionsController < ApplicationController
+class Admin::SessionsController < AdminController
   layout "admin_auth"
 
   before_action :redirect_if_authenticated, only: [ :new, :create ]
+
+  skip_before_action :require_admin, only: [ :new, :create ]
 
   def new
   end
@@ -26,6 +28,7 @@ class Admin::SessionsController < ApplicationController
   private
 
     def redirect_if_authenticated
+      puts "Current user: #{current_user.inspect}"
       redirect_to admin_root_path if current_user
     end
 end

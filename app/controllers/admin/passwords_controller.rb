@@ -8,10 +8,8 @@ class Admin::PasswordsController < AdminController
 
   def create
     if user = User.find_by(email_address: params[:email])
-      PasswordsMailer.reset(user).deliver_later
+      redirect_to admin_login_path, notice: "This user already exists."
     end
-
-    redirect_to admin_login_path, notice: "If an account exists, you'll receive a password reset email."
   end
 
   def edit

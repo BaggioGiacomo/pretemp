@@ -1,20 +1,27 @@
-<div class="bg-white shadow rounded-lg p-8">
-  <h1 class="text-2xl font-bold text-gray-900 mb-6 text-center">Set New Password</h1>
-  <%= form_with url: admin_password_path(token: params[:token]), method: :patch, class: "space-y-6" do |f| %>
+<div class="bg-slate-900/80 backdrop-blur-xl shadow-2xl shadow-blue-500/5 rounded-2xl p-8 border border-slate-800/50">
+  <div class="flex justify-center">
+    <div class="w-72 bg-linear-to-br  rounded-xl flex items-center justify-center">
+      <%= image_tag "logo.svg", alt: "Logo", class: "filter invert" %>
+    </div>
+  </div>
+  <h1 class="text-2xl font-bold text-white mb-2 text-center">Set new password</h1>
+  <%= form_with url: admin_password_path(token: params[:token]), method: :patch, class: "space-y-5" do |f| %>
     <div>
-      <%= f.label :password, "New Password", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password, "New Password", class: "block text-sm font-medium text-slate-300 mb-2" %>
       <%= f.password_field :password, required: true, autofocus: true, autocomplete: "new-password",
           minlength: 8,
-          class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-3 py-2 border" %>
+          placeholder: "••••••••",
+          class: "block w-full rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all duration-200" %>
     </div>
     <div>
-      <%= f.label :password_confirmation, "Confirm Password", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password_confirmation, "Confirm Password", class: "block text-sm font-medium text-slate-300 mb-2" %>
       <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password",
           minlength: 8,
-          class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-3 py-2 border" %>
+          placeholder: "••••••••",
+          class: "block w-full rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all duration-200" %>
     </div>
-    <div>
-      <%= f.submit "Update Password", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer" %>
+    <div class="pt-2">
+      <%= f.submit "Update Password", class: "w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:ring-offset-2 focus:ring-offset-slate-900 cursor-pointer transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]" %>
     </div>
   <% end %>
 </div>

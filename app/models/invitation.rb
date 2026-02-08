@@ -11,6 +11,7 @@ class Invitation < ApplicationRecord
   before_validation :set_expiration, on: :create
 
   scope :pending, -> { where(accepted_at: nil).where("expires_at > ?", Time.current) }
+  scope :not_accepted, -> { where(accepted_at: nil) }
 
   def expired?
     expires_at < Time.current

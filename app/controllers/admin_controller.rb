@@ -5,7 +5,6 @@ class AdminController < ApplicationController
   private
 
     def require_admin
-      puts "Current user: #{current_user}"
       unless current_user
         redirect_to admin_login_path, alert: "You must be logged in as an admin."
       end

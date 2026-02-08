@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
 
-    # Invitation acceptance (public, but token-protected)
     resources :invitations, only: [], param: :token do
       member do
         get :accept, action: :edit
@@ -32,8 +31,20 @@ Rails.application.routes.draw do
       end
     end
 
-    # Password reset
     resources :passwords, only: [ :new, :create, :edit, :update ], param: :token
+
+    resources :password_resets, only: [], param: :token do
+      member do
+        get :edit
+        patch :update
+      end
+    end
+
+    resources :users, only: [] do
+      member do
+        post :generate_password_reset
+      end
+    end
 
     get "/", to: "dashboard#index", as: :root
     resources :invitations, only: [ :index, :new, :create, :destroy ]

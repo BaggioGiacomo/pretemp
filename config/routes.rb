@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get "modelli" => "templates#index", as: :templates
   get "modelli/:category" => "templates#show", as: :template_category
 
+  get "guida_alle_previsioni" => "pages#guida_alle_previsioni", as: :guida_alle_previsioni
+
   # Defines the root path route ("/")
   root "home#index"
 end

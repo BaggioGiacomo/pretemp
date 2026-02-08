@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -16,6 +18,37 @@ Rails.application.routes.draw do
   get "modelli/:category" => "templates#show", as: :template_category
 
   get "guida_alle_previsioni" => "pages#guida_alle_previsioni", as: :guida_alle_previsioni
+
+  namespace :admin do
+    get "login", to: "sessions#new"
+    post "login", to: "sessions#create"
+    delete "logout", to: "sessions#destroy"
+
+    resources :invitations, only: [], param: :token do
+      member do
+        get :accept, action: :edit
+        post :accept, action: :update
+      end
+    end
+
+    resources :passwords, only: [ :new, :create, :edit, :update ], param: :token
+
+    resources :password_resets, only: [], param: :token do
+      member do
+        get :edit
+        patch :update
+      end
+    end
+
+    resources :users, only: [] do
+      member do
+        post :generate_password_reset
+      end
+    end
+
+    get "/", to: "dashboard#index", as: :root
+    resources :invitations, only: [ :index, :new, :create, :destroy ]
+  end
 
   # Defines the root path route ("/")
   root "home#index"

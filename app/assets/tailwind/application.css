@@ -3,3 +3,7 @@
 [data-hidden="true"] {
   display: none;
 }
+
+.prose a {
+  @apply text-sky-400 hover:text-sky-500 underline;
+}

@@ -5,20 +5,32 @@
       Consulta tutte le previsioni pubblicate nel <%= @year %>.
     </p>
   </div>
-  <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    <% @forecasts.each do |forecast| %>
-      <%= link_to "#", class: "group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 flex items-center justify-between hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
-        <div>
-          <p class="text-lg font-semibold text-slate-100 group-hover:text-white">Date</p>
-          <p class="text-xs text-slate-500">Livello</p>
-          <p class="text-xs text-slate-500">Previsore</p>
-        </div>
-        <span class="text-sky-400 group-hover:text-sky-300 transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </span>
+  <% if @forecasts.empty? %>
+    <div class="p-6 md:p-8 border border-slate-800 rounded-2xl bg-slate-900/80 text-center">
+      <p class="text-sm text-slate-400">Nessuna previsione disponibile per l'anno <%= @year %></p>
+    </div>
+  <% else %>
+    <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <% @forecasts.each do |forecast| %>
+        <%= link_to forecast_path(forecast), class: "group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 flex items-center justify-between hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
+          <div>
+            <p class="text-lg font-semibold text-slate-100 group-hover:text-white"><%= forecast.date.strftime("%d %B %Y") if forecast.date %></p>
+          </div>
+          <span class="text-sky-400 group-hover:text-sky-300 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </span>
+        <% end %>
       <% end %>
+    </div>
+  <% end %>
+  <div class="mt-6">
+    <%= link_to archive_path, class: "inline-flex items-center text-xs font-medium text-sky-300 hover:text-sky-200 transition-colors" do %>
+      <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Torna all'archivio
     <% end %>
   </div>
 </section>

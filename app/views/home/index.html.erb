@@ -51,18 +51,18 @@
         <p class="text-xs text-slate-300">
           Autore:
           <span class="font-medium text-slate-100">
-            <%= @latest_forecast&.author || "Staff PRETEMP" %>
+            <%= @latest_forecast&.authors %>
           </span>
         </p>
         <p class="text-xs text-slate-400 line-clamp-4">
-          <%= @latest_forecast&.summary || "Sintesi della situazione convettiva prevista e delle aree a maggior rischio di fenomeni intensi." %>
+          <%= @latest_forecast&.body_preview || "Le previsioni verranno mostrate qui non appena disponibili." %>
         </p>
         <div class="flex items-center justify-between pt-2">
-          <%= link_to "Vai alla previsione", "#",
+          <%= link_to "Vai alla previsione", forecast_path(@latest_forecast),
               class: "text-xs font-medium text-sky-300 hover:text-sky-200" %>
           <p class="text-[11px] text-slate-500">
             Aggiornata il
-            <%= @latest_forecast&.issued_at&.strftime("%d/%m/%Y %H:%M") || l(Time.current, format: "%d/%m/%Y") %>
+            <%= @latest_forecast&.updated_at&.strftime("%d/%m/%Y %H:%M") || l(Time.current, format: "%d/%m/%Y") %>
           </p>
         </div>
       </div>
@@ -86,7 +86,7 @@
             <%= forecast.title %>
           </h3>
           <p class="text-xs text-slate-400">
-            Autore: <span class="font-medium text-slate-100"><%= forecast.author %></span>
+            Autore: <span class="font-medium text-slate-100"><%= forecast.authors %></span>
           </p>
         </header>
         <p class="mt-3 mb-4 text-xs text-slate-300 line-clamp-3">

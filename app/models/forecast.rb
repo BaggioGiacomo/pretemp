@@ -1,5 +1,5 @@
 class Forecast < ApplicationRecord
-  belongs_to :user
+  has_and_belongs_to_many :users
 
   has_rich_text :summary
   has_rich_text :body
@@ -19,6 +19,14 @@ class Forecast < ApplicationRecord
 
   def title
     "Previsione per il #{date.strftime("%-d %B %Y")}"
+  end
+
+  def authors
+    users.any? ? users.map(&:email_address).join(", ") : "Staff PRETEMP"
+  end
+
+  def body_preview
+    body.to_plain_text.gsub("TESTO BREVE", "")
   end
 
   private

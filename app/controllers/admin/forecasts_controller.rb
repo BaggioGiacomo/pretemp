@@ -10,8 +10,7 @@ class Admin::ForecastsController < AdminController
   end
 
   def create
-    @forecast = current_user.forecasts.build(forecast_params)
-    @forecast.user = current_user
+    @forecast = Forecast.new(forecast_params)
 
     if @forecast.save
       redirect_to admin_root_path, notice: "Previsione creata con successo."

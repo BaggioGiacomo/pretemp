@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @latest_forecast = nil
+    @latest_forecast = Forecast.order(created_at: :desc).first
   end
 end

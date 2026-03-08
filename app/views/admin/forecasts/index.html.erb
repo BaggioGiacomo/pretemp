@@ -1,0 +1,65 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Forecasts</h1>
+          <p class="mt-1 sm:mt-2 text-gray-600 text-sm">Manage all forecast entries</p>
+        </div>
+        <%= link_to "New Forecast", new_admin_forecast_path, class: "px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-center" %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <% if @forecasts.any? %>
+        <div class="divide-y divide-gray-200">
+          <% @forecasts.each do |forecast| %>
+            <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <%= link_to edit_admin_forecast_path(forecast), class: "flex-1 min-w-0" do %>
+                  <div>
+                    <h3 class="text-base sm:text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                      <%= forecast.title %>
+                    </h3>
+                    <div class="mt-2 flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-gray-500">
+                      <span class="flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <%= I18n.l(forecast.date, format: :long) if forecast.date %>
+                      </span>
+                      <span class="px-2 py-1 rounded-full text-xs font-medium <%= forecast.status == 'published' ? 'bg-green-100 text-green-800' : forecast.status == 'draft' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800' %>">
+                        <%= forecast.status&.capitalize %>
+                      </span>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="flex items-center gap-2 sm:gap-3 sm:ml-4">
+                  <%= link_to forecast_path(forecast), class: "px-3 sm:px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium", target: "_blank" do %>
+                    See on site
+                  <% end %>
+                  <%= button_to admin_forecast_path(forecast), 
+                      method: :delete, 
+                      data: { turbo_confirm: "Are you sure you want to delete this forecast?" },
+                      class: "px-3 sm:px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors font-medium" do %>
+                    Delete
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="p-12 text-center">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">No forecasts</h3>
+          <p class="mt-1 text-sm text-gray-500">Get started by creating a new forecast.</p>
+          <div class="mt-6">
+            <%= link_to "New Forecast", new_admin_forecast_path, class: "inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

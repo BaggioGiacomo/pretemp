@@ -1,0 +1,84 @@
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
+  <nav class="mb-8">
+    <ol class="flex items-center gap-2 text-xs text-slate-500">
+      <li>
+        <%= link_to "Home", root_path, class: "hover:text-slate-200 transition-colors" %>
+      </li>
+      <li>
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+        </svg>
+      </li>
+      <li>
+        <%= link_to "Archivio", archive_path, class: "hover:text-slate-200 transition-colors" %>
+      </li>
+      <li>
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+        </svg>
+      </li>
+      <li class="text-slate-300 font-medium truncate">
+        Previsione del <%= I18n.l(@forecast.date, format: :long) if @forecast.date %>
+      </li>
+    </ol>
+  </nav>
+  <article class="rounded-2xl border border-slate-800 bg-slate-900/80 overflow-hidden">
+    <div class="p-6 md:p-8 border-b border-slate-800 space-y-4">
+      <div class="flex flex-col-reverse sm:flex-row justify-between gap-4">
+        <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-50">
+          Previsione del <%= I18n.l(@forecast.date, format: :long) if @forecast.date %>
+        </h1>
+        <span class="flex items-center rounded-full border px-3 py-1 text-xs font-medium w-fit <%= case @forecast.risk_level
+          when "basso"
+            "border-yellow-500/40 bg-yellow-500/10 text-yellow-200"
+          when "medio"
+            "border-orange-500/40 bg-orange-500/10 text-orange-200"
+          when "alto"
+            "border-red-500/40 bg-red-500/10 text-red-200"
+          when "molto_alto"
+            "border-purple-500/40 bg-purple-500/10 text-purple-200"
+          else
+            "bg-gray-100 text-gray-800 border-gray-300"
+          end %>">
+          <%= "Rischio #{@forecast.risk_level.humanize.downcase}" %>
+        </span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+        <p>
+          Previsori: <span class="font-medium text-slate-300"><%= @forecast.users.any? ? @forecast.users.map(&:email_address).join(", ") : "Staff PRETEMP" %></span>
+        </p>
+        <p>
+          Aggiornato il <%= I18n.l(@forecast.updated_at, format: :long) %>
+        </p>
+      </div>
+    </div>
+    <% if @forecast.summary %>
+      <div class="prose prose-invert prose-lg max-w-none text-slate-300 prose-headings:text-slate-100 prose-a:text-sky-300 prose-strong:text-slate-100 px-6 md:px-8 py-5 border-b border-slate-800">
+        <%= @forecast.summary %>
+      </div>
+    <% end %>
+    <% if @forecast.image.attached? %>
+      <div class="border-b border-slate-800 flex items-center justify-center bg-slate-950/50">
+        <%= image_tag @forecast.image, class: "w-full h-auto max-w-[800px] ", alt: "Mappa previsione del #{I18n.l(@forecast.date, format: :long) if @forecast.date}" %>
+      </div>
+    <% end %>
+    <div class="p-6 md:p-8">
+      <div class="prose prose-invert prose-lg max-w-none text-slate-300 prose-headings:text-slate-100 prose-a:text-sky-300 prose-strong:text-slate-100">
+        <%= @forecast.body %>
+      </div>
+    </div>
+    <div class="px-6 md:px-8 py-5 bg-slate-950/50 border-t border-slate-800">
+      <div class="flex items-center justify-between">
+        <%= link_to archive_path, class: "inline-flex items-center text-xs font-medium text-sky-300 hover:text-sky-200 transition-colors" do %>
+          <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Torna all'archivio
+        <% end %>
+        <p class="text-[11px] text-slate-500">
+          <%= I18n.l(@forecast.date, format: :long) if @forecast.date %>
+        </p>
+      </div>
+    </div>
+  </article>
+</section>

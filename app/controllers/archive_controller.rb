@@ -4,6 +4,6 @@ class ArchiveController < ApplicationController
 
   def show
     @year = params[:year]
-    @forecasts = []
+    @forecasts = Forecast.where(status: "published").where("strftime('%Y', date) = ?", @year).ordered
   end
 end

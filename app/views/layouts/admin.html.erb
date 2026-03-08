@@ -10,17 +10,37 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="bg-gray-50 min-h-screen">
-    <nav class="bg-white shadow">
+    <nav class="bg-white shadow" data-controller="dropdown">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-          <div class="flex items-center space-x-8">
-            <%= link_to "Dashboard", admin_root_path, class: "text-gray-900 font-semibold" %>
-            <%= link_to "Invitations", admin_invitations_path, class: "text-gray-600 hover:text-gray-900" %>
+          <div class="hidden sm:flex items-center space-x-8">
+            <%= link_to "Dashboard", admin_root_path, class: "#{current_page?(admin_root_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
+            <%= link_to "Invitations", admin_invitations_path, class: "#{current_page?(admin_invitations_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
+            <%= link_to "Forecasts", admin_forecasts_path, class: "#{current_page?(admin_forecasts_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
           </div>
-          <div class="flex items-center space-x-4">
-            <span class="text-gray-600"><%= current_user.email_address %></span>
+          <div class="hidden sm:flex items-center space-x-4">
+            <span class="text-gray-600 text-sm truncate max-w-[200px]"><%= current_user.email_address %></span>
             <%= button_to "Logout", admin_logout_path, method: :delete, class: "text-red-600 hover:text-red-800" %>
           </div>
+          <div class="flex sm:hidden items-center justify-between w-full">
+            <span class="text-gray-900 font-semibold text-sm">Admin</span>
+            <button type="button" data-action="dropdown#toggle" class="p-2 text-gray-600 hover:text-gray-900">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="hidden sm:hidden border-t border-gray-200" data-dropdown-target="panel">
+        <div class="px-4 py-3 space-y-2">
+          <%= link_to "Dashboard", admin_root_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_root_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+          <%= link_to "Invitations", admin_invitations_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_invitations_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+          <%= link_to "Forecasts", admin_forecasts_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_forecasts_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+        </div>
+        <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
+          <span class="text-gray-600 text-sm truncate"><%= current_user.email_address %></span>
+          <%= button_to "Logout", admin_logout_path, method: :delete, class: "text-red-600 hover:text-red-800 text-sm" %>
         </div>
       </div>
     </nav>

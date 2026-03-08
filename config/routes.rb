@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   get "guida_alle_previsioni" => "pages#guida_alle_previsioni", as: :guida_alle_previsioni
 
+  resources :forecasts
+
   namespace :admin do
     get "login", to: "sessions#new"
     post "login", to: "sessions#create"
@@ -46,8 +48,11 @@ Rails.application.routes.draw do
       end
     end
 
-    get "/", to: "dashboard#index", as: :root
+    resources :forecasts
+
     resources :invitations, only: [ :index, :new, :create, :destroy ]
+
+    get "/", to: "dashboard#index", as: :root
   end
 
   # Defines the root path route ("/")

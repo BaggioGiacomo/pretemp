@@ -1,19 +1,17 @@
 <div class="min-h-screen bg-gray-50 py-8">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mb-6">
-      <div class="flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-gray-900">Edit Forecast</h1>
+      <div class="flex items-center gap-4">
         <%= link_to admin_forecasts_path, class: "text-gray-600 hover:text-gray-900 transition-colors" do %>
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
         <% end %>
+        <h1 class="text-3xl font-bold text-gray-900">Edit Forecast</h1>
       </div>
       <p class="mt-2 text-gray-600">Update forecast details</p>
     </div>
-
     <%= render "form", forecast: @forecast %>
-
     <div class="mt-6">
       <%= button_to "Delete Forecast", 
           admin_forecast_path(@forecast), 

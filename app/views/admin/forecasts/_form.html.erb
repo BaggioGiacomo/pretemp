@@ -44,7 +44,7 @@
         <% end %>
       </div>
     </div>
-    <div>
+    <div data-controller="image-preview">
       <%= form.label :image, "Image", class: "block text-sm font-medium text-gray-700 mb-2" %>
       <label class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 transition-colors">
         <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -54,13 +54,15 @@
           <p class="mb-1 text-sm text-gray-500"><span class="font-semibold text-blue-600">Click to upload</span> or drag and drop</p>
           <p class="text-xs text-gray-400">PNG, JPG, GIF, WEBP</p>
         </div>
-        <%= form.file_field :image, class: "hidden", accept: "image/*" %>
+        <%= form.file_field :image, class: "hidden", accept: "image/*", data: { image_preview_target: "input", action: "change->image-preview#show" } %>
       </label>
-      <% if forecast.image.attached? %>
-        <div class="mt-4">
-          <%= image_tag forecast.image, class: "rounded-lg border border-gray-200 w-72" %>
-        </div>
-      <% end %>
+      <div class="mt-4 <%= 'hidden' unless forecast.image.attached? %>" data-image-preview-target="preview">
+        <% if forecast.image.attached? %>
+          <%= image_tag forecast.image, class: "rounded-lg border border-gray-200 w-72", data: { image_preview_target: "previewImage" } %>
+        <% else %>
+          <img class="rounded-lg border border-gray-200 w-72" data-image-preview-target="previewImage" />
+        <% end %>
+      </div>
     </div>
     <div>
       <%= form.label :body, "Content", class: "block text-sm font-medium text-gray-700 mb-2" %>

@@ -14,7 +14,7 @@
       <% @forecasts.each do |forecast| %>
         <%= link_to forecast_path(forecast), class: "group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 flex items-center justify-between hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
           <div>
-            <p class="text-lg font-semibold text-slate-100 group-hover:text-white"><%= forecast.date.strftime("%d %B %Y") if forecast.date %></p>
+            <p class="text-lg font-semibold text-slate-100 group-hover:text-white"><%= I18n.l(forecast.date, format: :long) if forecast.date %></p>
           </div>
           <span class="text-sky-400 group-hover:text-sky-300 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

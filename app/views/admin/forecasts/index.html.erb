@@ -15,7 +15,7 @@
           <% @forecasts.each do |forecast| %>
             <div class="p-6 hover:bg-gray-50 transition-colors">
               <div class="flex items-center justify-between">
-                <%= link_to admin_forecast_path(forecast), class: "flex-1 min-w-0" do %>
+                <%= link_to edit_admin_forecast_path(forecast), class: "flex-1 min-w-0" do %>
                   <div>
                     <h3 class="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                       <%= forecast.title %>
@@ -25,7 +25,7 @@
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
-                        <%= forecast.date.strftime("%B %d, %Y") if forecast.date %>
+                        <%= I18n.l(forecast.date, format: :long) if forecast.date %>
                       </span>
                       <span class="px-2 py-1 rounded-full text-xs font-medium <%= forecast.status == 'published' ? 'bg-green-100 text-green-800' : forecast.status == 'draft' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800' %>">
                         <%= forecast.status&.capitalize %>
@@ -34,8 +34,8 @@
                   </div>
                 <% end %>
                 <div class="flex items-center space-x-3 ml-4">
-                  <%= link_to edit_admin_forecast_path(forecast), class: "px-4 py-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium" do %>
-                    Edit
+                  <%= link_to forecast_path(forecast), class: "px-4 py-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium", target: "_blank" do %>
+                    See on site
                   <% end %>
                   <%= button_to admin_forecast_path(forecast), 
                       method: :delete, 

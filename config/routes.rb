@@ -48,7 +48,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :forecasts, except: :show
+    resources :forecasts
 
     resources :invitations, only: [ :index, :new, :create, :destroy ]
 

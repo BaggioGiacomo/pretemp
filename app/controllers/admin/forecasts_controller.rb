@@ -7,6 +7,7 @@ class Admin::ForecastsController < AdminController
 
   def new
     @forecast = Forecast.new
+    @forecast.user_ids = [ current_user.id ]
   end
 
   def create
@@ -41,6 +42,6 @@ class Admin::ForecastsController < AdminController
     end
 
     def forecast_params
-      params.require(:forecast).permit(:date, :summary, :body, :image, :remove_image)
+      params.require(:forecast).permit(:date, :summary, :body, :image, :risk_level, :status, :remove_image, user_ids: [])
     end
 end

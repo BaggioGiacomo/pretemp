@@ -15,9 +15,9 @@
         </p>
       </div>
       <div class="flex flex-wrap gap-3">
-        <%= link_to "Ultima previsione", "#",
+        <%= link_to "Ultima previsione", forecast_path(@latest_forecast),
             class: "inline-flex items-center justify-center rounded-xl bg-sky-500 px-4 py-2 text-sm font-medium text-slate-950 shadow-lg shadow-sky-500/30 hover:bg-sky-400 transition" %>
-        <%= link_to "Come funziona la previsione", "#",
+        <%= link_to "Come funziona la previsione", guida_alle_previsioni_path,
             class: "inline-flex items-center justify-center rounded-xl border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 hover:bg-slate-900 transition" %>
       </div>
       <dl class="grid grid-cols-3 gap-4 text-xs text-slate-300 max-w-md">

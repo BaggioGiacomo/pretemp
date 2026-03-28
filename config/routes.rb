@@ -11,15 +11,20 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  get "archivio" => "archive#index", as: :archive
-  get "archivio/:year" => "archive#show", as: :archive_year
+  resources :archive, path: "archivio", only: [ :index, :show ], param: :year, as: :archivio
 
   get "modelli" => "templates#index", as: :templates
   get "modelli/:category" => "templates#show", as: :template_category
 
   get "guida_alle_previsioni" => "pages#guida_alle_previsioni", as: :guida_alle_previsioni
 
-  resources :forecasts
+  get "monitoraggio/radar" => "pages#monitoraggio_radar", as: :monitoraggio_radar
+  get "monitoraggio/fulmini" => "pages#monitoraggio_fulmini", as: :monitoraggio_fulmini
+  get "monitoraggio/satelliti" => "pages#monitoraggio_satelliti", as: :monitoraggio_satelliti
+  get "monitoraggio/stazioni_meteo" => "pages#monitoraggio_stazioni_meteo", as: :monitoraggio_stazioni_meteo
+  get "monitoraggio/radiosondaggi" => "pages#monitoraggio_radiosondaggi", as: :monitoraggio_radiosondaggi
+
+  resources :forecasts, path: "previsioni", only: [ :index, :show ]
 
   namespace :admin do
     get "login", to: "sessions#new"
@@ -49,6 +54,12 @@ Rails.application.routes.draw do
     end
 
     resources :forecasts
+
+    resources :radar_monitorings, except: :show
+    resources :satellite_monitorings, except: :show
+    resources :radio_poll_monitorings, except: :show
+    resources :weather_station_monitorings, except: :show
+    resources :lightning_monitorings, except: :show
 
     resources :invitations, only: [ :index, :new, :create, :destroy ]
 

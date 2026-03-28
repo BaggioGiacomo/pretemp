@@ -1,0 +1,6 @@
+<%= render "admin/shared/monitoring_index",
+    title: "Weather Station Monitorings",
+    monitorings: @monitorings,
+    new_path: new_admin_weather_station_monitoring_path,
+    edit_path: ->(m) { edit_admin_weather_station_monitoring_path(m) },
+    delete_path: ->(m) { admin_weather_station_monitoring_path(m) } %>

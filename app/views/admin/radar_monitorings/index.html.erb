@@ -1,0 +1,6 @@
+<%= render "admin/shared/monitoring_index",
+    title: "Radar Monitorings",
+    monitorings: @monitorings,
+    new_path: new_admin_radar_monitoring_path,
+    edit_path: ->(m) { edit_admin_radar_monitoring_path(m) },
+    delete_path: ->(m) { admin_radar_monitoring_path(m) } %>

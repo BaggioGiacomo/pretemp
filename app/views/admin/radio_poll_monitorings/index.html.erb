@@ -1,0 +1,6 @@
+<%= render "admin/shared/monitoring_index",
+    title: "Radio Poll Monitorings",
+    monitorings: @monitorings,
+    new_path: new_admin_radio_poll_monitoring_path,
+    edit_path: ->(m) { edit_admin_radio_poll_monitoring_path(m) },
+    delete_path: ->(m) { admin_radio_poll_monitoring_path(m) } %>

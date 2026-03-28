@@ -1,0 +1,15 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-6">
+      <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-bold text-gray-900">New Weather Station Monitoring</h1>
+        <%= link_to admin_weather_station_monitorings_path, class: "text-gray-600 hover:text-gray-900 transition-colors" do %>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+    <%= render "admin/shared/monitoring_form", monitoring: @monitoring, index_path: admin_weather_station_monitorings_path %>
+  </div>
+</div>

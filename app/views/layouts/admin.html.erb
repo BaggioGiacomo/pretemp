@@ -17,18 +17,28 @@
             <%= link_to "Dashboard", admin_root_path, class: "#{current_page?(admin_root_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
             <%= link_to "Invitations", admin_invitations_path, class: "#{current_page?(admin_invitations_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
             <%= link_to "Forecasts", admin_forecasts_path, class: "#{current_page?(admin_forecasts_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
-            <%= link_to "Radar", admin_radar_monitorings_path, class: "#{current_page?(admin_radar_monitorings_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
-            <%= link_to "Satellites", admin_satellite_monitorings_path, class: "#{current_page?(admin_satellite_monitorings_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
-            <%= link_to "Radio Polls", admin_radio_poll_monitorings_path, class: "#{current_page?(admin_radio_poll_monitorings_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
-            <%= link_to "Weather Stations", admin_weather_station_monitorings_path, class: "#{current_page?(admin_weather_station_monitorings_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
-            <%= link_to "Lightnings", admin_lightning_monitorings_path, class: "#{current_page?(admin_lightning_monitorings_path) ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}" %>
+            <div class="relative" data-controller="dropdown" data-dropdown-hover-value="true" data-action="mouseenter->dropdown#mouseEnter mouseleave->dropdown#mouseLeave">
+              <button type="button" data-dropdown-target="trigger" data-action="click->dropdown#toggle" class="inline-flex items-center gap-1 <%= controller_name.include?('monitoring') ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900' %>">
+                Monitoring
+                <svg class="w-4 h-4 transition-transform" data-dropdown-target="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              <div class="hidden absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50" data-dropdown-target="panel">
+                <%= link_to "Radar", admin_radar_monitorings_path, class: "block px-4 py-2 text-sm #{current_page?(admin_radar_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
+                <%= link_to "Satellites", admin_satellite_monitorings_path, class: "block px-4 py-2 text-sm #{current_page?(admin_satellite_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
+                <%= link_to "Radio Polls", admin_radio_poll_monitorings_path, class: "block px-4 py-2 text-sm #{current_page?(admin_radio_poll_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
+                <%= link_to "Weather Stations", admin_weather_station_monitorings_path, class: "block px-4 py-2 text-sm #{current_page?(admin_weather_station_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
+                <%= link_to "Lightnings", admin_lightning_monitorings_path, class: "block px-4 py-2 text-sm #{current_page?(admin_lightning_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
+              </div>
+            </div>
           </div>
           <div class="hidden sm:flex items-center space-x-4">
             <span class="text-gray-600 text-sm truncate max-w-[200px]"><%= current_user.email_address %></span>
             <%= button_to "Logout", admin_logout_path, method: :delete, class: "text-red-600 hover:text-red-800" %>
           </div>
           <div class="flex sm:hidden items-center justify-between w-full">
-            <span class="text-gray-900 font-semibold text-sm">Admin</span>
+            <%= button_to "Pretemp - Admin", admin_root_path, method: :get, class: "text-gray-900 font-semibold text-sm cursor-pointer" %>
             <button type="button" data-action="dropdown#toggle" class="p-2 text-gray-600 hover:text-gray-900">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -42,11 +52,21 @@
           <%= link_to "Dashboard", admin_root_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_root_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
           <%= link_to "Invitations", admin_invitations_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_invitations_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
           <%= link_to "Forecasts", admin_forecasts_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_forecasts_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
-          <%= link_to "Radar", admin_radar_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_radar_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
-          <%= link_to "Satellites", admin_satellite_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_satellite_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
-          <%= link_to "Radio Polls", admin_radio_poll_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_radio_poll_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
-          <%= link_to "Weather Stations", admin_weather_station_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_weather_station_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
-          <%= link_to "Lightnings", admin_lightning_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_lightning_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+          <div data-controller="dropdown">
+            <button type="button" data-dropdown-target="trigger" data-action="click->dropdown#toggle" class="flex items-center justify-between w-full px-3 py-2 rounded-lg text-sm <%= controller_name.include?('monitoring') ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50' %>">
+              Monitoring
+              <svg class="w-4 h-4 transition-transform" data-dropdown-target="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="hidden pl-4 space-y-1 mt-1" data-dropdown-target="panel">
+              <%= link_to "Radar", admin_radar_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_radar_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+              <%= link_to "Satellites", admin_satellite_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_satellite_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+              <%= link_to "Radio Polls", admin_radio_poll_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_radio_poll_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+              <%= link_to "Weather Stations", admin_weather_station_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_weather_station_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+              <%= link_to "Lightnings", admin_lightning_monitorings_path, class: "block px-3 py-2 rounded-lg text-sm #{current_page?(admin_lightning_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50'}" %>
+            </div>
+          </div>
         </div>
         <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
           <span class="text-gray-600 text-sm truncate"><%= current_user.email_address %></span>

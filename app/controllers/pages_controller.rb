@@ -3,18 +3,22 @@ class PagesController < ApplicationController
   end
 
   def monitoraggio_radar
-    @radars = RadarMonitoring.ordered
+    @radar_monitorings = RadarMonitoring.ordered
   end
 
   def monitoraggio_fulmini
+    @lightning_monitorings = LightningMonitoring.ordered
   end
 
   def monitoraggio_satelliti
+    @satellite_monitorings = SatelliteMonitoring.ordered
   end
 
-  def monitoraggio_stazione_meteo
+  def monitoraggio_stazioni_meteo
+    @weather_station_monitorings = WeatherStationMonitoring.ordered
   end
 
   def monitoraggio_radiosondaggi
+    @radio_poll_monitorings = RadioPollMonitoring.ordered
   end
 end

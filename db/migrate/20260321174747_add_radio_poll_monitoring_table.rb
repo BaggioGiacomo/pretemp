@@ -1,6 +1,6 @@
-class AddRadioPollsMonitoringTable < ActiveRecord::Migration[8.1]
+class AddRadioPollMonitoringTable < ActiveRecord::Migration[8.1]
   def change
-    create_table :radio_polls_monitoring do |t|
+    create_table :radio_poll_monitorings do |t|
       t.string :name, null: false
       t.string :description
       t.string :url
@@ -9,6 +9,6 @@ class AddRadioPollsMonitoringTable < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :radio_polls_monitoring, :name, unique: true
+    add_index :radio_poll_monitorings, :name, unique: true
   end
 end

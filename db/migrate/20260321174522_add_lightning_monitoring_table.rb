@@ -1,6 +1,6 @@
-class AddLightningsMonitoringTable < ActiveRecord::Migration[8.1]
+class AddLightningMonitoringTable < ActiveRecord::Migration[8.1]
   def change
-    create_table :lightnings_monitoring do |t|
+    create_table :lightning_monitorings do |t|
       t.string :name, null: false
       t.string :description
       t.string :url
@@ -9,6 +9,6 @@ class AddLightningsMonitoringTable < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :lightnings_monitoring, :name, unique: true
+    add_index :lightning_monitorings, :name, unique: true
   end
 end

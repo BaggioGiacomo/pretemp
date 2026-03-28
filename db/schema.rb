@@ -80,44 +80,44 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_174747) do
     t.index ["token"], name: "index_invitations_on_token", unique: true
   end
 
-  create_table "lightnings_monitoring", force: :cascade do |t|
+  create_table "lightning_monitorings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
     t.string "name", null: false
     t.integer "priority", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "url"
-    t.index ["name"], name: "index_lightnings_monitoring_on_name", unique: true
+    t.index ["name"], name: "index_lightning_monitorings_on_name", unique: true
   end
 
-  create_table "radar_monitoring", force: :cascade do |t|
+  create_table "radar_monitorings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
     t.string "name", null: false
     t.integer "priority", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "url"
-    t.index ["name"], name: "index_radar_monitoring_on_name", unique: true
+    t.index ["name"], name: "index_radar_monitorings_on_name", unique: true
   end
 
-  create_table "radio_polls_monitoring", force: :cascade do |t|
+  create_table "radio_poll_monitorings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
     t.string "name", null: false
     t.integer "priority", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "url"
-    t.index ["name"], name: "index_radio_polls_monitoring_on_name", unique: true
+    t.index ["name"], name: "index_radio_poll_monitorings_on_name", unique: true
   end
 
-  create_table "satellites_monitoring", force: :cascade do |t|
+  create_table "satellite_monitorings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
     t.string "name", null: false
     t.integer "priority", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "url"
-    t.index ["name"], name: "index_satellites_monitoring_on_name", unique: true
+    t.index ["name"], name: "index_satellite_monitorings_on_name", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -155,14 +155,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_174747) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
-  create_table "weather_stations_monitoring", force: :cascade do |t|
+  create_table "weather_station_monitorings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
     t.string "name", null: false
     t.integer "priority", default: 0, null: false
     t.datetime "updated_at", null: false
     t.string "url"
-    t.index ["name"], name: "index_weather_stations_monitoring_on_name", unique: true
+    t.index ["name"], name: "index_weather_station_monitorings_on_name", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

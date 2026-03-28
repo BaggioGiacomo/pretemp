@@ -1,6 +1,6 @@
-class AddSatellitesMonitoringTable < ActiveRecord::Migration[8.1]
+class AddSatelliteMonitoringTable < ActiveRecord::Migration[8.1]
   def change
-    create_table :satellites_monitoring do |t|
+    create_table :satellite_monitorings do |t|
       t.string :name, null: false
       t.string :description
       t.string :url
@@ -9,6 +9,6 @@ class AddSatellitesMonitoringTable < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :satellites_monitoring, :name, unique: true
+    add_index :satellite_monitorings, :name, unique: true
   end
 end

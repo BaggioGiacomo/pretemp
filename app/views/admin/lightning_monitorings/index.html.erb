@@ -1,0 +1,6 @@
+<%= render "admin/shared/monitoring_index",
+    title: "Lightning Monitorings",
+    monitorings: @monitorings,
+    new_path: new_admin_lightning_monitoring_path,
+    edit_path: ->(m) { edit_admin_lightning_monitoring_path(m) },
+    delete_path: ->(m) { admin_lightning_monitoring_path(m) } %>

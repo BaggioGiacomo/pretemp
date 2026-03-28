@@ -55,6 +55,12 @@ Rails.application.routes.draw do
 
     resources :forecasts
 
+    resources :radar_monitorings, except: :show
+    resources :satellite_monitorings, except: :show
+    resources :radio_poll_monitorings, except: :show
+    resources :weather_station_monitorings, except: :show
+    resources :lightning_monitorings, except: :show
+
     resources :invitations, only: [ :index, :new, :create, :destroy ]
 
     get "/", to: "dashboard#index", as: :root

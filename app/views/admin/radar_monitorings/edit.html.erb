@@ -1,0 +1,22 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-6">
+      <div class="flex items-center gap-4">
+        <%= link_to admin_radar_monitorings_path, class: "text-gray-600 hover:text-gray-900 transition-colors" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        <% end %>
+        <h1 class="text-3xl font-bold text-gray-900">Edit Radar Monitoring</h1>
+      </div>
+    </div>
+    <%= render "admin/shared/monitoring_form", monitoring: @monitoring, index_path: admin_radar_monitorings_path %>
+    <div class="mt-6">
+      <%= button_to "Delete",
+          admin_radar_monitoring_path(@monitoring),
+          method: :delete,
+          data: { turbo_confirm: "Are you sure you want to delete this?" },
+          class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium cursor-pointer" %>
+    </div>
+  </div>
+</div>

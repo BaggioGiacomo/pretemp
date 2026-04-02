@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   resources :forecasts, path: "previsioni", only: [ :index, :show ]
 
+  resources :articles, path: "blog", only: [ :index, :show ]
+
   namespace :admin do
     get "login", to: "sessions#new"
     post "login", to: "sessions#create"
@@ -60,6 +62,8 @@ Rails.application.routes.draw do
     resources :radio_poll_monitorings, except: :show
     resources :weather_station_monitorings, except: :show
     resources :lightning_monitorings, except: :show
+
+    resources :articles
 
     resources :invitations, only: [ :index, :new, :create, :destroy ]
 

@@ -137,6 +137,7 @@
           </div>
         </div>
         <%= link_to "Didattica", "#", class: "px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors" %>
+        <%= link_to "Blog", articles_path, class: "px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors" %>
         <div 
           data-controller="dropdown" 
           data-dropdown-hover-value="true" 
@@ -268,6 +269,9 @@
       </div>
       <%= link_to "#", class: "flex items-center py-2.5 text-slate-200 hover:text-white transition-colors" do %>
         <span class="text-xs font-semibold uppercase tracking-wide">Didattica</span>
+      <% end %>
+      <%= link_to articles_path, class: "flex items-center py-2.5 text-slate-200 hover:text-white transition-colors" do %>
+        <span class="text-xs font-semibold uppercase tracking-wide">Blog</span>
       <% end %>
       <div data-controller="accordion" data-accordion-group-value="mobile-nav">
         <button 

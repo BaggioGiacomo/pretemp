@@ -9,7 +9,7 @@ class Article < ApplicationRecord
   scope :ordered, -> { order(created_at: :desc) }
 
   def authors
-    users.any? ? users.map(&:email_address).join(", ") : "Staff PRETEMP"
+    users.any? ? users.map { |user| "#{user.first_name} #{user.last_name}" }.to_sentence : "Staff PRETEMP"
   end
 
   def body_preview

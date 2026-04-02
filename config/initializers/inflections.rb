@@ -17,4 +17,5 @@
 
 ActiveSupport::Inflector.inflections(:it) do |inflect|
   inflect.irregular "autore", "autori"
+  inflect.irregular "previsore", "previsori"
 end

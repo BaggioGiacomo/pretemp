@@ -8,8 +8,20 @@
   <p class="text-slate-400 text-sm text-center mb-8">Create a password for your <strong><%= @invitation.email %></strong></p>
   <%= form_with url: accept_admin_invitation_path(token: @invitation.token), method: :post, class: "space-y-5" do |f| %>
     <div>
+      <%= f.label :first_name, "First Name", class: "block text-sm font-medium text-slate-300 mb-2" %>
+      <%= f.text_field :first_name, required: true, autofocus: true, autocomplete: "given-name",
+          placeholder: "First name",
+          class: "block w-full rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all duration-200" %>
+    </div>
+    <div>
+      <%= f.label :last_name, "Last Name", class: "block text-sm font-medium text-slate-300 mb-2" %>
+      <%= f.text_field :last_name, required: true, autocomplete: "family-name",
+          placeholder: "Last name",
+          class: "block w-full rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all duration-200" %>
+    </div>
+    <div>
       <%= f.label :password, "Password", class: "block text-sm font-medium text-slate-300 mb-2" %>
-      <%= f.password_field :password, required: true, autofocus: true, autocomplete: "new-password",
+      <%= f.password_field :password, required: true, autocomplete: "new-password",
           placeholder: "••••••••",
           class: "block w-full rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 transition-all duration-200" %>
     </div>

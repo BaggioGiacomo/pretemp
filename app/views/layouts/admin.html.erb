@@ -33,9 +33,17 @@
                 <%= link_to "Lightnings", admin_lightning_monitorings_path, class: "block px-4 py-2 text-sm #{current_page?(admin_lightning_monitorings_path) ? 'text-gray-900 font-semibold bg-gray-100' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
               </div>
             </div>
+            <%= link_to "Back to site", root_path, class: "text-gray-600 hover:text-gray-900 text-sm" %>
           </div>
           <div class="hidden sm:flex items-center space-x-4">
-            <span class="text-gray-600 text-sm truncate max-w-[200px]"><%= current_user.email_address %></span>
+            <%= link_to edit_admin_profile_path, class: "flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm" do %>
+              <% if current_user.profile_image.attached? %>
+                <%= image_tag current_user.profile_image, class: "w-8 h-8 rounded-full object-cover border border-gray-200" %>
+              <% else %>
+                <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-semibold"><%= current_user.first_name&.first %><%= current_user.last_name&.first %></span>
+              <% end %>
+              <span class="truncate max-w-[200px]"><%= current_user.email_address %></span>
+            <% end %>
             <%= button_to "Logout", admin_logout_path, method: :delete, class: "text-red-600 hover:text-red-800" %>
           </div>
           <div class="flex sm:hidden items-center justify-between w-full">
@@ -70,8 +78,15 @@
             </div>
           </div>
         </div>
-        <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
-          <span class="text-gray-600 text-sm truncate"><%= current_user.email_address %></span>
+        <div class="px-4 py-3 border-t border-gray-200 flex justify-between items-center">
+          <%= link_to edit_admin_profile_path, class: "flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm" do %>
+            <% if current_user.profile_image.attached? %>
+              <%= image_tag current_user.profile_image, class: "w-8 h-8 rounded-full object-cover border border-gray-200" %>
+            <% else %>
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-semibold"><%= current_user.first_name&.first %><%= current_user.last_name&.first %></span>
+            <% end %>
+            <span class="truncate"><%= current_user.email_address %></span>
+          <% end %>
           <%= button_to "Logout", admin_logout_path, method: :delete, class: "text-red-600 hover:text-red-800 text-sm" %>
         </div>
       </div>

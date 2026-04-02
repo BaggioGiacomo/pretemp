@@ -1,0 +1,19 @@
+<%= link_to article_path(article), class: "rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/60 p-4 md:p-5 flex flex-col gap-2 h-full hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
+  <p class="text-sm font-semibold text-slate-100">
+    <%= article.title %>
+  </p>
+  <p class="text-xs text-slate-300">
+    <%= "autore".pluralize(article.users&.count, :it).capitalize %>:
+    <span class="font-medium text-slate-100">
+      <%= article.authors %>
+    </span>
+  </p>
+  <p class="text-xs text-slate-400 line-clamp-4">
+    <%= article.body_preview || "Le notizie verranno mostrate qui non appena disponibili." %>
+  </p>
+  <div class="flex pt-2 flex-1 justify-end">
+    <p class="text-[11px] text-slate-500">
+      Aggiornato il <%= article.updated_at.strftime("%d/%m/%Y %H:%M") %>
+    </p>
+  </div>
+<% end %>

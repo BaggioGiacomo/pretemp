@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :sent_invitations, class_name: "Invitation", foreign_key: :invited_by_id
   has_and_belongs_to_many :forecasts
+  has_and_belongs_to_many :articles
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 

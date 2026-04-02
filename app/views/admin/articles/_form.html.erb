@@ -21,6 +21,18 @@
       <% end %>
     </div>
     <div>
+      <%= form.label :user_ids, "Authors", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <div class="flex flex-wrap gap-2 p-4 border border-gray-300 rounded-lg">
+        <% User.all.each do |user| %>
+          <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-300 cursor-pointer has-checked:bg-blue-50 has-checked:border-blue-500 has-checked:text-blue-700 has-checked:[&>span]:bg-blue-500 hover:bg-gray-50 transition-colors text-sm">
+            <%= check_box_tag "article[user_ids][]", user.id, article.user_ids.include?(user.id), class: "sr-only" %>
+            <span class="inline-block w-2 h-2 rounded-full bg-gray-300"></span>
+            <%= user.email_address %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+    <div>
       <%= form.label :body, "Content", class: "block text-sm font-medium text-gray-700 mb-2" %>
       <%= form.rich_text_area :body, class: "w-full min-h-[300px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" %>
     </div>

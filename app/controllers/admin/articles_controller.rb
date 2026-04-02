@@ -11,6 +11,7 @@ class Admin::ArticlesController < AdminController
 
   def new
     @article = Article.new
+    @article.user_ids = [ current_user.id ]
   end
 
   def create
@@ -45,6 +46,6 @@ class Admin::ArticlesController < AdminController
     end
 
     def article_params
-      params.require(:article).permit(:title, :body, :published)
+      params.require(:article).permit(:title, :body, :published, user_ids: [])
     end
 end

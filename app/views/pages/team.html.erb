@@ -1,0 +1,58 @@
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
+  <div class="mb-10 md:mb-14 text-center">
+    <div class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/60 px-3 py-1 text-[11px] font-medium text-sky-300 mb-4">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+      </svg>
+      Il nostro team
+    </div>
+    <h1 class="text-2xl md:text-4xl font-bold tracking-tight">I previsori di PRETEMP</h1>
+    <p class="mt-3 text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+      Il gruppo PRETEMP è composto da studenti universitari e professionisti nel settore della meteorologia, uniti dalla passione per i fenomeni convettivi.
+    </p>
+  </div>
+  <% if @users.any? %>
+    <div class="space-y-6">
+      <% @users.each do |user| %>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:border-slate-700 transition-colors">
+          <div class="shrink-0 mx-auto md:mx-0">
+            <% if user.profile_image.attached? %>
+              <%= image_tag user.profile_image, class: "w-28 h-28 md:w-36 md:h-36 rounded-2xl object-cover border border-slate-700 shadow-lg shadow-slate-950/50" %>
+            <% else %>
+              <div class="w-28 h-28 md:w-36 md:h-36 rounded-2xl bg-linear-to-br from-sky-500/20 to-slate-800 border border-slate-700 flex items-center justify-center shadow-lg shadow-slate-950/50">
+                <span class="text-3xl md:text-4xl font-bold text-sky-300/80"><%= user.first_name&.first %><%= user.last_name&.first %></span>
+              </div>
+            <% end %>
+          </div>
+          <div class="flex-1 min-w-0 text-center md:text-left">
+            <h2 class="text-xl md:text-2xl font-semibold text-white">
+              <%= user.first_name %> <%= user.last_name %>
+            </h2>
+            <% if user.description.present? %>
+              <div class="mt-3 text-sm text-slate-300 leading-relaxed prose prose-invert prose-sm max-w-none prose-p:my-2 prose-a:text-sky-400 prose-a:no-underline hover:prose-a:underline">
+                <%= user.description %>
+              </div>
+            <% end %>
+            <% if user.curriculum.attached? %>
+              <div class="mt-4">
+                <%= link_to rails_blob_path(user.curriculum, disposition: "inline"), target: "_blank", rel: "noopener noreferrer", class: "inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-700 bg-slate-800/60 text-sm text-sky-300 hover:text-sky-200 hover:border-sky-500/50 hover:bg-slate-800 transition-colors" do %>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                  Curriculum Vitae
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-12 text-center">
+      <svg class="mx-auto h-12 w-12 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+      </svg>
+      <p class="mt-3 text-sm text-slate-400">Nessun membro del team disponibile.</p>
+    </div>
+  <% end %>
+</section>

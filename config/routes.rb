@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get "guida_alle_previsioni" => "pages#guida_alle_previsioni", as: :guida_alle_previsioni
 
+  get "team" => "pages#team", as: :team
+
   get "monitoraggio/radar" => "pages#monitoraggio_radar", as: :monitoraggio_radar
   get "monitoraggio/fulmini" => "pages#monitoraggio_fulmini", as: :monitoraggio_fulmini
   get "monitoraggio/satelliti" => "pages#monitoraggio_satelliti", as: :monitoraggio_satelliti
@@ -66,6 +68,10 @@ Rails.application.routes.draw do
     resources :articles
 
     resources :invitations, only: [ :index, :new, :create, :destroy ]
+
+    resource :profile, only: [ :edit, :update ], controller: "profile" do
+      delete :remove_curriculum, on: :member
+    end
 
     get "/", to: "dashboard#index", as: :root
   end

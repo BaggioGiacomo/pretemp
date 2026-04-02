@@ -17,17 +17,13 @@
           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
         </svg>
       </li>
-      <li class="text-slate-300 font-medium truncate">
-        Previsione del <%= I18n.l(@forecast.date, format: :long) if @forecast.date %>
-      </li>
+      <li class="text-slate-300 font-medium truncate"><%= @forecast.title %></li>
     </ol>
   </nav>
   <article class="rounded-2xl border border-slate-800 bg-slate-900/80 overflow-hidden">
     <div class="p-6 md:p-8 border-b border-slate-800 space-y-4">
       <div class="flex flex-col-reverse sm:flex-row justify-between gap-4">
-        <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-50">
-          Previsione del <%= I18n.l(@forecast.date, format: :long) if @forecast.date %>
-        </h1>
+        <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-50"><%= @forecast.title %></h1>
         <span class="flex items-center rounded-full border px-3 py-1 text-xs font-medium w-fit <%= case @forecast.risk_level
           when "basso"
             "border-yellow-500/40 bg-yellow-500/10 text-yellow-200"
@@ -45,7 +41,8 @@
       </div>
       <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
         <p>
-          Previsori: <span class="font-medium text-slate-300"><%= @forecast.users.any? ? @forecast.users.map(&:email_address).join(", ") : "Staff PRETEMP" %></span>
+          <%= "previsore".pluralize(@forecast.users&.count, :it).capitalize %>:
+          <span class="font-medium text-slate-300"><%= @forecast.authors %></span>
         </p>
         <p>
           Aggiornato il <%= I18n.l(@forecast.updated_at, format: :long) %>

@@ -1,49 +1,196 @@
 @import "tailwindcss";
 
-/* Stormy atmosphere background */
+/* ── Stormy sky background ── */
+
+/* Slow-drifting cloud layer animations */
+@keyframes drift-1 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(30px) translateY(-15px) scale(1.05);
+  }
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes drift-2 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-40px) translateY(10px) scale(1.08);
+  }
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes drift-3 {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translateX(20px) translateY(-20px);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translateX(-15px) translateY(5px);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.5;
+  }
+}
+
+@keyframes color-shift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(-15deg);
+  }
+  100% {
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Base gradient layer — the deep sky */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   background:
+    /* Top-left: deep storm blue */
     radial-gradient(
-      ellipse 120% 60% at 15% -10%,
-      rgba(30, 64, 175, 0.18),
-      transparent 60%
+      ellipse 140% 70% at 10% -20%,
+      rgba(30, 58, 138, 0.35),
+      transparent 65%
     ),
+    /* Top-right: electric purple */
     radial-gradient(
-      ellipse 80% 50% at 85% 5%,
-      rgba(109, 40, 217, 0.14),
-      transparent 55%
-    ),
+        ellipse 100% 60% at 90% -5%,
+        rgba(88, 28, 135, 0.25),
+        transparent 55%
+      ),
+    /* Center: dark void */
     radial-gradient(
-      ellipse 100% 50% at 50% 100%,
-      rgba(15, 23, 42, 0.6),
-      transparent 60%
-    ),
+        ellipse 80% 80% at 50% 50%,
+        rgba(2, 6, 23, 0.4),
+        transparent 70%
+      ),
+    /* Bottom: horizon glow */
     radial-gradient(
-      ellipse 60% 80% at 70% 60%,
-      rgba(30, 58, 138, 0.1),
-      transparent 50%
-    );
+        ellipse 120% 40% at 50% 110%,
+        rgba(30, 64, 175, 0.15),
+        transparent 60%
+      ),
+    /* Bottom-left: warm distant lightning */
+    radial-gradient(
+        ellipse 60% 50% at 15% 90%,
+        rgba(234, 179, 8, 0.06),
+        transparent 50%
+      );
+  animation: color-shift 30s ease-in-out infinite;
   pointer-events: none;
 }
 
+/* Noise/grain texture layer */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  opacity: 0.04;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 512px 512px;
   pointer-events: none;
 }
 
+/* Drifting cloud shapes — placed via layout as divs */
+.storm-cloud-1 {
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 60%;
+  height: 50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(30, 58, 138, 0.12),
+    rgba(30, 58, 138, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  animation: drift-1 25s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.storm-cloud-2 {
+  position: fixed;
+  top: 20%;
+  right: -15%;
+  width: 55%;
+  height: 45%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(88, 28, 135, 0.1),
+    rgba(88, 28, 135, 0.03) 45%,
+    transparent 70%
+  );
+  filter: blur(70px);
+  animation: drift-2 30s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.storm-cloud-3 {
+  position: fixed;
+  bottom: -5%;
+  left: 20%;
+  width: 50%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15, 23, 42, 0.3),
+    rgba(30, 64, 175, 0.06) 50%,
+    transparent 70%
+  );
+  filter: blur(50px);
+  animation: drift-3 35s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Faint horizon line — simulates distant sky/ground boundary */
+.storm-horizon {
+  position: fixed;
+  bottom: 15%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 5%,
+    rgba(56, 189, 248, 0.06) 25%,
+    rgba(139, 92, 246, 0.08) 50%,
+    rgba(56, 189, 248, 0.06) 75%,
+    transparent 95%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* Vignette effect — darkens edges for dramatic depth */
 .min-h-screen {
-  box-shadow: inset 0 0 150px 40px rgba(2, 6, 23, 0.5);
+  box-shadow: inset 0 0 200px 60px rgba(2, 6, 23, 0.6);
 }
 
 /* ── Lightning flash keyframes ── */
@@ -300,6 +447,171 @@ body::after {
   width: 3px;
   border-radius: 2px;
   background: linear-gradient(to bottom, rgb(56, 189, 248), rgb(139, 92, 246));
+}
+
+/* ── Forecast show page ── */
+
+/* Risk-themed ambient glow behind the article card */
+.forecast-ambient {
+  position: relative;
+}
+
+.forecast-ambient::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.forecast-ambient--basso::before {
+  background: radial-gradient(ellipse, rgba(234, 179, 8, 0.2), transparent 70%);
+}
+.forecast-ambient--medio::before {
+  background: radial-gradient(
+    ellipse,
+    rgba(249, 115, 22, 0.22),
+    transparent 70%
+  );
+}
+.forecast-ambient--alto::before {
+  background: radial-gradient(
+    ellipse,
+    rgba(239, 68, 68, 0.22),
+    transparent 70%
+  );
+}
+.forecast-ambient--molto_alto::before {
+  background: radial-gradient(
+    ellipse,
+    rgba(168, 85, 247, 0.25),
+    transparent 70%
+  );
+}
+
+/* Animated border shimmer on the article container */
+@keyframes border-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.forecast-card-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.forecast-card-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.15),
+    rgba(139, 92, 246, 0.1),
+    rgba(56, 189, 248, 0.05),
+    rgba(139, 92, 246, 0.15),
+    rgba(56, 189, 248, 0.1)
+  );
+  background-size: 300% 300%;
+  animation: border-shimmer 8s ease infinite;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Risk badge glow pulse */
+@keyframes risk-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px var(--risk-glow);
+  }
+  50% {
+    box-shadow:
+      0 0 18px var(--risk-glow),
+      0 0 30px var(--risk-glow-outer);
+  }
+}
+
+.risk-badge-glow {
+  animation: risk-pulse 3s ease-in-out infinite;
+}
+
+.risk-badge-glow--basso {
+  --risk-glow: rgba(234, 179, 8, 0.3);
+  --risk-glow-outer: rgba(234, 179, 8, 0.1);
+}
+.risk-badge-glow--medio {
+  --risk-glow: rgba(249, 115, 22, 0.3);
+  --risk-glow-outer: rgba(249, 115, 22, 0.1);
+}
+.risk-badge-glow--alto {
+  --risk-glow: rgba(239, 68, 68, 0.35);
+  --risk-glow-outer: rgba(239, 68, 68, 0.12);
+}
+.risk-badge-glow--molto_alto {
+  --risk-glow: rgba(168, 85, 247, 0.35);
+  --risk-glow-outer: rgba(168, 85, 247, 0.12);
+}
+
+/* Image reveal on scroll */
+@keyframes image-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.97);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.forecast-image-reveal {
+  animation: image-reveal 0.8s ease-out both;
+}
+
+/* Internal section divider with risk color */
+.forecast-section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--divider-color, rgba(56, 189, 248, 0.2)) 30%,
+    var(--divider-color, rgba(56, 189, 248, 0.2)) 70%,
+    transparent
+  );
+}
+
+/* Summary callout box */
+.forecast-summary-box {
+  position: relative;
+  border-left: 2px solid;
+  border-image: linear-gradient(to bottom, rgb(56, 189, 248), rgb(139, 92, 246))
+    1;
 }
 
 [data-hidden="true"] {

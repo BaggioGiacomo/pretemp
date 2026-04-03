@@ -14,7 +14,7 @@
   <% if @users.any? %>
     <div class="space-y-6">
       <% @users.each do |user| %>
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:border-slate-700 transition-colors">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start transition-colors card-storm-glow shadow-2xl shadow-slate-950/60 hover:border-sky-500/60 hover:bg-slate-900">
           <div class="shrink-0 mx-auto md:mx-0">
             <% if user.profile_image.attached? %>
               <%= image_tag user.profile_image, class: "w-28 h-28 md:w-36 md:h-36 rounded-2xl object-cover border border-slate-700 shadow-lg shadow-slate-950/50" %>

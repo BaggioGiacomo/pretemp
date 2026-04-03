@@ -1,25 +1,22 @@
 <section class="relative overflow-hidden border-b border-slate-800 bg-linear-to-b from-slate-950 via-slate-950 to-slate-900">
   <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,.18),transparent_55%),radial-gradient(circle_at_bottom,rgba(250,204,21,.12),transparent_55%)]"></div>
-  <%# Lightning flash overlays %>
-  <div class="pointer-events-none absolute inset-0 bg-white/5 lightning-overlay"></div>
-  <div class="pointer-events-none absolute inset-0 bg-sky-200/5 lightning-overlay-delayed"></div>
   <%# Rain simulation — 3 depth layers + splashes %>
   <div class="rain-container">
     <%# Layer 1: Foreground heavy drops (fast, tall, visible) %>
     <% 20.times do |i| %>
-      <div class="rain-fg" style="left: <%= (i * 5.0 + rand(0.0..4.0)).round(1) %>%; height: <%= rand(50..90) %>px; animation-duration: <%= (0.6 + rand(0.0..0.5)).round(2) %>s; animation-delay: <%= (rand(0.0..2.0)).round(2) %>s;"></div>
+      <div class="rain-fg" style="left: <%= (i * 5.0 + rand(0.0..4.0)).round(1) %>%; height: <%= rand(50..90) %>px; animation-duration: <%= (0.6 + rand(0.0..0.5)).round(2) %>s; animation-delay: -<%= (rand(0.0..2.0)).round(2) %>s;"></div>
     <% end %>
     <%# Layer 2: Midground drops (medium speed, medium size) %>
     <% 30.times do |i| %>
-      <div class="rain-mid" style="left: <%= (i * 3.3 + rand(0.0..2.5)).round(1) %>%; height: <%= rand(35..65) %>px; animation-duration: <%= (0.9 + rand(0.0..0.7)).round(2) %>s; animation-delay: <%= (rand(0.0..3.0)).round(2) %>s;"></div>
+      <div class="rain-mid" style="left: <%= (i * 3.3 + rand(0.0..2.5)).round(1) %>%; height: <%= rand(35..65) %>px; animation-duration: <%= (0.9 + rand(0.0..0.7)).round(2) %>s; animation-delay: -<%= (rand(0.0..3.0)).round(2) %>s;"></div>
     <% end %>
     <%# Layer 3: Background drizzle (slow, short, faint) %>
     <% 25.times do |i| %>
-      <div class="rain-bg" style="left: <%= (i * 4.0 + rand(0.0..3.0)).round(1) %>%; height: <%= rand(20..40) %>px; animation-duration: <%= (1.4 + rand(0.0..1.0)).round(2) %>s; animation-delay: <%= (rand(0.0..4.0)).round(2) %>s;"></div>
+      <div class="rain-bg" style="left: <%= (i * 4.0 + rand(0.0..3.0)).round(1) %>%; height: <%= rand(20..40) %>px; animation-duration: <%= (1.4 + rand(0.0..1.0)).round(2) %>s; animation-delay: -<%= (rand(0.0..4.0)).round(2) %>s;"></div>
     <% end %>
     <%# Splashes at ground level %>
     <% 15.times do |i| %>
-      <div class="rain-splash" style="left: <%= (i * 6.6 + rand(0.0..5.0)).round(1) %>%; animation-delay: <%= (rand(0.0..2.0)).round(2) %>s; animation-duration: <%= (0.6 + rand(0.0..0.5)).round(2) %>s;"></div>
+      <div class="rain-splash" style="left: <%= (i * 6.6 + rand(0.0..5.0)).round(1) %>%; animation-delay: -<%= (rand(0.0..2.0)).round(2) %>s; animation-duration: <%= (0.6 + rand(0.0..0.5)).round(2) %>s;"></div>
     <% end %>
   </div>
   <div class="relative max-w-6xl mx-auto px-4 py-6 md:py-16 grid gap-10 md:grid-cols-2 items-center">

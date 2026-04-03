@@ -48,14 +48,31 @@ body::after {
 
 /* ── Lightning flash keyframes ── */
 @keyframes lightning-flicker {
-  0%, 100% { opacity: 0; }
-  4% { opacity: 0.06; }
-  4.5% { opacity: 0; }
-  5% { opacity: 0.1; }
-  5.4% { opacity: 0; }
-  48% { opacity: 0; }
-  48.5% { opacity: 0.04; }
-  49% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.06;
+  }
+  4.5% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.1;
+  }
+  5.4% {
+    opacity: 0;
+  }
+  48% {
+    opacity: 0;
+  }
+  48.5% {
+    opacity: 0.04;
+  }
+  49% {
+    opacity: 0;
+  }
 }
 
 .lightning-overlay {
@@ -79,12 +96,60 @@ body::after {
   );
 }
 
-/* ── Animated rain streaks ── */
-@keyframes rain-fall {
-  0% { transform: translateY(-100%) translateX(0); opacity: 0; }
-  10% { opacity: 0.15; }
-  90% { opacity: 0.15; }
-  100% { transform: translateY(100vh) translateX(-20px); opacity: 0; }
+/* ── Realistic rain simulation ── */
+
+/* Layer 1: foreground heavy drops — fast, larger, more opaque */
+@keyframes rain-fg {
+  0% {
+    transform: translateY(-10%) rotate(8deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110%) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+/* Layer 2: midground drops — medium speed */
+@keyframes rain-mid {
+  0% {
+    transform: translateY(-8%) rotate(6deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(108%) rotate(6deg);
+    opacity: 0;
+  }
+}
+
+/* Layer 3: background mist/drizzle — slow, thin, faint */
+@keyframes rain-bg {
+  0% {
+    transform: translateY(-5%) rotate(4deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105%) rotate(4deg);
+    opacity: 0;
+  }
 }
 
 .rain-container {
@@ -94,12 +159,69 @@ body::after {
   pointer-events: none;
 }
 
-.rain-drop {
+/* Foreground drops */
+.rain-fg {
+  position: absolute;
+  width: 1.5px;
+  border-radius: 0 0 1px 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(173, 216, 255, 0.08) 20%,
+    rgba(173, 216, 255, 0.28) 100%
+  );
+  animation: rain-fg linear infinite;
+}
+
+/* Midground drops */
+.rain-mid {
   position: absolute;
   width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(148, 196, 242, 0.25));
-  animation: rain-fall linear infinite;
+  border-radius: 0 0 1px 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(148, 196, 242, 0.06) 30%,
+    rgba(148, 196, 242, 0.18) 100%
+  );
+  animation: rain-mid linear infinite;
+}
+
+/* Background drizzle */
+.rain-bg {
+  position: absolute;
+  width: 0.5px;
+  border-radius: 0 0 1px 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(148, 196, 242, 0.04) 40%,
+    rgba(148, 196, 242, 0.1) 100%
+  );
+  animation: rain-bg linear infinite;
+}
+
+/* Splashes at bottom of hero */
+@keyframes splash {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.rain-splash {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(173, 216, 255, 0.2);
+  box-shadow: 0 0 3px rgba(173, 216, 255, 0.15);
+  animation: splash 0.8s ease-out infinite;
 }
 
 /* ── Card hover glow ── */
@@ -120,7 +242,9 @@ body::after {
   );
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.3s ease, background 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    background 0.3s ease;
 }
 
 .card-storm-glow:hover::before {
@@ -141,8 +265,15 @@ body::after {
 
 /* ── Pulse dot for "live" feel ── */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 4px rgba(56, 189, 248, 0.4); }
-  50% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.7), 0 0 24px rgba(56, 189, 248, 0.3); }
+  0%,
+  100% {
+    box-shadow: 0 0 4px rgba(56, 189, 248, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 12px rgba(56, 189, 248, 0.7),
+      0 0 24px rgba(56, 189, 248, 0.3);
+  }
 }
 
 .pulse-dot {

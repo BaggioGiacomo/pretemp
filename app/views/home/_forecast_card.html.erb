@@ -13,7 +13,7 @@
           else
             "bg-gray-100 text-gray-800 border-gray-300"
           end %>">
-      Rischio: <%= forecast.risk_level %>
+      <%= "Pericolosità #{forecast.risk_level_before_type_cast}" %>
     </span>
   </div>
   <p class="text-sm font-semibold text-slate-100">
@@ -25,9 +25,13 @@
       <%= forecast.authors %>
     </span>
   </p>
-  <p class="text-xs text-slate-400 line-clamp-4">
-    <%= forecast.body_preview || "Le previsioni verranno mostrate qui non appena disponibili." %>
-  </p>
+  <% if forecast.image.attached? %>
+    <div class="flex items-center justify-center bg-slate-950/50 p-2 rounded-lg max-w-[300px] overflow-hidden">
+      <%= image_tag forecast.image,
+            class: "w-full h-auto rounded-md",
+            alt: "Mappa previsione del #{I18n.l(forecast.date, format: :long) if forecast.date}" %>
+    </div>
+  <% end %>
   <div class="flex justify-end pt-2 flex-1 items-end">
     <p class="text-[11px] text-slate-500">
       Aggiornata il <%= forecast.updated_at.strftime("%d/%m/%Y %H:%M") %>

@@ -20,20 +20,6 @@
         <%= link_to "Come funziona la previsione", guida_alle_previsioni_path,
             class: "inline-flex items-center justify-center rounded-xl border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 hover:bg-slate-900 transition" %>
       </div>
-      <dl class="grid grid-cols-3 gap-4 text-xs text-slate-300 max-w-md">
-        <div>
-          <dt class="text-slate-500">Anni di archivio</dt>
-          <dd class="mt-1 text-sm font-semibold">2015–<%= Time.current.year %></dd>
-        </div>
-        <div>
-          <dt class="text-slate-500">Focus</dt>
-          <dd class="mt-1 text-sm font-semibold">Fenomeni violenti</dd>
-        </div>
-        <div>
-          <dt class="text-slate-500">Aggiornamenti</dt>
-          <dd class="mt-1 text-sm font-semibold">Quotidiani</dd>
-        </div>
-      </dl>
     </div>
     <div class="md:pl-8">
       <%= render "forecast_card", forecast: @latest_forecast %>

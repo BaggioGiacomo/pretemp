@@ -1,4 +1,4 @@
-<%= link_to forecast_path(forecast), class: "rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/60 p-4 md:p-5 flex flex-col gap-2 h-full hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
+<%= link_to forecast_path(forecast), class: "card-storm-glow rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/60 p-4 md:p-5 flex flex-col gap-2 h-full hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
   <div class="flex items-center justify-between gap-4">
     <p class="text-xs uppercase tracking-wide text-slate-500">Ultima previsione</p>
     <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold <%= case forecast.risk_level
@@ -25,13 +25,13 @@
       <%= forecast.authors %>
     </span>
   </p>
-  <% if forecast.image.attached? %>
-    <div class="flex items-center justify-center bg-slate-950/50 p-2 rounded-lg max-w-[300px] overflow-hidden">
+  <div class="flex items-center justify-center bg-slate-950/50 p-2 rounded-lg max-w-[300px] overflow-hidden">
+    <% if forecast.image.attached? %>
       <%= image_tag forecast.image,
             class: "w-full h-auto rounded-md",
             alt: "Mappa previsione del #{I18n.l(forecast.date, format: :long) if forecast.date}" %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
   <div class="flex justify-end pt-2 flex-1 items-end">
     <p class="text-[11px] text-slate-500">
       Aggiornata il <%= forecast.updated_at.strftime("%d/%m/%Y %H:%M") %>

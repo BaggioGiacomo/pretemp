@@ -1,5 +1,176 @@
 @import "tailwindcss";
 
+/* Stormy atmosphere background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      ellipse 120% 60% at 15% -10%,
+      rgba(30, 64, 175, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 80% 50% at 85% 5%,
+      rgba(109, 40, 217, 0.14),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 100% 50% at 50% 100%,
+      rgba(15, 23, 42, 0.6),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 80% at 70% 60%,
+      rgba(30, 58, 138, 0.1),
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 512px 512px;
+  pointer-events: none;
+}
+
+/* Vignette effect — darkens edges for dramatic depth */
+.min-h-screen {
+  box-shadow: inset 0 0 150px 40px rgba(2, 6, 23, 0.5);
+}
+
+/* ── Lightning flash keyframes ── */
+@keyframes lightning-flicker {
+  0%, 100% { opacity: 0; }
+  4% { opacity: 0.06; }
+  4.5% { opacity: 0; }
+  5% { opacity: 0.1; }
+  5.4% { opacity: 0; }
+  48% { opacity: 0; }
+  48.5% { opacity: 0.04; }
+  49% { opacity: 0; }
+}
+
+.lightning-overlay {
+  animation: lightning-flicker 8s ease-in-out infinite;
+}
+
+.lightning-overlay-delayed {
+  animation: lightning-flicker 12s 3s ease-in-out infinite;
+}
+
+/* ── Glowing divider ── */
+.storm-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(56, 189, 248, 0.3) 20%,
+    rgba(139, 92, 246, 0.4) 50%,
+    rgba(56, 189, 248, 0.3) 80%,
+    transparent
+  );
+}
+
+/* ── Animated rain streaks ── */
+@keyframes rain-fall {
+  0% { transform: translateY(-100%) translateX(0); opacity: 0; }
+  10% { opacity: 0.15; }
+  90% { opacity: 0.15; }
+  100% { transform: translateY(100vh) translateX(-20px); opacity: 0; }
+}
+
+.rain-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rain-drop {
+  position: absolute;
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(148, 196, 242, 0.25));
+  animation: rain-fall linear infinite;
+}
+
+/* ── Card hover glow ── */
+.card-storm-glow {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card-storm-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(56, 189, 248, 0) 100%
+  );
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.card-storm-glow:hover::before {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.15) 0%,
+    rgba(139, 92, 246, 0.1) 50%,
+    rgba(56, 189, 248, 0.15) 100%
+  );
+}
+
+.card-storm-glow:hover {
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.08),
+    0 0 60px rgba(56, 189, 248, 0.04);
+}
+
+/* ── Pulse dot for "live" feel ── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px rgba(56, 189, 248, 0.4); }
+  50% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.7), 0 0 24px rgba(56, 189, 248, 0.3); }
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(56, 189, 248);
+  animation: pulse-glow 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ── Section heading accent bar ── */
+.section-heading-accent {
+  position: relative;
+  padding-left: 12px;
+}
+
+.section-heading-accent::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, rgb(56, 189, 248), rgb(139, 92, 246));
+}
+
 [data-hidden="true"] {
   display: none;
 }

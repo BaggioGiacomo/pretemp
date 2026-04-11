@@ -1,5 +1,619 @@
 @import "tailwindcss";
 
+/* ── Stormy sky background ── */
+
+/* Slow-drifting cloud layer animations */
+@keyframes drift-1 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(30px) translateY(-15px) scale(1.05);
+  }
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes drift-2 {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-40px) translateY(10px) scale(1.08);
+  }
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes drift-3 {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translateX(20px) translateY(-20px);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translateX(-15px) translateY(5px);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.5;
+  }
+}
+
+@keyframes color-shift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(-15deg);
+  }
+  100% {
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Base gradient layer — the deep sky */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    /* Top-left: deep storm blue */
+    radial-gradient(
+      ellipse 140% 70% at 10% -20%,
+      rgba(30, 58, 138, 0.35),
+      transparent 65%
+    ),
+    /* Top-right: electric purple */
+    radial-gradient(
+        ellipse 100% 60% at 90% -5%,
+        rgba(88, 28, 135, 0.25),
+        transparent 55%
+      ),
+    /* Center: dark void */
+    radial-gradient(
+        ellipse 80% 80% at 50% 50%,
+        rgba(2, 6, 23, 0.4),
+        transparent 70%
+      ),
+    /* Bottom: horizon glow */
+    radial-gradient(
+        ellipse 120% 40% at 50% 110%,
+        rgba(30, 64, 175, 0.15),
+        transparent 60%
+      ),
+    /* Bottom-left: warm distant lightning */
+    radial-gradient(
+        ellipse 60% 50% at 15% 90%,
+        rgba(234, 179, 8, 0.06),
+        transparent 50%
+      );
+  animation: color-shift 30s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Noise/grain texture layer */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 512px 512px;
+  pointer-events: none;
+}
+
+/* Drifting cloud shapes — placed via layout as divs */
+.storm-cloud-1 {
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 60%;
+  height: 50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(30, 58, 138, 0.12),
+    rgba(30, 58, 138, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  animation: drift-1 25s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.storm-cloud-2 {
+  position: fixed;
+  top: 20%;
+  right: -15%;
+  width: 55%;
+  height: 45%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(88, 28, 135, 0.1),
+    rgba(88, 28, 135, 0.03) 45%,
+    transparent 70%
+  );
+  filter: blur(70px);
+  animation: drift-2 30s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.storm-cloud-3 {
+  position: fixed;
+  bottom: -5%;
+  left: 20%;
+  width: 50%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15, 23, 42, 0.3),
+    rgba(30, 64, 175, 0.06) 50%,
+    transparent 70%
+  );
+  filter: blur(50px);
+  animation: drift-3 35s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Faint horizon line — simulates distant sky/ground boundary */
+.storm-horizon {
+  position: fixed;
+  bottom: 15%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 5%,
+    rgba(56, 189, 248, 0.06) 25%,
+    rgba(139, 92, 246, 0.08) 50%,
+    rgba(56, 189, 248, 0.06) 75%,
+    transparent 95%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Vignette effect — darkens edges for dramatic depth */
+.min-h-screen {
+  box-shadow: inset 0 0 200px 60px rgba(2, 6, 23, 0.6);
+}
+
+/* ── Lightning flash keyframes ── */
+@keyframes lightning-flicker {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.06;
+  }
+  4.5% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.1;
+  }
+  5.4% {
+    opacity: 0;
+  }
+  48% {
+    opacity: 0;
+  }
+  48.5% {
+    opacity: 0.04;
+  }
+  49% {
+    opacity: 0;
+  }
+}
+
+.lightning-overlay {
+  animation: lightning-flicker 8s ease-in-out infinite;
+}
+
+.lightning-overlay-delayed {
+  animation: lightning-flicker 12s 3s ease-in-out infinite;
+}
+
+/* ── Glowing divider ── */
+.storm-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(56, 189, 248, 0.3) 20%,
+    rgba(139, 92, 246, 0.4) 50%,
+    rgba(56, 189, 248, 0.3) 80%,
+    transparent
+  );
+}
+
+/* ── Realistic rain simulation ── */
+
+/* Layer 1: foreground heavy drops — fast, larger, more opaque */
+@keyframes rain-fg {
+  0% {
+    transform: translateY(-10%) rotate(8deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110%) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+/* Layer 2: midground drops — medium speed */
+@keyframes rain-mid {
+  0% {
+    transform: translateY(-8%) rotate(6deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(108%) rotate(6deg);
+    opacity: 0;
+  }
+}
+
+/* Layer 3: background mist/drizzle — slow, thin, faint */
+@keyframes rain-bg {
+  0% {
+    transform: translateY(-5%) rotate(4deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105%) rotate(4deg);
+    opacity: 0;
+  }
+}
+
+.rain-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Foreground drops */
+.rain-fg {
+  position: absolute;
+  width: 1.5px;
+  border-radius: 0 0 1px 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(173, 216, 255, 0.08) 20%,
+    rgba(173, 216, 255, 0.28) 100%
+  );
+  animation: rain-fg linear infinite;
+}
+
+/* Midground drops */
+.rain-mid {
+  position: absolute;
+  width: 1px;
+  border-radius: 0 0 1px 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(148, 196, 242, 0.06) 30%,
+    rgba(148, 196, 242, 0.18) 100%
+  );
+  animation: rain-mid linear infinite;
+}
+
+/* Background drizzle */
+.rain-bg {
+  position: absolute;
+  width: 0.5px;
+  border-radius: 0 0 1px 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(148, 196, 242, 0.04) 40%,
+    rgba(148, 196, 242, 0.1) 100%
+  );
+  animation: rain-bg linear infinite;
+}
+
+/* Splashes at bottom of hero */
+@keyframes splash {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.rain-splash {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(173, 216, 255, 0.2);
+  box-shadow: 0 0 3px rgba(173, 216, 255, 0.15);
+  animation: splash 0.8s ease-out infinite;
+}
+
+/* ── Card hover glow ── */
+.card-storm-glow {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card-storm-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0) 0%,
+    rgba(56, 189, 248, 0) 100%
+  );
+  z-index: -1;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    background 0.3s ease;
+}
+
+.card-storm-glow:hover::before {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.15) 0%,
+    rgba(139, 92, 246, 0.1) 50%,
+    rgba(56, 189, 248, 0.15) 100%
+  );
+}
+
+.card-storm-glow:hover {
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.08),
+    0 0 60px rgba(56, 189, 248, 0.04);
+}
+
+/* ── Pulse dot for "live" feel ── */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 4px rgba(56, 189, 248, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 12px rgba(56, 189, 248, 0.7),
+      0 0 24px rgba(56, 189, 248, 0.3);
+  }
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(56, 189, 248);
+  animation: pulse-glow 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ── Section heading accent bar ── */
+.section-heading-accent {
+  position: relative;
+  padding-left: 12px;
+}
+
+.section-heading-accent::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, rgb(56, 189, 248), rgb(139, 92, 246));
+}
+
+/* ── Forecast show page ── */
+
+/* Risk-themed ambient glow behind the article card */
+.forecast-ambient {
+  position: relative;
+}
+
+.forecast-ambient::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.forecast-ambient--basso::before {
+  background: radial-gradient(ellipse, rgba(234, 179, 8, 0.2), transparent 70%);
+}
+.forecast-ambient--medio::before {
+  background: radial-gradient(
+    ellipse,
+    rgba(249, 115, 22, 0.22),
+    transparent 70%
+  );
+}
+.forecast-ambient--alto::before {
+  background: radial-gradient(
+    ellipse,
+    rgba(239, 68, 68, 0.22),
+    transparent 70%
+  );
+}
+.forecast-ambient--molto_alto::before {
+  background: radial-gradient(
+    ellipse,
+    rgba(168, 85, 247, 0.25),
+    transparent 70%
+  );
+}
+
+/* Animated border shimmer on the article container */
+@keyframes border-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.forecast-card-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.forecast-card-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.15),
+    rgba(139, 92, 246, 0.1),
+    rgba(56, 189, 248, 0.05),
+    rgba(139, 92, 246, 0.15),
+    rgba(56, 189, 248, 0.1)
+  );
+  background-size: 300% 300%;
+  animation: border-shimmer 8s ease infinite;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Risk badge glow pulse */
+@keyframes risk-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px var(--risk-glow);
+  }
+  50% {
+    box-shadow:
+      0 0 18px var(--risk-glow),
+      0 0 30px var(--risk-glow-outer);
+  }
+}
+
+.risk-badge-glow {
+  animation: risk-pulse 3s ease-in-out infinite;
+}
+
+.risk-badge-glow--basso {
+  --risk-glow: rgba(234, 179, 8, 0.3);
+  --risk-glow-outer: rgba(234, 179, 8, 0.1);
+}
+.risk-badge-glow--medio {
+  --risk-glow: rgba(249, 115, 22, 0.3);
+  --risk-glow-outer: rgba(249, 115, 22, 0.1);
+}
+.risk-badge-glow--alto {
+  --risk-glow: rgba(239, 68, 68, 0.35);
+  --risk-glow-outer: rgba(239, 68, 68, 0.12);
+}
+.risk-badge-glow--molto_alto {
+  --risk-glow: rgba(168, 85, 247, 0.35);
+  --risk-glow-outer: rgba(168, 85, 247, 0.12);
+}
+
+/* Image reveal on scroll */
+@keyframes image-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.97);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.forecast-image-reveal {
+  animation: image-reveal 0.8s ease-out both;
+}
+
+/* Internal section divider with risk color */
+.forecast-section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--divider-color, rgba(56, 189, 248, 0.2)) 30%,
+    var(--divider-color, rgba(56, 189, 248, 0.2)) 70%,
+    transparent
+  );
+}
+
+/* Summary callout box */
+.forecast-summary-box {
+  position: relative;
+  border-left: 2px solid;
+  border-image: linear-gradient(to bottom, rgb(56, 189, 248), rgb(139, 92, 246))
+    1;
+}
+
 [data-hidden="true"] {
   display: none;
 }

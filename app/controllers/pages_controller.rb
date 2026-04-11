@@ -2,6 +2,9 @@ class PagesController < ApplicationController
   def guida_alle_previsioni
   end
 
+  def obiettivi_e_struttura
+  end
+
   def team
     @users = User.all.order(:created_at)
   end

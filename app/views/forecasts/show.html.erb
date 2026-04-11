@@ -1,5 +1,5 @@
-<section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
-  <nav class="mb-8">
+<section class="max-w-4xl mx-auto px-4 py-10 md:py-16 forecast-ambient forecast-ambient--<%= @forecast.risk_level %>">
+  <nav class="mb-8 relative z-10">
     <ol class="flex items-center gap-2 text-xs text-slate-500">
       <li>
         <%= link_to "Home", root_path, class: "hover:text-slate-200 transition-colors" %>
@@ -20,53 +20,98 @@
       <li class="text-slate-300 font-medium truncate"><%= @forecast.title %></li>
     </ol>
   </nav>
-  <article class="rounded-2xl border border-slate-800 bg-slate-900/80 overflow-hidden">
-    <div class="p-6 md:p-8 border-b border-slate-800 space-y-4">
+  <article class="relative z-10 rounded-2xl bg-slate-900/80 overflow-hidden forecast-card-border">
+    <div class="px-6 md:px-10 py-8 md:py-10 space-y-5">
       <div class="flex flex-col-reverse sm:flex-row justify-between gap-4">
-        <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-50"><%= @forecast.title %></h1>
-        <span class="flex items-center rounded-full border px-3 py-1 text-xs font-medium w-fit <%= case @forecast.risk_level
-          when "basso"
-            "border-yellow-500/40 bg-yellow-500/10 text-yellow-200"
-          when "medio"
-            "border-orange-500/40 bg-orange-500/10 text-orange-200"
-          when "alto"
-            "border-red-500/40 bg-red-500/10 text-red-200"
-          when "molto_alto"
-            "border-purple-500/40 bg-purple-500/10 text-purple-200"
-          else
-            "bg-gray-100 text-gray-800 border-gray-300"
+        <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-50 section-heading-accent">
+          <%= @forecast.title %>
+        </h1>
+        <span class="flex items-center rounded-full border px-3 py-1 text-xs font-medium w-fit risk-badge-glow risk-badge-glow--<%= @forecast.risk_level %>
+          <%= case @forecast.risk_level
+            when 'basso'
+              'border-yellow-500/40 bg-yellow-500/10 text-yellow-200'
+            when 'medio'
+              'border-orange-500/40 bg-orange-500/10 text-orange-200'
+            when 'alto'
+              'border-red-500/40 bg-red-500/10 text-red-200'
+            when 'molto_alto'
+              'border-purple-500/40 bg-purple-500/10 text-purple-200'
+            else
+              'bg-gray-100 text-gray-800 border-gray-300'
           end %>">
-          <%= "Rischio #{@forecast.risk_level.humanize.downcase}" %>
+          <%= "Pericolosità #{@forecast.risk_level_before_type_cast}" %>
         </span>
       </div>
-      <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
         <p>
           <%= "previsore".pluralize(@forecast.users&.count, :it).capitalize %>:
           <span class="font-medium text-slate-300"><%= @forecast.authors %></span>
         </p>
-        <p>
-          Aggiornato il <%= I18n.l(@forecast.updated_at, format: :long) %>
-        </p>
+        <span class="hidden sm:inline text-slate-700">&middot;</span>
+        <p>Aggiornato il <%= I18n.l(@forecast.updated_at, format: :long) %></p>
       </div>
     </div>
-    <% if @forecast.summary %>
-      <div class="prose prose-invert prose-lg max-w-none text-slate-300 prose-headings:text-slate-100 prose-a:text-sky-300 prose-strong:text-slate-100 px-6 md:px-8 py-5 border-b border-slate-800">
-        <%= @forecast.summary %>
-      </div>
-    <% end %>
     <% if @forecast.image.attached? %>
-      <div class="border-b border-slate-800 flex items-center justify-center bg-slate-950/50">
-        <%= image_tag @forecast.image, class: "w-full h-auto max-w-[800px] ", alt: "Mappa previsione del #{I18n.l(@forecast.date, format: :long) if @forecast.date}" %>
+      <div class="forecast-section-divider" style="--divider-color: <%= case @forecast.risk_level
+        when 'basso' then 'rgba(234,179,8,0.25)'
+        when 'medio' then 'rgba(249,115,22,0.25)'
+        when 'alto' then 'rgba(239,68,68,0.25)'
+        when 'molto_alto' then 'rgba(168,85,247,0.25)'
+        else 'rgba(56,189,248,0.2)'
+      end %>;"></div>
+      <div class="flex items-center justify-center bg-slate-950/50 p-6 md:p-10">
+        <%= image_tag @forecast.image,
+              class: "w-full h-auto max-w-[800px] rounded-lg forecast-image-reveal shadow-lg shadow-slate-950/50",
+              alt: "Mappa previsione del #{I18n.l(@forecast.date, format: :long) if @forecast.date}" %>
       </div>
     <% end %>
-    <div class="p-6 md:p-8">
-      <div class="prose prose-invert prose-lg max-w-none text-slate-300 prose-headings:text-slate-100 prose-a:text-sky-300 prose-strong:text-slate-100">
+    <div class="forecast-section-divider" style="--divider-color: <%= case @forecast.risk_level
+      when 'basso' then 'rgba(234,179,8,0.25)'
+      when 'medio' then 'rgba(249,115,22,0.25)'
+      when 'alto' then 'rgba(239,68,68,0.25)'
+      when 'molto_alto' then 'rgba(168,85,247,0.25)'
+      else 'rgba(56,189,248,0.2)'
+    end %>;"></div>
+    <div class="px-6 md:px-10 py-10 md:py-14">
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto
+                  text-slate-300 leading-relaxed
+                  prose-headings:text-slate-100
+                  prose-a:text-sky-300 hover:prose-a:text-sky-200
+                  prose-strong:text-slate-100
+                  prose-p:my-5">
         <%= @forecast.body %>
       </div>
     </div>
-    <div class="px-6 md:px-8 py-5 bg-slate-950/50 border-t border-slate-800">
+    <% if @forecast.summary.present? %>
+      <div class="forecast-section-divider" style="--divider-color: <%= case @forecast.risk_level
+        when 'basso' then 'rgba(234,179,8,0.25)'
+        when 'medio' then 'rgba(249,115,22,0.25)'
+        when 'alto' then 'rgba(239,68,68,0.25)'
+        when 'molto_alto' then 'rgba(168,85,247,0.25)'
+        else 'rgba(56,189,248,0.2)'
+      end %>;"></div>
+      <div class="p-6 md:px-10 bg-slate-950/50">
+        <div class="forecast-summary-box pl-5 py-2 prose prose-invert prose-lg mx-auto
+                  text-slate-300 leading-relaxed
+                  prose-headings:text-slate-100
+                  prose-a:text-sky-300 hover:prose-a:text-sky-200
+                  prose-strong:text-slate-100
+                  prose-p:my-5">
+          <%= @forecast.summary %>
+        </div>
+      </div>
+    <% end %>
+    <div class="forecast-section-divider" style="--divider-color: <%= case @forecast.risk_level
+      when 'basso' then 'rgba(234,179,8,0.25)'
+      when 'medio' then 'rgba(249,115,22,0.25)'
+      when 'alto' then 'rgba(239,68,68,0.25)'
+      when 'molto_alto' then 'rgba(168,85,247,0.25)'
+      else 'rgba(56,189,248,0.2)'
+    end %>;"></div>
+    <div class="px-6 md:px-10 py-5 bg-slate-950/50">
       <div class="flex items-center justify-between">
-        <%= link_to archivio_index_path, class: "inline-flex items-center text-xs font-medium text-sky-300 hover:text-sky-200 transition-colors" do %>
+        <%= link_to archivio_index_path,
+              class: "inline-flex items-center text-xs font-medium text-sky-300 hover:text-sky-200 transition-colors" do %>
           <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>

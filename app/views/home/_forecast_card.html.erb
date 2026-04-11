@@ -1,23 +1,30 @@
+<% variant = local_assigns.fetch(:variant, nil) %>
 <%= link_to forecast_path(forecast), class: "card-storm-glow rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/60 p-4 md:p-5 flex flex-col gap-2 h-full hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
   <div class="flex items-center justify-between gap-4">
-    <p class="text-xs uppercase tracking-wide text-slate-500">Ultima previsione</p>
-    <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold <%= case forecast.risk_level
-          when "basso"
-            "border-yellow-500/40 bg-yellow-500/10 text-yellow-200"
-          when "medio"
-            "border-orange-500/40 bg-orange-500/10 text-orange-200"
-          when "alto"
-            "border-red-500/40 bg-red-500/10 text-red-200"
-          when "molto_alto"
-            "border-purple-500/40 bg-purple-500/10 text-purple-200"
-          else
-            "bg-gray-100 text-gray-800 border-gray-300"
-          end %>">
-      <%= "Pericolosità #{forecast.risk_level_before_type_cast}" %>
+    <p class="text-xs uppercase tracking-wide text-slate-500">
+      <% if variant == :latest %>
+        Ultima previsione
+      <% else %>
+        Previsione
+      <% end %>
+    </p>
+    <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs text-nowrap font-semibold <%= case forecast.risk_level
+            when "basso"
+              "border-yellow-500/40 bg-yellow-500/10 text-yellow-200"
+            when "medio"
+              "border-orange-500/40 bg-orange-500/10 text-orange-200"
+            when "alto"
+              "border-red-500/40 bg-red-500/10 text-red-200"
+            when "molto_alto"
+              "border-purple-500/40 bg-purple-500/10 text-purple-200"
+            else
+              "bg-gray-100 text-gray-800 border-gray-300"
+            end %>">
+      Pericolosità <%= forecast.risk_level_before_type_cast %>
     </span>
   </div>
   <p class="text-sm font-semibold text-slate-100">
-    <%= forecast.title %>
+    <%= I18n.l(forecast.date, format: :long) if forecast.date %>
   </p>
   <p class="text-xs text-slate-300">
     <%= "autore".pluralize(forecast.users&.count, :it).capitalize %>:

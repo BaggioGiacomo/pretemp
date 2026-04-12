@@ -34,6 +34,9 @@
                   </div>
                 <% end %>
                 <div class="flex items-center gap-2 sm:gap-3 sm:ml-4">
+                  <%= link_to admin_forecast_forecast_updates_path(forecast), class: "px-3 sm:px-4 py-2 text-sm text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg transition-colors font-medium" do %>
+                    Updates (<%= forecast.forecast_updates.count %>)
+                  <% end %>
                   <%= link_to forecast_path(forecast), class: "px-3 sm:px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium", target: "_blank" do %>
                     See on site
                   <% end %>

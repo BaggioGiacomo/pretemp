@@ -59,7 +59,7 @@
 }
 
 /* Base gradient layer — the deep sky */
-body::before {
+body.main::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -186,11 +186,6 @@ body::after {
   );
   pointer-events: none;
   z-index: -1;
-}
-
-/* Vignette effect — darkens edges for dramatic depth */
-.min-h-screen {
-  box-shadow: inset 0 0 200px 60px rgba(2, 6, 23, 0.6);
 }
 
 /* ── Lightning flash keyframes ── */

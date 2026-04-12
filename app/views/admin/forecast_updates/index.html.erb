@@ -1,0 +1,73 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-6">
+      <div class="flex items-center gap-4 mb-2">
+        <%= link_to admin_forecasts_path, class: "text-gray-600 hover:text-gray-900 transition-colors" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        <% end %>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Updates for: <%= @forecast.title %></h1>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <p class="mt-1 sm:mt-2 text-gray-600 text-sm">Manage forecast updates</p>
+        <%= link_to "New Update", new_admin_forecast_forecast_update_path(@forecast), class: "px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-center" %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <% if @forecast_updates.any? %>
+        <div class="divide-y divide-gray-200">
+          <% @forecast_updates.each do |forecast_update| %>
+            <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <%= link_to edit_admin_forecast_forecast_update_path(@forecast, forecast_update), class: "flex-1 min-w-0" do %>
+                  <div>
+                    <h3 class="text-base sm:text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                      <%= forecast_update.title %>
+                    </h3>
+                    <div class="mt-2 flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-gray-500">
+                      <span class="px-2 py-1 rounded-full text-xs font-medium <%= forecast_update.status == 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                        <%= forecast_update.status&.capitalize %>
+                      </span>
+                      <% if forecast_update.active? %>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          Active — expires <%= time_ago_in_words(forecast_update.valid_until) %> from now
+                        </span>
+                      <% elsif forecast_update.expired? %>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                          Expired
+                        </span>
+                      <% end %>
+                      <span class="text-xs text-gray-400">
+                        Authors: <%= forecast_update.authors %>
+                      </span>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="flex items-center gap-2 sm:gap-3 sm:ml-4">
+                  <%= button_to admin_forecast_forecast_update_path(@forecast, forecast_update),
+                      method: :delete,
+                      data: { turbo_confirm: "Are you sure you want to delete this update?" },
+                      class: "px-3 sm:px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors font-medium" do %>
+                    Delete
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="p-12 text-center">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">No updates yet</h3>
+          <p class="mt-1 text-sm text-gray-500">Create an update for this forecast.</p>
+          <div class="mt-6">
+            <%= link_to "New Update", new_admin_forecast_forecast_update_path(@forecast), class: "inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

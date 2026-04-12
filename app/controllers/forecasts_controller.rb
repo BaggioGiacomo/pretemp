@@ -6,6 +6,7 @@ class ForecastsController < ApplicationController
   end
 
   def show
+    @active_update = @forecast.active_update
   end
 
   private

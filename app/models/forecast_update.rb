@@ -38,7 +38,7 @@ class ForecastUpdate < ApplicationRecord
   private
 
     def set_defaults
-      self.status ||= "draft"
+      self.status ||= "published"
       self.valid_until ||= VALIDITY_HOURS.hours.from_now
     end
 end

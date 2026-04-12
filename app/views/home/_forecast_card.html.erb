@@ -1,11 +1,12 @@
 <% variant = local_assigns.fetch(:variant, nil) %>
-<%= link_to forecast_path(forecast), class: "card-storm-glow rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/60 p-4 md:p-5 flex flex-col gap-2 h-full hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
+<% has_update = forecast.active_update.present? %>
+<%= link_to forecast_path(forecast), class: "card-storm-glow rounded-2xl border #{has_update ? 'border-amber-500/30' : 'border-slate-800'} bg-slate-900/80 shadow-2xl shadow-slate-950/60 p-4 md:p-5 flex flex-col gap-2 h-full hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
   <div class="flex items-center justify-between gap-4">
     <p class="text-xs uppercase tracking-wide text-slate-500">
       <% if variant == :latest %>
-        Ultima previsione
+        Ultima <%= forecast.label.downcase %>
       <% else %>
-        Previsione
+        <%= forecast.label %>
       <% end %>
     </p>
     <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs text-nowrap font-semibold <%= case forecast.risk_level
@@ -23,6 +24,14 @@
       Pericolosità <%= forecast.risk_level_before_type_cast %>
     </span>
   </div>
+  <% if has_update %>
+    <div class="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/5 px-2.5 py-1.5">
+      <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <p class="text-[11px] text-amber-300 font-medium">Aggiornamento disponibile</p>
+    </div>
+  <% end %>
   <p class="text-sm font-semibold text-slate-100">
     <%= I18n.l(forecast.date, format: :long) if forecast.date %>
   </p>
@@ -36,7 +45,7 @@
     <% if forecast.image.attached? %>
       <%= image_tag forecast.image,
             class: "w-full h-auto rounded-md",
-            alt: "Mappa previsione del #{I18n.l(forecast.date, format: :long) if forecast.date}" %>
+            alt: "Mappa #{forecast.label.downcase} del #{I18n.l(forecast.date, format: :long) if forecast.date}" %>
     <% end %>
   </div>
   <div class="flex justify-end pt-2 flex-1 items-end">

@@ -1,5 +1,6 @@
 class Forecast < ApplicationRecord
   has_and_belongs_to_many :users
+  has_many :forecast_updates, dependent: :destroy
 
   has_rich_text :summary
   has_rich_text :body
@@ -20,8 +21,16 @@ class Forecast < ApplicationRecord
 
   DEFAULT_SUMMARY = "<div><!--block--><strong>PRETEMP è un gruppo di lavoro che si pone l'obiettivo di studiare e prevedere i fenomeni temporaleschi severi sul territorio italiano. PRETEMP NON EMETTE ALLERTE bensì previsioni probabilistiche sperimentali. PRETEMP inoltre svolge attività di raccolta di segnalazioni dei fenomeni severi avvenuti in collaborazione con l'associazione Meteonetwork e l'European Severe Storms Laboratory attraverso il database Storm Report al fine di verificare le previsioni emesse.&nbsp;<br><br>PER ALLERTAMENTO UFFICIALE AFFIDARSI SEMPRE AL DIPARTIMENTO DI PROTEZIONE CIVILE NAZIONALE.</strong></div>"
 
+  def tendenza?
+    date == Date.tomorrow
+  end
+
+  def label
+    tendenza? ? "Tendenza" : "Previsione"
+  end
+
   def title
-    "Previsione per il #{I18n.l(date, format: "%-d %B %Y")}"
+    "#{label} per il #{I18n.l(date, format: "%-d %B %Y")}"
   end
 
   # If there are any users, return their first name and second name as a sentence, otherwise return "Staff PRETEMP"
@@ -31,6 +40,14 @@ class Forecast < ApplicationRecord
 
   def body_preview
     body.to_plain_text.gsub("TESTO BREVE", "")
+  end
+
+  def active_update
+    forecast_updates.where(status: "published").where("valid_until > ?", Time.current).order(created_at: :desc).first
+  end
+
+  def self.today
+    find_by(date: Date.today)
   end
 
   private

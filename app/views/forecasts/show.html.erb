@@ -39,7 +39,7 @@
             else
               'bg-gray-100 text-gray-800 border-gray-300'
           end %>">
-          <%= "Pericolosità #{@forecast.risk_level_before_type_cast}" %>
+          Pericolosità <%= @forecast.risk_level_before_type_cast %>
         </span>
       </div>
       <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
@@ -51,6 +51,36 @@
         <p>Aggiornato il <%= I18n.l(@forecast.updated_at, format: :long) %></p>
       </div>
     </div>
+    <% if @active_update %>
+      <div class="forecast-section-divider" style="--divider-color: rgba(245,158,11,0.25);"></div>
+      <div class="px-6 md:px-10 py-6 bg-amber-500/5 border-l-4 border-amber-500/40">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-200">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Aggiornamento
+          </span>
+          <span class="text-[10px] text-slate-500">
+            Valido fino alle <%= I18n.l(@active_update.valid_until, format: :short) %>
+          </span>
+        </div>
+        <div class="prose prose-invert prose-base max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 prose-strong:text-slate-100 prose-p:my-3">
+          <%= @active_update.body %>
+        </div>
+        <% if @active_update.image.attached? %>
+          <div class="flex items-center justify-center bg-slate-950/30 p-4 mt-4 rounded-lg">
+            <%= image_tag @active_update.image,
+                  class: "w-full h-auto max-w-[600px] rounded-lg shadow-lg shadow-slate-950/50",
+                  alt: "Aggiornamento previsione" %>
+          </div>
+        <% end %>
+        <div class="flex items-center justify-between mt-3 text-[11px] text-slate-500">
+          <p><%= @active_update.authors %></p>
+          <p><%= time_ago_in_words(@active_update.created_at) %> fa</p>
+        </div>
+      </div>
+    <% end %>
     <% if @forecast.image.attached? %>
       <div class="forecast-section-divider" style="--divider-color: <%= case @forecast.risk_level
         when 'basso' then 'rgba(234,179,8,0.25)'
@@ -62,7 +92,7 @@
       <div class="flex items-center justify-center bg-slate-950/50 p-6 md:p-10">
         <%= image_tag @forecast.image,
               class: "w-full h-auto max-w-[800px] rounded-lg forecast-image-reveal shadow-lg shadow-slate-950/50",
-              alt: "Mappa previsione del #{I18n.l(@forecast.date, format: :long) if @forecast.date}" %>
+              alt: "Mappa #{@forecast.label.downcase} del #{I18n.l(@forecast.date, format: :long) if @forecast.date}" %>
       </div>
     <% end %>
     <div class="forecast-section-divider" style="--divider-color: <%= case @forecast.risk_level

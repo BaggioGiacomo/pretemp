@@ -58,7 +58,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :forecasts
+    resources :forecasts do
+      resources :forecast_updates, except: :show
+    end
 
     resources :radar_monitorings, except: :show
     resources :satellite_monitorings, except: :show

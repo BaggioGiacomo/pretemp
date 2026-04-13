@@ -28,4 +28,16 @@ class PagesController < ApplicationController
   def monitoraggio_radiosondaggi
     @radio_poll_monitorings = RadioPollMonitoring.ordered
   end
+
+  def progetto_storm_report
+  end
+
+  def guida_storm_report
+  end
+
+  def contatti
+  end
+
+  def pubblicazioni_scientifiche
+  end
 end

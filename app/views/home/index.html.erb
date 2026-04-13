@@ -1,5 +1,5 @@
 <section class="relative overflow-hidden border-b border-slate-800">
-  <%= image_tag "background.jpeg", class: "absolute inset-0 w-full h-full object-cover object-top scale-105", alt: "" %>
+  <%= image_tag "background.jpg", class: "absolute inset-0 w-full h-full object-cover object-top scale-105", alt: "" %>
   <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-slate-950/60 via-slate-950/50 to-slate-950"></div>
   <div class="relative max-w-6xl mx-auto px-4 py-10 md:py-20 grid gap-10 md:grid-cols-2 items-center">
     <div class="space-y-6">
@@ -8,11 +8,10 @@
       </p>
       <div class="space-y-3">
         <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">
-          Previsioni dedicate ai temporali intensi
+          Previsione Temporali Forti
         </h1>
         <p class="text-sm md:text-base text-slate-300 max-w-xl">
-          PRETEMP fornisce previsioni probabilistiche del rischio di fenomeni temporaleschi intensi
-          su scala nazionale, con particolare attenzione alle situazioni potenzialmente pericolose.
+          PRETEMP fornisce previsioni probabilistiche della pericolosità di temporali forti in Italia, con particolare attenzione per grandinate, tornado, raffiche di vento e precipitazioni intense di origine temporalesca
         </p>
       </div>
       <div class="flex flex-wrap gap-3">
@@ -26,6 +25,7 @@
       <%= render "forecast_card", forecast: @latest_forecast, variant: :latest %>
     </div>
   </div>
+  <span class="absolute bottom-2 left-4 text-[10px] text-slate-500/70">Credits foto: Luca Vezzosi</span>
 </section>
 <div class="storm-divider max-w-6xl mx-auto"></div>
 <section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
@@ -74,7 +74,9 @@
     <p class="text-sm text-slate-300 mx-4">
       STORM REPORT è un progetto PRETEMP-METEONETWORK che si pone l'obiettivo di archiviare le segnalazioni relative a temporali forti in Italia. Questi dati risultano molto importanti per studi climatologici, validare previsioni e allenare modelli di machine learning. Dall'estate 2019 PRETEMP collabora con l'European Severe Storms Laboratory (ESSL) inviando le segnalazioni anche all'European Severe Weather Database (ESWD).  Al momento le associazioni e i singoli osservatori che supportano questo progetto sono riportati nella pagina dedicata, chiunque volesse diventare volontario o proporre la collaborazione di associazioni è invitato a scriverci (vedi contatti)!
       Inoltre, PRETEMP classifica i tornado che si verificano in Italia utilizzando la scala International Fujita proposta da ESSL.
-      <span class="block mt-2 text-lg font-bold text-white">Come citare l’utilizzo dei dati dello Storm Report:</span>
+    </p>
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Come citare l’utilizzo dei dati dello Storm Report</h2>
+    <p class="text-sm text-slate-300 mx-4">
       De Martin, F., Carlon, N., Pavan, F., Carpentari, S., Giazzi, M., Peressutti, G., Miglietta, M. M., and Davolio, S.: Toward a dedicated warning system of severe storms in Italy: the PRETEMP project, 11th European Conference on Severe Storms, Bucharest, Romania, 8–12 May 2023, ECSS2023-18, <a href="https://doi.org/10.5194/ecss2023-18" class="text-blue-500 underline">https://doi.org/10.5194/ecss2023-18</a>, 2023
     </p>
   </div>

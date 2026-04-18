@@ -1,0 +1,236 @@
+<section class="relative overflow-hidden border-b border-slate-800">
+  <%= image_tag "background.jpg", class: "absolute inset-0 w-full h-full object-cover object-top scale-105", alt: "" %>
+  <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-slate-950/60 via-slate-950/50 to-slate-950"></div>
+  <div class="relative max-w-6xl mx-auto px-4 py-10 md:py-20 grid gap-10 md:grid-cols-2 items-center">
+    <div class="space-y-6">
+      <p class="inline-flex items-center rounded-full border border-sky-500/40 bg-slate-950/70 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm shadow-sky-500/20">
+        STORMREPORT
+      </p>
+      <div class="space-y-3">
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">
+          Guida alla segnalazione e criteri di validazione
+        </h1>
+        <p class="text-sm md:text-base text-slate-300 max-w-xl">
+          Con questo documento si vanno a descrivere gli eventi temporaleschi da inserire nel database StormReport (MeteoNetwork) che dal 2018 PRETEMP gestisce allo scopo di raccogliere gli effetti di eventi convettivi sul territorio italiano, anche come base per la validazione delle previsioni probabilistiche redatte dal team. Dal 2019 in poi PRETEMP ha iniziato una collaborazione con l’ESSL (European Severe Storms Laboratory) tramite l’invio delle segnalazioni degli eventi più severi al loro ESWD (European Severe Weather Database), di cui verranno brevemente inseriti estratti e criteri così anche da informare i segnalatori di cosa verrà inviato al database europeo.
+        </p>
+        <p class="text-sm md:text-base text-slate-300 max-w-xl">
+          Evento per evento, verranno illustrati gli elementi da inserire in modo da avere una segnalazione più completa e corretta possibile, questo sia per far imparare ai nuovi segnalatori come agire e sia come reminder su cosa fare per i segnalatori veterani che collaborano con PRETEMP.
+        </p>
+      </div>
+    </div>
+    <div class="md:pl-8">
+      <%= image_tag "guida_storm_report/mappa.png", class: "rounded-xl w-full", alt: "Mappa Storm Report" %>
+    </div>
+  </div>
+  <span class="absolute bottom-2 left-4 text-[10px] text-slate-500/70">Credits foto: Luca Vezzosi</span>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">In generale</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Per tutte le segnalazioni ci sono delle informazioni basilari necessarie per poter ritenere valido il report, quali DATA, ORA (più precisa è, meglio è; se sconosciuta, è consigliato l’utilizzo di immagini radar archiviate al sito di meteologix.com e/o dati forniti dalle stazioni meteorologiche, ad esempio delle ARPA regionali o della rete MeteoNetwork), <span class="underline">REGIONE</span> E <span class="underline">COMUNE</span> (lista aggiornata al 2007). 
+      </div>
+      <%= image_tag "guida_storm_report/nuovo_report.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Viene inoltre richiesto di fornire le coordinate di dove si è verificato un dato evento tramite individuazione sulla mappa a destra (basta ricercare il nome del luogo nell’apposita barra di ricerca sottostante o cercarlo direttamente in mappa e cliccarci sopra).
+        <br />
+        <br />
+        N.B.: Per alcune località potrebbe essere necessario fornire più informazioni (provincia o regione di appartenenza).
+        <br />
+        <br />
+        Viene inoltre richiesta in maniera non obbligatoria la località precisa di osservazione dell’evento se nota; questa può essere una frazione, una contrada, un quartiere, una via... In caso un singolo evento coinvolga tutto il territorio comunale, è più che sufficiente fornire solo quello senza inserire molteplici segnalazioni per le singole località di quello stesso Comune coinvolte (un’eccezione è, ad esempio, con un evento di grandine durante il quale può capitare che una parte del Comune coinvolto veda chicchi da 2-3 cm di diametro ed un’altra ne veda fino a 9-10 cm). Se dovessero essercene, è utile (seppur non piacevole) inserire anche il numero di morti e feriti causati da un evento. Per questioni di analisi statistiche soprattutto da parte dell’ESSL, torna altrettanto utile riportare nelle note aggiuntive età e circostanze delle persone rimaste coinvolte (questo ovviamente quando note ed i numeri sono contenuti per ovvi motivi) o risultanti disperse. Altra cosa ben accetta da riportare nelle note aggiuntive è un breve resoconto scritto di eventuali danni osservati.
+        Tutte le segnalazioni inoltre sono modificabili ed aggiornabili sotto ogni aspetto in qualsiasi momento (eventualmente si può segnalare per iscritto quando la segnalazione è da aggiornare), eccezione fatta per il tipo di evento, cosa per la quale è necessario inserire una nuova segnalazione ed eventualmente comunicare ai gestori quale sia da eliminare per la sostituzione (es. un evento segnalato come funnel, per essere sostituito da una segnalazione di tornado dopo aver trovato prove a supporto, deve per forza essere eliminato e deve essere fatta una segnalazione di tornado).
+        Infine, per tutte le segnalazioni è <span class="underline">obbligatorio</span> l’inserimento di una fonte. Questa può essere uno o più link (articoli online, post da Facebook/Instagram/altri social, tweet, video di YouTube…), immagini in formato JPEG (fotografia dell’evento, frame di un video; possibilità di inserirne fino a 3 per aggiornamento del report) e/o un piccolo documento. La fonte deve <span class="underline">sempre</span> mostrare l’evento avvenuto. In caso manchi, i validatori possono provvedere ad inserirle loro stessi, ma ciò non è sempre garantito.
+      </div>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Tornado</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <%= image_tag "guida_storm_report/tornado.jpg", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Per rendere valida la segnalazione di un evento tornadico, è necessario fornire almeno una fonte che riporti il vortice osservato (nube a imbuto e/o nube di detriti, per cui sono presenti due appositi riquadri) o un’analisi di eventuali danni documentati che confermi l’evento come tale. Per eventuali danni è bene riportare almeno una fonte anche per quelli (eventualmente nuove fonti possono essere aggiunte man mano che vengono pubblicate). Se disponibili, sono ben accetti anche dati di durata, dimensione e lunghezza del percorso al suolo. Se in grado, è possibile fornire nelle note aggiuntive della segnalazione una stima dell’intensità del tornado su <span class="underline">scala Fujita</span> (solo i gestori hanno a disposizione l’apposito riquadro nella figura sovrastante e la classificazione viene comunque revisionata mediante scala International Fujita).
+      </div>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Funnel</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <%= image_tag "guida_storm_report/funnel.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Una segnalazione di <span class="italic">funnel cloud</span> (nube a imbuto) è per tutti gli eventi riguardanti formazioni nuvolose a forma di cono o proboscide con evidente rotazione ma nessun contatto con il suolo evidente o documentato. Generalmente, se la nube a imbuto non si estende per oltre il 50% della distanza tra base della nube ed il suolo (o lo fa ma non raggiunge il 90% <span class="underline">E</span> non ci sono documentazioni di una circolazione a terra o danni, salvo casi particolari) è da considerare come tale e <span class="underline">non</span> come tornado. Questo vale sia per fenomeni sulla terraferma che sul mare. Anche qui può tornare utile conoscere la durata del fenomeno e se effettivamente ha mantenuto la sua rotazione per almeno un minuto. Si consiglia di documentarsi sulle differenze tra nubi a imbuto vere e proprie e fractocumuli dalla forma ambigua (es. da fenomenitemporaleschi.it o dal libro Temporali e Tornado). Questo tipo di segnalazione non viene inviata all’ESWD.
+      </div>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Tromba marina</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <%= image_tag "guida_storm_report/tromba_marina.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Segnalando come tromba marina, si vanno ad inserire tutti gli eventi tornadici osservati su specchi d’acqua, sia mesociclonici che misociclonici. In caso di <span class="italic">landfall</span> (approdo) è possibile inserire la cosa nell’apposito riquadro e con associata documentazione tramite le fonti; questo torna utile in fase di analisi dei dati per capire quante trombe marine siano contabili come tornado. Per segnalare un evento come tromba marina è necessario (come nel caso delle trombe terrestri) che sia documentata la nube a imbuto ma specialmente il punto di contatto con la superficie marina, che può essere la nube d’acqua sollevata dal vortice o una cosiddetta <span class="italic">“dark spot”</span>, una macchia scura che si presenta sotto ad un funnel cloud specialmente nelle prime fasi di vita di una tromba marina. Se si osserva la dark spot, l’evento è catalogabile come tromba marina. Vengono allegati degli esempi qui sotto.
+        Se la tromba marina si spinge per alcuni chilometri in terraferma e soprattutto se questa risulta particolarmente intensa o di natura mesociclonica (es. tornado di Ladispoli - Cesano del 06/11/2016), è suggerita una segnalazione come tornado, eventualmente riportando nelle note aggiuntive l’origine in mare. Nel caso di tromba marina con landfall verificato, non è possibile nemmeno ai gestori l’inserimento di un grado d’intensità (questo sarà fatto nel database europeo), perciò torna molto utile anche qui un’eventuale descrizione di danni e/o una stima dell’intensità su scala F/IF.
+      </div>
+      <%= image_tag "guida_storm_report/esempi_tromba_marina.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Grandine</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <%= image_tag "guida_storm_report/grandine.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Gli eventi di grandine comprendono tutti gli eventi di precipitazione grandinigena: questo <span class="underline">NON</span> comprende precipitazioni ghiacciate di natura invernale (neve, graupel, <span class="underline">ice pellets</span>/pioggia congelata). Possono essere fatte delle eccezioni nel caso di precipitazioni abbondanti di graupel di natura convettiva e con presenza documentata di effettivi chicchi di grandine nella precipitazione. Nelle note aggiuntive deve essere specificata la presenza di graupel.
+        Se la grandine si accumula al suolo, deve venir indicato (è ben accetta una misurazione dell’accumulo tramite appositi strumenti, specie se importante e non di 1-2 cm), se possibile anche con durata. Può essere indicato se la grandinata è avvenuta durante un rovescio di pioggia o no. 
+        La cosa più importante è inserire <span class="underline">una misura</span> lungo la direzione con la lunghezza maggiore del chicco più grande riscontrato (eventuali lobi inclusi): meglio se una misura effettuata con appositi strumenti (calibri, righelli, squadre, metri da sarta o da bricolage…), accettabile se ottenuta da una stima tramite confronto con dimensioni di altri oggetti dalle dimensioni note o facilmente reperibili (esempio riportato sotto e tabella di oggetti accettati). È accettabile anche una stima rispetto a mani, di cui viene riportata una scala realizzata dall’ESSL. <span class="underline">Non</span> vanno utilizzati oggetti di dimensioni variabili e/o dalle dimensioni ignote (es. piatti, secchi, ciotole, tavoli, cibo, animali…). Si può fornire una stima tramite il corrispettivo riquadro della segnalazione (da cui poi potrà essere valutata la stima della dimensione effettiva). In caso di dimensioni misurate tramite apposito strumento, per la segnalazione è sufficiente un’approssimazione alla prima cifra decimale. Infine, è fondamentale allegare la fonte da cui si vede il chicco con la massima dimensione misurata/stimata. Molto gradite sono eventuali informazioni sul peso dei chicchi di grandine.
+        Opzionale è l’inserimento della forma dei chicchi (sferica, irregolare, con lobi o discoidale) e la consistenza degli stessi (dura o molle, la seconda è spesso usata per le situazioni in cui i chicchi sono misti a graupel e/o gragnola).
+        All’ESWD vengono inviate SOLO le segnalazioni di grandine severa (almeno 2 cm in base alle indicazioni dell’ESSL), mentre nello StormReport possono essere inviate anche segnalazioni di grandine non severa (anche per ragioni di studio tra situazioni risultanti in grandine sub-severa ed altre che producono grandine severa). In generale possono essere riportate informazioni secondo questa scala: grandine piccola (al massimo di 2 cm), grandine media (severa, dai 2 ai 5 cm), grandine grossa (molto severa/<span class="italic">very large</span>, di almeno 5 cm) o gigante (almeno 10 cm). Altro criterio che consente l’invio all’ESWD è se l’eventuale accumulo di grandine anche non severa comporta conseguenze per la popolazione (es. strade impraticabili, distruzione di coltivazioni).
+      </div>
+      <%= image_tag "guida_storm_report/chicchi_grandine_bic.jpg", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="text-sm text-slate-500 italic text-center">
+        Confronto tra chicchi di grandine ed un accendino BIC: l'accendino in questione misura 6.3 cm in altezza; da pagina FB Meteo Novara e Provincia
+      </div>
+      <%# Let's add a 2 columns table with these headers: "Oggetto" and "Dimensione" %>
+      <div class="overflow-x-auto">
+        <table class="w-full md:w-1/2 mx-auto text-left text-sm text-slate-300">
+          <thead class="text-xs uppercase text-slate-500 bg-slate-800/50">
+            <tr>
+              <th scope="col" class="px-6 py-3">Oggetto</th>
+              <th scope="col" class="px-6 py-3">Dimensione</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Moneta da 10 centesimi di euro</td>
+              <td class="px-6 py-4">1.97 cm (stima di 2 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Moneta da 20 centesimi di euro</td>
+              <td class="px-6 py-4">2.23 cm (stima di 2 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Moneta da 1 euro</td>
+              <td class="px-6 py-4">2.33 cm (stima di 2.5 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Moneta da 50 centesimi di euro</td>
+              <td class="px-6 py-4">2.43 cm (stima di 2.5 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Moneta da 2 euro</td>
+              <td class="px-6 py-4">2.58 cm (stima di 2.5 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Pallina da ping pong</td>
+              <td class="px-6 py-4">4 cm</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Pallina da golf</td>
+              <td class="px-6 py-4">4.27 cm (stima di 4-4.5 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Palla da biliardo</td>
+              <td class="px-6 py-4">6.15-6.32 cm (stima di 6-6.5 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Palla da tennis</td>
+              <td class="px-6 py-4">6.54-6.86 cm (stima di 6.5-7 cm)</td>
+            </tr>
+            <tr class="border-b border-slate-700/50">
+              <td class="px-6 py-4">Palla da baseball</td>
+              <td class="px-6 py-4">7.5 cm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <%= image_tag "guida_storm_report/chicchi_grandine_mano.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="text-sm text-slate-500 italic text-center">
+        Stime dell’ESSL di dimensioni di chicchi di grandine rispetto alla mano di un uomo adulto (stima di 0.5-1 cm in meno per mani di donna)
+      </div>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Vento forte</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <%= image_tag "guida_storm_report/vento.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Con questi report vanno segnalati eventi legati a forti raffiche di vento lineari e loro eventuali danni. <span class="underline">NON</span> verranno accettate segnalazioni di raffiche di vento la cui natura non è convettiva (diavoli di polvere e raffiche di vento sinottiche e quel che ne potrebbe seguire come mareggiate). Il limite minimo è di 65 km/h, ma possono essere inseriti danni causati da venti convettivi anche inferiori (coperture di strutture danneggiate o alberi caduti); è possibile inserire il range di velocità del vento stimata o misurata tramite l’apposito riquadro ed è ben accetto il riportare nelle note aggiuntive la velocità del vento precisa quando misurata.
+        Risulta utile anche indicare se il fenomeno è un downburst o meno, questo anche con lo scopo di distinguere eventi di downburst/macroburst/microburst da eventi come forti raffiche di outflow in uscita da un temporale e/o gustnado. Queste segnalazioni servono anche ad archiviare eventuali danni da vento dubbi e potenzialmente tornadici (ma dei quali non esistono prove concrete che dimostrino il verificarsi di un evento vorticoso). <span class="underline">UNA SEGNALAZIONE DI DANNI DA VENTO SENZA PROVE CONCRETE CHE DIMOSTRINO LA NATURA TORNADICA DEGLI STESSI NON VERRÀ ACCETTATA</span>, se non appunto come segnalazione di danni da vento (in tal caso è comunque importante riportare nelle note aggiuntive che l’evento potrebbe essere stato un tornado). Come per i funnel, se successivamente vengono pubblicate prove a supporto dell’evento vorticoso, la segnalazione può venir sostituita in seguito. Per catalogare un evento come raffiche di vento lineari o tornado è necessario conoscere la differenza tra i due, perciò si rimanda a <a class="underline text-sky-300" href="mailto:fe@fenomenitemporaleschi.it">fenomenitemporaleschi.it</a> ed il libro <span class="italic">Temporali e Tornado</span>. Viene comunque presentato un rapido esempio per individuare la differenza tra i due eventi.
+      </div>
+      <%= image_tag "guida_storm_report/paragone_danni.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="text-sm text-slate-500 italic text-center">
+        Paragone tra danni da downburst a sinistra e danni da tornado a destra - Google Earth
+      </div>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        All’ESWD vengono inviate le segnalazioni di venti misurati di almeno 25 m/s (90 km/h) o con danni alle infrastrutture (tetti danneggiati, alberi caduti su veicoli o su strade/ferrovie) e/o alle persone. Raffiche di vento sopra i 93 km/h sono definibili severe secondo i criteri del NWS statunitense.
+      </div>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Precipitazioni</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <%= image_tag "guida_storm_report/precipitazioni.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Come per il vento, le segnalazioni relative ad eventi precipitativi valgono unicamente per fenomeni derivanti da convezione e non da nuvolosità stratiforme (esiste il riquadro di inserimento per la natura, ma il criterio – attualmente in revisione – è proprio la natura convettiva del fenomeno).
+        Le due informazioni base da inserire sono l’accumulo misurato in mm (al massimo una cifra decimale) e la durata della precipitazione in minuti (quest’ultima può essere misurata insieme all’accumulo dalla stazione meteo o si può ricavare tramite immagini radar). <span class="underline">Come orario principale della segnalazione va inserito quello di <em>rain rate</em> massimo O quello di fine evento</span>, anche se stimato da radar dove necessario. Può essere accettata una segnalazione con solo la durata, ma se viene riportato l’accumulo DEVE esserci anche la durata (che non deve superare le 24 ore). Nel caso peggiore si lasciano vuoti entrambi i campi. Se presente, è ben accetto il dato del <em>rain rate</em> massimo misurato e a che ora questo si è verificato. Infine possono essere indicati gli effetti dell’evento (allagamenti ed eventi franosi) nei rispettivi riquadri. Tra le fonti è ben accetto l’inserimento di un’immagine in JPEG dell’eventuale grafico che presenti l’evento precipitativo in questione.
+        Sempre come per il vento, all’ESWD verranno inviati i report con impatti per la popolazione (strade impercorribili, piani sotterranei o terra allagati) senza accumulo misurato o eventi precipitativi che rispettino il seguente grafico in termini di accumulo e durata (almeno sopra la linea rossa).
+      </div>
+      <%= image_tag "guida_storm_report/rain_threshold.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12 border-b border-slate-800">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Attività elettrica</h2>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <%= image_tag "guida_storm_report/attivita_elettrica.png", class: "rounded-xl card-storm-glow w-full max-w-full md:max-w-1/2 mx-auto" %>
+      <div class="prose prose-invert prose-lg max-w-prose mx-auto text-slate-300 leading-relaxed prose-headings:text-slate-100 prose-a:text-sky-300 hover:prose-a:text-sky-200 prose-strong:text-slate-100 prose-p:my-5">
+        Queste segnalazioni hanno l’obiettivo di raccogliere eventi particolarmente intensi di fulminazioni e/o danni causati da scariche elettriche convettive. È possibile inserire il numero stimato di fulmini osservati al minuto ed il tempo minimo trascorso tra due scariche, indicando quindi anche l’intensità dell’evento.
+        Per quanto riguarda l’invio di queste segnalazioni all’ESWD, ciò non è ancora implementato direttamente dallo StormReport, ma l’invio di una segnalazione di danni a cose e/o persone da parte di fulmini riceverà l’attenzione dei gestori ed eventualmente, se necessario, verrà fatta una segnalazione direttamente sul database europeo con le informazioni fornite.
+      </div>
+    </div>
+  </div>
+</section>
+<div class="storm-divider max-w-6xl mx-auto"></div>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
+  <div class="grid gap-10 md:grid-cols-2">
+    <div class="space-y-4">
+      <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Contatti</h2>
+      <p class="text-sm text-slate-400">Per domande, chiarimenti o altre richieste riguardo quanto riportato, contattare ai seguenti indirizzi:</p>
+      <ul class="space-y-2 text-sm">
+        <li><a href="mailto:info@pretemp.it" class="text-sky-300 hover:text-sky-200 transition-colors">info@pretemp.it</a></li>
+        <li><a href="mailto:previsione.temporali@gmail.com" class="text-sky-300 hover:text-sky-200 transition-colors">previsione.temporali@gmail.com</a></li>
+        <li><a href="mailto:nicola.carlon@pretemp.it" class="text-sky-300 hover:text-sky-200 transition-colors">nicola.carlon@pretemp.it</a></li>
+        <li><a href="mailto:federico.pavan@pretemp.it" class="text-sky-300 hover:text-sky-200 transition-colors">federico.pavan@pretemp.it</a></li>
+      </ul>
+    </div>
+    <div class="space-y-4">
+      <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Fonti esterne</h2>
+      <ul class="space-y-2 text-sm">
+        <li><a href="https://www.weather.gov" target="_blank" rel="noopener noreferrer" class="text-sky-300 hover:text-sky-200 transition-colors">National Weather Service (NWS) – NOAA</a></li>
+        <li><a href="https://www.essl.org/cms" target="_blank" rel="noopener noreferrer" class="text-sky-300 hover:text-sky-200 transition-colors">ESSL – European Severe Storms Laboratory</a></li>
+        <li><a href="https://www.essl.org/cms/european-severe-weather-database/reporting/" target="_blank" rel="noopener noreferrer" class="text-sky-300 hover:text-sky-200 transition-colors">Criteri ESWD</a></li>
+        <li><a href="https://www.essl.org/cms/wp-content/uploads/20210121-ESWD_criteria.pdf" target="_blank" rel="noopener noreferrer" class="text-sky-300 hover:text-sky-200 transition-colors">Come segnalare all'ESWD</a></li>
+        <li><a href="https://www.essl.org/cms/wp-content/uploads/ESSL_hail_size_comparisons.pdf" target="_blank" rel="noopener noreferrer" class="text-sky-300 hover:text-sky-200 transition-colors">Stima dimensioni per la grandine (ESSL)</a></li>
+      </ul>
+    </div>
+  </div>
+</section>

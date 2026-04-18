@@ -27,6 +27,11 @@ Rails.application.routes.draw do
   get "monitoraggio/stazioni_meteo" => "pages#monitoraggio_stazioni_meteo", as: :monitoraggio_stazioni_meteo
   get "monitoraggio/radiosondaggi" => "pages#monitoraggio_radiosondaggi", as: :monitoraggio_radiosondaggi
 
+  get "progetto_storm_report" => "pages#progetto_storm_report", as: :progetto_storm_report
+  get "guida_storm_report" => "pages#guida_storm_report", as: :guida_storm_report
+  get "contatti" => "pages#contatti", as: :contatti
+  get "pubblicazioni_scientifiche" => "pages#pubblicazioni_scientifiche", as: :pubblicazioni_scientifiche
+
   resources :forecasts, path: "previsioni", only: [ :index, :show ]
 
   resources :articles, path: "blog", only: [ :index, :show ]

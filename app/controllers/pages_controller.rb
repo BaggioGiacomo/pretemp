@@ -40,4 +40,7 @@ class PagesController < ApplicationController
 
   def pubblicazioni_scientifiche
   end
+
+  def report_tecnici
+  end
 end

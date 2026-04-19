@@ -1,0 +1,53 @@
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
+  <div class="mb-10 md:mb-14 text-center">
+    <div class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/60 px-3 py-1 text-[11px] font-medium text-sky-300 mb-4">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>
+      Documentazione
+    </div>
+    <h1 class="text-2xl md:text-4xl font-bold tracking-tight">Report Tecnici</h1>
+    <p class="mt-3 text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+      Raccolta di report tecnici, casi studio e analisi meteorologiche realizzati dal gruppo PRETEMP.
+    </p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+    <%
+      reports = [
+        { title: "Report eventi temporaleschi 21 e 24 luglio 2025 in Veneto e FVG", file: "/report_tecnici/report_21_24_luglio_2025.pdf" },
+        { title: "Report meteo naufragio nei pressi di Porticello del 19 agosto 2024", file: "/report_tecnici/report_naufragio.pdf" },
+        { title: "Festival della Meteorologia 2021 — Grandinate estreme in Pianura Padana: l'estate 2021 e possibili scenari da impatto dei cambiamenti climatici (Pierluigi Randi)", file: "/report_tecnici/pres_grandine_randi.pdf" },
+        { title: "Appunti conferenze ESSL: \"Afternoons with Convection\"", file: "/report_tecnici/appunti_essl.pdf" },
+        { title: "Resoconto Database Storm Report — Anno 2020 — PRETEMP — Meteonetwork — ESWD", file: "/report_tecnici/resoconto_storm_report_2020.pdf" },
+        { title: "Radiosondaggi di prossimità di temporali ordinari, forti ed estremi in Italia — 25 agosto 2020", file: "/report_tecnici/studio_proximity_soudings_2020.pdf" },
+        { title: "Storm Report — Le segnalazioni temporalesche in Italia", file: "/report_tecnici/003_nec_carpentari.pdf" },
+        { title: "Il Downburst — Di Valentina Abinanti, Nicola Carlon, Francesco De Martin, Alberto Gobbi, Marco Rabito, Pierluigi Randi, Davide Rosa", file: "/report_tecnici/downburst.pdf" },
+        { title: "Caso studio 27 luglio 2016 Verona", file: "/report_tecnici/analisi_temporale_verona_2016.pdf" },
+        { title: "Caso studio 13 luglio 2016 — L'errore nella previsione dei temporali", file: "/report_tecnici/studio13072016.pdf" },
+        { title: "Analisi anomalie dell'attività temporalesca tra Nord Italia e Europa Centrale nei mesi di gennaio e febbraio 2016", file: "/report_tecnici/analisi_anomalie_gennaio_febbraio_2016.pdf" },
+        { title: "Caso studio 19 maggio 2015 Veronese", file: "/report_tecnici/relazione_meteo.pdf" },
+      ]
+    %>
+    <% reports.each do |report| %>
+      <a href="<%= report[:file] %>" target="_blank" rel="noopener noreferrer"
+         class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 md:p-6 shadow-2xl shadow-slate-950/60 hover:border-sky-500/60 hover:bg-slate-900 transition-colors flex items-start gap-4">
+        <div class="shrink-0 mt-0.5 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 group-hover:bg-sky-500/20 group-hover:text-sky-300 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h2 class="text-sm md:text-base font-semibold text-slate-100 group-hover:text-white transition-colors leading-snug">
+            <%= report[:title] %>
+          </h2>
+          <span class="mt-2 inline-flex items-center gap-1 text-xs text-sky-400 group-hover:text-sky-300 transition-colors">
+            Apri PDF
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+    <% end %>
+  </div>
+</section>

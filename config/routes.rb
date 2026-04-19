@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get "guida_storm_report" => "pages#guida_storm_report", as: :guida_storm_report
   get "contatti" => "pages#contatti", as: :contatti
   get "pubblicazioni_scientifiche" => "pages#pubblicazioni_scientifiche", as: :pubblicazioni_scientifiche
+  get "report_tecnici" => "pages#report_tecnici", as: :report_tecnici
 
   resources :forecasts, path: "previsioni", only: [ :index, :show ]
 

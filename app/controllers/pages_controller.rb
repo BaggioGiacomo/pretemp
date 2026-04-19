@@ -43,4 +43,7 @@ class PagesController < ApplicationController
 
   def report_tecnici
   end
+
+  def validazioni
+  end
 end

@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get "pubblicazioni_scientifiche" => "pages#pubblicazioni_scientifiche", as: :pubblicazioni_scientifiche
   get "report_tecnici" => "pages#report_tecnici", as: :report_tecnici
   get "validazioni" => "pages#validazioni", as: :validazioni
+  get "come_leggere_la_previsione" => "pages#come_leggere_la_previsione", as: :come_leggere_la_previsione
+  get "significato_delle_sigle" => "pages#significato_delle_sigle", as: :significato_delle_sigle
 
   resources :forecasts, path: "previsioni", only: [ :index, :show ]
 

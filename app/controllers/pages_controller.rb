@@ -46,4 +46,10 @@ class PagesController < ApplicationController
 
   def validazioni
   end
+
+  def come_leggere_la_previsione
+  end
+
+  def significato_delle_sigle
+  end
 end

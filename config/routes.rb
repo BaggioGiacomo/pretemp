@@ -79,6 +79,10 @@ Rails.application.routes.draw do
 
     resources :articles
 
+    resources :template_categories, except: :show do
+      resources :templates, except: :show
+    end
+
     resources :invitations, only: [ :index, :new, :create, :destroy ]
 
     resource :profile, only: [ :edit, :update ], controller: "profile" do

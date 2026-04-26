@@ -78,7 +78,9 @@
         </thead>
         <tbody class="divide-y divide-slate-800">
           <tr class="bg-slate-950/50 hover:bg-slate-900/50 transition">
-            <td class="px-4 py-3 font-medium text-slate-100">Tendenza</td>
+            <td class="px-4 py-3 font-medium text-slate-100">
+              <%= link_to "Tendenza", bollettino_path, class: "text-sky-300 hover:text-sky-200 underline" %>
+            </td>
             <td class="px-4 py-3 text-slate-300">48-72 h</td>
             <td class="px-4 py-3 text-slate-400">Prima idea su zone che potrebbero essere più colpite dai temporali forti. Viene emessa solo se sono attesi dei temporali forti.</td>
             <td class="px-4 py-3 text-slate-400">Modelli globali + primi modelli ad area limitata (LAM)</td>

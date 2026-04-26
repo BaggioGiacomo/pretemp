@@ -36,6 +36,10 @@ Rails.application.routes.draw do
   get "come_leggere_la_previsione" => "pages#come_leggere_la_previsione", as: :come_leggere_la_previsione
   get "significato_delle_sigle" => "pages#significato_delle_sigle", as: :significato_delle_sigle
 
+  get "aggiornamento" => "pages#aggiornamento", as: :aggiornamento
+  get "bollettino" => "pages#bollettino", as: :bollettino
+
+
   resources :forecasts, path: "previsioni", only: [ :index, :show ]
 
   resources :articles, path: "blog", only: [ :index, :show ]

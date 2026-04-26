@@ -1,0 +1,61 @@
+<section class="relative overflow-hidden border-b border-slate-800">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(99,102,241,.20),transparent_50%),radial-gradient(ellipse_at_bottom_right,rgba(234,179,8,.12),transparent_50%)]"></div>
+  <div class="relative max-w-5xl mx-auto px-4 py-10 md:py-20">
+    <div class="max-w-3xl space-y-5">
+      <p class="inline-flex items-center rounded-full border border-indigo-500/40 bg-slate-950/70 px-3 py-1 text-xs font-medium text-indigo-200 shadow-sm shadow-indigo-500/20">
+        <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        Guida alla lettura
+      </p>
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight section-heading-accent">
+        Aggiornamento
+      </h1>
+      <p class="text-sm md:text-base text-slate-300 max-w-2xl">
+        L'aggiornamento viene emesso poche ore prima dell'inizio dei temporali forti (generalmente tra le 2 e le 6 ore prima) in base agli ultimi aggiornamenti dei <span class="text-slate-200 font-medium">Rapid Update Cycle (RUC) models</span> e in base alle osservazioni (stazioni meteo, radiosondaggi, radar e satelliti).
+      </p>
+    </div>
+  </div>
+</section>
+<section class="max-w-5xl mx-auto px-4 py-12 md:py-16">
+  <div class="space-y-8">
+    <div class="prose prose-sm prose-invert max-w-none text-sm text-slate-400 leading-relaxed space-y-4">
+      <p>
+        Nell'aggiornamento viene evidenziata in verde un'area (come nell'esempio di seguito per la Sicilia Meridionale) su cui vengono stimate le probabilità di verificarsi dei fenomeni associati ai temporali forti. Sono utilizzate <span class="text-slate-200 font-medium">4 classi di probabilità</span>:
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-yellow-500/30 bg-yellow-500/10 px-3 py-1 text-xs font-medium text-yellow-200">
+          <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+          Molto bassa (&lt;20%)
+        </span>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-1 text-xs font-medium text-orange-200">
+          <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+          Bassa (20%)
+        </span>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-medium text-red-200">
+          <span class="w-2 h-2 rounded-full bg-red-400"></span>
+          Media (50%)
+        </span>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-200">
+          <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+          Alta (70%)
+        </span>
+      </div>
+      <p>
+        Ciascuna probabilità è riferita al verificarsi di <span class="text-slate-200 font-medium">10 segnalazioni</span> di grandine con diametri &lt;5 cm (cioè grandinate diffuse ma non molto grosse), o 10 segnalazioni di forti piogge (allagamenti diffusi ma non gravi), 10 danni da raffiche di vento lineari con intensità stimata o misurata &lt;120 km/h (estesi danni da vento non gravi) o al verificarsi di un tornado di grado &lt;EF1.
+      </p>
+      <p>
+        Le stesse probabilità vengono anche usate per quantificare il possibile verificarsi di fenomeni causati da <span class="text-slate-200 font-medium">temporali molto forti</span>, come 1 episodio di grandine con diametro &gt;5 cm di diametro (grandine molto grossa), 1 episodio di raffiche di vento &gt;120 km/h (gravi danni da vento), 1 alluvione lampo o un tornado intenso di grado &gt;EF1.
+      </p>
+      <p>
+        La tabella sottostante la cartina viene usata per indicare queste probabilità, che ripetiamo, sono riferite solo all'area evidenziata in verde in cartina.
+      </p>
+    </div>
+    <div class="rounded-2xl border border-dashed border-slate-700 bg-slate-900/40 p-4 md:p-8 space-y-3">
+      <div class="flex items-center justify-center">
+        <%= image_tag "aggiornamento/esempio_aggiornamento.png", alt: "Esempio di aggiornamento – Sicilia Meridionale", class: "max-w-full h-auto rounded-xl shadow-lg shadow-slate-950/50" %>
+      </div>
+      <p class="text-center text-xs text-slate-500 italic max-w-lg mx-auto mt-4">
+        Esempio di un aggiornamento emesso il 15 ottobre 2025 per la Sicilia: viene giudicata una probabilità media per 1 alluvione lampo, 10 episodi di piogge intense  e 10 danni da raffiche di vento lineari di intensità &lt;120 km/h. Una probabilità bassa è attribuita per raffiche di vento &gt;120 km/h, tornado deboli (&lt;EF1) e grandine (&lt;5 cm di diametro). La probabilità è giudicata molto bassa per tornado di grado &gt;= EF1 e per grandine di &gt;= 5 cm di diametro.
+      </p>
+    </div>
+  </div>
+</section>

@@ -52,4 +52,10 @@ class PagesController < ApplicationController
 
   def significato_delle_sigle
   end
+
+  def aggiornamento
+  end
+
+  def bollettino
+  end
 end

@@ -9,7 +9,7 @@
         La Previsione
       </h1>
       <p class="text-sm md:text-base text-slate-300">
-        I punti di riferimento che hanno portato ad elaborare questo modello di previsione sono stati principalmente l'European Storm Forecast Experiment (ESTOFEX) dell'European Severe Storm Laboratory (ESSL), con cui PRETEMP collabora, e lo Storm Prediction Center (SPC) della National Oceanic and Atmospheric Administration (NOAA). Questi esempi sono stati adattati alle caratteristiche dell'Italia e all'esperienza maturata negli anni di previsione di temporali forti in Italia.
+        I punti di riferimento che hanno portato ad elaborare questo modello di previsione sono stati principalmente l'<%= link_to "European Storm Forecast Experiment (ESTOFEX)", "https://www.estofex.org/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %> dell'<%= link_to "European Severe Storm Laboratory (ESSL)", "https://www.essl.org/cms/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %>, con cui PRETEMP collabora, e lo <%= link_to "Storm Prediction Center (SPC)", "https://www.spc.noaa.gov/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %> della <%= link_to "National Oceanic and Atmospheric Administration (NOAA)", "https://www.noaa.gov/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %>. Questi esempi sono stati adattati alle caratteristiche dell'Italia e all'esperienza maturata negli anni di previsione di temporali forti in Italia.
       </p>
     </div>
   </div>
@@ -84,13 +84,17 @@
             <td class="px-4 py-3 text-slate-400">Modelli globali + primi modelli ad area limitata (LAM)</td>
           </tr>
           <tr class="bg-slate-950/50 hover:bg-slate-900/50 transition">
-            <td class="px-4 py-3 font-medium text-slate-100">Bollettino</td>
+            <td class="px-4 py-3 font-medium text-slate-100">
+              <%= link_to "Bollettino", bollettino_path, class: "text-sky-300 hover:text-sky-200 underline" %>
+            </td>
             <td class="px-4 py-3 text-slate-300">24 h</td>
             <td class="px-4 py-3 text-slate-400">La prima idea viene migliorata utilizzando i modelli ad area limitata più recenti, vengono forniti dettagli sulle aree colpite, i fenomeni attesi e le tempistiche dell'evento.</td>
             <td class="px-4 py-3 text-slate-400">Modelli ad area limitata (LAM)</td>
           </tr>
           <tr class="bg-slate-950/50 hover:bg-slate-900/50 transition">
-            <td class="px-4 py-3 font-medium text-slate-100">Aggiornamento</td>
+            <td class="px-4 py-3 font-medium text-slate-100">
+              <%= link_to "Aggiornamento", aggiornamento_path, class: "text-sky-300 hover:text-sky-200 underline" %>
+            </td>
             <td class="px-4 py-3 text-slate-300">2-6 h</td>
             <td class="px-4 py-3 text-slate-400">I temporali sono imminenti, dettagli sui fenomeni attesi e aree più colpite.</td>
             <td class="px-4 py-3 text-slate-400">Modelli Rapid Update Cycle (RUC) + osservazioni</td>

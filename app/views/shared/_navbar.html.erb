@@ -136,7 +136,37 @@
             </div>
           </div>
         </div>
-        <%= link_to "Blog", articles_path, class: "px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors" %>
+        <div
+          data-controller="dropdown"
+          data-dropdown-hover-value="true"
+          class="relative"
+          data-action="mouseenter->dropdown#mouseEnter mouseleave->dropdown#mouseLeave"
+          >
+          <button
+            type="button"
+            data-dropdown-target="trigger"
+            data-action="click->dropdown#toggle"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors"
+            >
+            Didattica
+            <svg data-dropdown-target="icon" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div
+            data-dropdown-target="panel"
+            class="hidden absolute left-0 top-full pt-2 z-50"
+          >
+            <div class="w-56 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-sm shadow-xl shadow-slate-950/60 p-1.5">
+              <%= link_to "Didattica web", didattica_path, class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "SWI", swi_path, class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+              <%= link_to "Cambiamenti climatici", cambiamenti_climatici_path, class: "block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" %>
+            </div>
+          </div>
+        </div>
+        <%= link_to "Blog", articles_path, class: "px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-slate-800 transition-colors" %>
         <div 
           data-controller="dropdown" 
           data-dropdown-hover-value="true" 
@@ -266,7 +296,28 @@
           </div>
         </div>
       </div>
-      <%= link_to articles_path, class: "flex items-center py-2.5 text-slate-200 hover:text-white transition-colors" do %>
+      <div data-controller="accordion" data-accordion-group-value="mobile-nav">
+        <button
+        type="button"
+        data-accordion-target="trigger"
+        data-action="click->accordion#toggle"
+          aria-expanded="false"
+          class="w-full flex items-center justify-between py-2.5 text-slate-200 hover:text-white transition-colors"
+          >
+          <span class="text-xs font-semibold uppercase tracking-wide">Didattica</span>
+          <svg data-accordion-target="icon" class="w-4 h-4 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div data-accordion-target="panel" class="hidden overflow-hidden transition-[height] duration-200 ease-out">
+          <div class="pb-2 pl-3 space-y-0.5">
+            <%= link_to "Didattica web", didattica_path, class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "SWI", swi_path, class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+            <%= link_to "Cambiamenti climatici", cambiamenti_climatici_path, class: "block py-2 px-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors" %>
+          </div>
+        </div>
+      </div>
+      <%= link_to articles_path, class: "flex items-center py-2.5 text-slate-200 hover:text-white hover:bg-slate-800/50 transition-colors" do %>
         <span class="text-xs font-semibold uppercase tracking-wide">Blog</span>
       <% end %>
       <div data-controller="accordion" data-accordion-group-value="mobile-nav">

@@ -47,6 +47,15 @@ class PagesController < ApplicationController
   def validazioni
   end
 
+  def didattica
+  end
+
+  def swi
+  end
+
+  def cambiamenti_climatici
+  end
+
   def come_leggere_la_previsione
   end
 

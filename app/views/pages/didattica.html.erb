@@ -1,0 +1,155 @@
+<section class="relative overflow-hidden border-b border-slate-800 bg-linear-to-b from-slate-950 via-slate-950 to-slate-900">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,.18),transparent_55%),radial-gradient(circle_at_bottom,rgba(250,204,21,.12),transparent_55%)]"></div>
+  <div class="relative max-w-6xl mx-auto px-4 py-6 md:py-16">
+    <div class="space-y-6 max-w-3xl">
+      <p class="inline-flex items-center rounded-full border border-sky-500/40 bg-slate-950/70 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm shadow-sky-500/20">
+        <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+        Ricerca
+      </p>
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight section-heading-accent">
+        Didattica
+      </h1>
+      <p class="text-sm md:text-base text-slate-300">
+        In questa pagina sono stati raccolti dal web alcuni documenti da noi ritenuti interessanti per l'apprendimento.
+      </p>
+    </div>
+  </div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12">
+  <%
+    sections = [
+      {
+        title: "Documenti generali",
+        items: [
+          { title: "Forecasting severe convective storms", url: "http://www.estofex.org/guide/", external: true },
+          { title: "A climatology of thunderstorms across Europe from a synthesis of multiple data sources", url: "https://journals.ametsoc.org/doi/pdf/10.1175/JCLI-D-18-0372.1", external: true },
+          { title: "Guida sull'uso delle mappe modellistiche (di Oscar Van Der Velde)", url: "/didattica/ConvectiveWeatherMapsVANDERVELDE.pdf", external: true, pdf: true },
+          { title: "I tornado (di tornadoseeker.com)", url: "/didattica/tornadodidattica1.pdf", external: true, pdf: true },
+          { title: "Examination of severe thunderstorm outbreaks in Central Europe — Helge Tuschy, ESTOFEX e DWD forecaster", url: "http://www.estofex.org/files/tuschy_thesis.pdf", external: true },
+          { title: "Previsione trombe marine", url: "https://www.pretemp.altervista.org/swi.html", external: true },
+          { title: "Tornado di Pianiga, Dolo e Mira — 8 luglio 2015", url: "http://documenti.serenissimameteo.it/tornado_riviera_brenta.html", external: true },
+          { title: "Circuito elettrico dell'atmosfera", url: "/didattica/Elettr-Atm.pdf", external: true, pdf: true },
+          { title: "Relazione tra raggi cosmici, nuvolosità e clima — K. S. Carslaw, R. G. Harrison, J. Kirkby", url: "/didattica/4cosmici.pdf", external: true, pdf: true },
+          { title: "Fronti freddi: ana, kata e split", url: "/didattica/ColdFronts-2010-RadarCourse-Final2.ppt", external: true, pdf: true },
+          { title: "Enhanced Fujita Scale (EF-Scale)", url: "http://www.depts.ttu.edu/nwi/Pubs/FScale/EFScale.pdf", external: true },
+          { title: "I fenomeni tornadici nella provincia di Venezia dal 1970 al 2015", url: "/didattica/TORNADOVENETO.pdf", external: true, pdf: true },
+          { title: "Sounding-derived parameters associated with severe convective storms in the Netherlands", url: "/didattica/GROENEMEIJER.pdf", external: true, pdf: true },
+          { title: "A European lightning density analysis using 5 years of ATDnet data", url: "http://www.nat-hazards-earth-syst-sci.net/14/815/2014/nhess-14-815-2014.pdf", external: true },
+          { title: "Guida sull'osservazione (ed interpretazione / spiegazione) dei fenomeni violenti (USA)", url: "http://www.nws.noaa.gov/os/brochures/SGJune6-11.pdf", external: true },
+        ]
+      },
+      {
+        title: "Indici temporaleschi",
+        description: "Descrizione by Jeff Habby",
+        items: [
+          { title: "Severe thunderstorm weather", url: "http://www.theweatherprediction.com/severe/", external: true },
+          { title: "CAPE", url: "http://www.theweatherprediction.com/habyhints/305/", external: true },
+          { title: "MUCAPE", url: "http://www.theweatherprediction.com/habyhints2/634/", external: true },
+          { title: "CIN", url: "http://www.theweatherprediction.com/habyhints/306/", external: true },
+          { title: "LI", url: "http://www.theweatherprediction.com/habyhints/300/", external: true },
+          { title: "Theta E", url: "http://www.theweatherprediction.com/habyhints/324/", external: true },
+          { title: "Shear", url: "http://www.theweatherprediction.com/habyhints2/669/", external: true },
+          { title: "Shear 0–3 km", url: "http://www.theweatherprediction.com/habyhints/322/", external: true },
+          { title: "BRN", url: "http://www.theweatherprediction.com/habyhints/315/", external: true },
+          { title: "SREH", url: "http://www.theweatherprediction.com/habyhints2/633/", external: true },
+          { title: "EHI", url: "http://www.theweatherprediction.com/habyhints/314/", external: true },
+          { title: "SWEAT", url: "http://www.theweatherprediction.com/habyhints/304/", external: true },
+          { title: "Storm motion", url: "http://www.theweatherprediction.com/habyhints/312/", external: true },
+        ]
+      },
+      {
+        title: "Meteorologia — Guide",
+        items: [
+          { title: "Meteorology — Università dell'Illinois", url: "http://ww2010.atmos.uiuc.edu/(Gh)/guides/mtr/home.rxml", external: true },
+          { title: "Climate Education — North Carolina State University", url: "http://climate.ncsu.edu/edu/k12/.index", external: true },
+          { title: "The Weather Prediction — Jeff Haby", url: "http://www.theweatherprediction.com/", external: true },
+          { title: "Atmospheric pressure, winds, and circulation patterns", url: "http://www.cengage.com/resource_uploads/downloads/0495555061_137182.pdf", external: true },
+          { title: "The Weather Guide (meteorologia e casi studio relativi alla California)", url: "http://earthguide.ucsd.edu/eoc/teachers/t_climate/pdf/The_Weather_Guide.pdf", external: true },
+          { title: "Guida sull'osservazione (ed interpretazione) dei fenomeni violenti (USA)", url: "http://www.nws.noaa.gov/os/brochures/SGJune6-11.pdf", external: true },
+          { title: "La micrometeorologia e la dispersione degli inquinanti in aria (R. Sozzi)", url: "http://www.arpat.toscana.it/temi-ambientali/aria/modellistica-per-la-qualita-dellaria/linee-guida/apat-micrometeorologia.pdf", external: true },
+        ]
+      },
+      {
+        title: "Casi studio",
+        items: [
+          { title: "Articolo Meteonetwork — Temporali 25 luglio 2015 (di Francesco De Martin e Giorgio Pavan)", url: "http://www.meteonetwork.it/veneto/25-luglio-2015-supercelle-veneto-nubifragi-friuli", external: true },
+        ]
+      },
+      {
+        title: "Ricerca, tesi di laurea — Università di Bologna",
+        items: [
+          { title: "Analisi meteorologica e modellistica dei due eventi alluvionali in Liguria dell'autunno 2011: Cinque Terre — 25 ottobre, Genova — 4 novembre", url: "http://amslaurea.unibo.it/5908/1/Gallo_Daniele_tesi.pdf", external: true },
+          { title: "Struttura nuvolosa del temporale", url: "http://amslaurea.unibo.it/5916/1/santini_davide_tesi.pdf", external: true },
+          { title: "Previsione di temporali tramite indici di instabilità ed alberi decisionali", url: "http://amslaurea.unibo.it/7164/1/Bellantone_Paolo_tesi.pdf", external: true },
+        ]
+      },
+      {
+        title: "Siti web educativi",
+        items: [
+          { title: "Fenomeni temporaleschi", url: "http://www.fenomenitemporaleschi.it/", external: true },
+          { title: "Eumetcal", url: "http://www.eumetcal.org/courses/", external: true },
+          { title: "MetEd", url: "https://www.meted.ucar.edu/", external: true },
+        ]
+      },
+    ]
+  %>
+  <div class="space-y-12">
+    <% sections.each do |section| %>
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white"><%= section[:title] %></h2>
+          <span class="inline-flex items-center rounded-full bg-sky-500/10 border border-sky-500/30 px-2.5 py-0.5 text-xs font-medium text-sky-300">
+            <%= section[:items].size %> <%= section[:items].size == 1 ? "elemento" : "elementi" %>
+          </span>
+        </div>
+        <% if section[:description].present? %>
+          <p class="text-sm text-slate-400 italic mb-5"><%= section[:description] %></p>
+        <% else %>
+          <div class="mb-5"></div>
+        <% end %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <% section[:items].each do |item| %>
+            <a href="<%= item[:url] %>"
+               <%= item[:external] ? 'target="_blank" rel="noopener noreferrer"'.html_safe : ''.html_safe %>
+               class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 md:p-6 shadow-2xl shadow-slate-950/60 hover:border-sky-500/60 hover:bg-slate-900 transition-colors flex items-start gap-4">
+              <div class="shrink-0 mt-0.5 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 group-hover:bg-sky-500/20 group-hover:text-sky-300 transition-colors">
+                <% if item[:pdf] %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                <% elsif item[:external] %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                <% else %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                <% end %>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-sm md:text-base font-semibold text-slate-100 group-hover:text-white transition-colors leading-snug">
+                  <%= item[:title] %>
+                </h3>
+                <span class="mt-2 inline-flex items-center gap-1 text-xs text-sky-400 group-hover:text-sky-300 transition-colors">
+                  <% if item[:pdf] %>
+                    Apri PDF
+                  <% elsif item[:external] %>
+                    Apri link
+                  <% else %>
+                    Scarica file
+                  <% end %>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

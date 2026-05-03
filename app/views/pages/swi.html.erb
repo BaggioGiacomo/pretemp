@@ -1,0 +1,94 @@
+<section class="relative overflow-hidden border-b border-slate-800 bg-linear-to-b from-slate-950 via-slate-950 to-slate-900">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,.18),transparent_55%),radial-gradient(circle_at_bottom,rgba(250,204,21,.12),transparent_55%)]"></div>
+  <div class="relative max-w-6xl mx-auto px-4 py-6 md:py-16">
+    <div class="space-y-6 max-w-3xl">
+      <p class="inline-flex items-center rounded-full border border-sky-500/40 bg-slate-950/70 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm shadow-sky-500/20">
+        <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+        Didattica
+      </p>
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight section-heading-accent">
+        SWI
+      </h1>
+      <p class="text-sm text-slate-400 uppercase tracking-wide">Szilagyi Waterspout Index</p>
+      <p class="text-sm md:text-base text-slate-300">
+        In questa pagina si vuole dare spazio alla teoria di Szilagyi sulla previsione delle trombe marine. Da ora in avanti anche le nostre previsioni seguiranno questa teoria, già validata da osservazioni condotte sull'Adriatico e sui grandi laghi americani, dove è nata. Di seguito sono riportati alcuni documenti in merito e la spiegazione di questo indice.
+      </p>
+    </div>
+  </div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12">
+  <%
+    sections = [
+      {
+        title: "Documenti e risorse",
+        items: [
+          { title: "Forecasting waterspouts", url: "/didattica/forecastingwaterspouts.pdf", external: true, pdf: true },
+          { title: "Prognosis of central-eastern Mediterranean waterspouts", url: "/didattica/ws2.pdf", external: true, pdf: true },
+          { title: "Automation of the waterspout nomogram", url: "/didattica/ws3.pdf", external: true, pdf: true },
+          { title: "Testing waterspout forecasting indices over the Adriatic Sea using the ALADIN model", url: "/didattica/wsALADIN.pdf", external: true, pdf: true },
+          { title: "Testing with ALADIN model 2", url: "/didattica/wsaladin2.pdf", external: true, pdf: true },
+          { title: "International Centre For Waterspout Research (ICWR)", url: "http://icwr.ca/", external: true },
+        ]
+      },
+    ]
+  %>
+  <div class="space-y-12">
+    <% sections.each do |section| %>
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white"><%= section[:title] %></h2>
+          <span class="inline-flex items-center rounded-full bg-sky-500/10 border border-sky-500/30 px-2.5 py-0.5 text-xs font-medium text-sky-300">
+            <%= section[:items].size %> <%= section[:items].size == 1 ? "elemento" : "elementi" %>
+          </span>
+        </div>
+        <% if section[:description].present? %>
+          <p class="text-sm text-slate-400 italic mb-5"><%= section[:description] %></p>
+        <% else %>
+          <div class="mb-5"></div>
+        <% end %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <% section[:items].each do |item| %>
+            <a href="<%= item[:url] %>"
+               <%= item[:external] ? 'target="_blank" rel="noopener noreferrer"'.html_safe : ''.html_safe %>
+               class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 md:p-6 shadow-2xl shadow-slate-950/60 hover:border-sky-500/60 hover:bg-slate-900 transition-colors flex items-start gap-4">
+              <div class="shrink-0 mt-0.5 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 group-hover:bg-sky-500/20 group-hover:text-sky-300 transition-colors">
+                <% if item[:pdf] %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                <% elsif item[:external] %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                <% else %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                <% end %>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-sm md:text-base font-semibold text-slate-100 group-hover:text-white transition-colors leading-snug">
+                  <%= item[:title] %>
+                </h3>
+                <span class="mt-2 inline-flex items-center gap-1 text-xs text-sky-400 group-hover:text-sky-300 transition-colors">
+                  <% if item[:pdf] %>
+                    Apri PDF
+                  <% elsif item[:external] %>
+                    Apri link
+                  <% else %>
+                    Scarica file
+                  <% end %>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

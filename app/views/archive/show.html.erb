@@ -4,7 +4,7 @@
       Archivio <%= @year %>
     </h1>
     <p class="mt-2 text-sm text-slate-400">
-      Consulta tutte le previsioni pubblicate nel <%= @year %>.
+      Consulta tutte le previsioni e tendenze del <%= @year %>, incluse quelle riformulate o sostituite (segnate come archiviate).
     </p>
   </div>
   <% if @forecasts.empty? %>
@@ -40,6 +40,16 @@
                 <%= I18n.l(forecast.date, format: :long) %>
               </p>
             <% end %>
+            <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider <%= forecast.tendenza? ? "bg-indigo-500/10 text-indigo-300" : "bg-sky-500/10 text-sky-300" %>">
+                <%= forecast.label %>
+              </span>
+              <% if forecast.draft? %>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider bg-amber-500/10 text-amber-300">
+                  Archiviata
+                </span>
+              <% end %>
+            </div>
             <div class="inline-flex items-center gap-2 <%= risk_config[:bg] %> py-1 pr-1.5 pl-2.5 rounded-full mb-2.5">
               <% if risk.nil? %>
                 <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-500 ml-1"></span>

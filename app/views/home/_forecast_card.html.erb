@@ -19,9 +19,13 @@
             when "molto_alto"
               "border-purple-500/40 bg-purple-500/10 text-purple-200"
             else
-              "bg-gray-100 text-gray-800 border-gray-300"
+              "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
             end %>">
-      Pericolosità <%= forecast.risk_level_before_type_cast %>
+      <% if forecast.risk_level.nil? %>
+        Nessun pericolo
+      <% else %>
+        Pericolosità <%= forecast.risk_level_before_type_cast %>
+      <% end %>
     </span>
   </div>
   <% if has_update %>

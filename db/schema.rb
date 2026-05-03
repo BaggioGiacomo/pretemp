@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_12_132724) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_26_134446) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -88,7 +88,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_12_132724) do
   create_table "forecasts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.date "date", null: false
-    t.integer "risk_level", default: 0, null: false
+    t.integer "risk_level"
     t.text "status", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_forecasts_on_date", unique: true

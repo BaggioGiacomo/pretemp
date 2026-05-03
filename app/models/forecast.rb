@@ -10,7 +10,6 @@ class Forecast < ApplicationRecord
   validates :summary, presence: true
   validates :body, presence: true
   validates :image, presence: true
-  validates :risk_level, presence: true
 
   scope :ordered, -> { order(date: :desc) }
 

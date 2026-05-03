@@ -16,4 +16,12 @@ class User < ApplicationRecord
   generates_token_for :password_reset, expires_in: 48.hours do
     password_salt&.last(10)
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def username
+    first_name.present? ? full_name : email_address
+  end
 end

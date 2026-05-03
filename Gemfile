@@ -68,3 +68,5 @@ group :test do
 end
 
 gem "rails-i18n", "~> 8.1.0"
+
+gem "pagy", "~> 43.5"

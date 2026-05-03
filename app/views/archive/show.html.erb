@@ -1,6 +1,8 @@
 <section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
   <div class="mb-8 md:mb-12">
-    <h1 class="text-2xl md:text-3xl font-semibold tracking-tight section-heading-accent">Archivio <%= @year %></h1>
+    <h1 class="text-2xl md:text-3xl font-semibold tracking-tight section-heading-accent">
+      Archivio <%= @year %>
+    </h1>
     <p class="mt-2 text-sm text-slate-400">
       Consulta tutte le previsioni pubblicate nel <%= @year %>.
     </p>
@@ -10,22 +12,86 @@
       <p class="text-sm text-slate-400">Nessuna previsione disponibile per l'anno <%= @year %></p>
     </div>
   <% else %>
-    <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       <% @forecasts.each do |forecast| %>
-        <%= link_to forecast_path(forecast), class: "group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 flex items-center justify-between hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
-          <div>
-            <p class="text-lg font-semibold text-slate-100 group-hover:text-white"><%= I18n.l(forecast.date, format: :long) if forecast.date %></p>
-            <p class="mt-1 text-sm text-slate-400 group-hover:text-slate-300 transition"><span class="text-slate-100 font-bold">Rischio: </span><%= forecast.risk_level_before_type_cast %></p>
-            <p class="mt-1 text-sm text-slate-400 group-hover:text-slate-300 transition"><span class="text-slate-100 font-bold">Previsori: </span><%= forecast.authors %></p>
+        <% risk = forecast.risk_level_before_type_cast %>
+        <% risk_config = case risk
+             when 0 then { color: "bg-yellow-600",  text: "text-yellow-300", bg: "bg-yellow-600/10",  label: "Pericolosità" }
+             when 1 then { color: "bg-orange-600",  text: "text-orange-300", bg: "bg-orange-600/10",  label: "Pericolosità" }
+             when 2 then { color: "bg-red-500", text: "text-red-300",bg: "bg-red-500/10", label: "Pericolosità" }
+             when 3 then { color: "bg-purple-600", text: "text-purple-300",bg: "bg-purple-600/10", label: "Pericolosità" }
+             else        { color: "bg-emerald-500",  text: "text-emerald-300", bg: "bg-emerald-500/10",  label: "Nessun pericolo" }
+           end %>
+        <%= link_to forecast_path(forecast),
+              class: "group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-4 flex items-start justify-between gap-3 hover:border-slate-700 hover:bg-slate-900 hover:-translate-y-0.5 transition" do %>
+          <span class="absolute left-0 top-0 bottom-0 w-1 <%= risk_config[:color] %>"></span>
+          <div class="flex-1 min-w-0 pl-2">
+            <% if forecast.date %>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-[11px] uppercase tracking-wider font-medium text-slate-500">
+                  <%= I18n.l(forecast.date, format: "%d %b") %>
+                </span>
+                <span class="text-slate-700">·</span>
+                <span class="text-[11px] text-slate-500">
+                  <%= I18n.l(forecast.date, format: "%A") %>
+                </span>
+              </div>
+              <p class="text-lg font-semibold text-slate-100 group-hover:text-white tracking-tight mb-3">
+                <%= I18n.l(forecast.date, format: :long) %>
+              </p>
+            <% end %>
+            <div class="inline-flex items-center gap-2 <%= risk_config[:bg] %> py-1 pr-1.5 pl-2.5 rounded-full mb-2.5">
+              <% if risk.nil? %>
+                <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-500 ml-1"></span>
+              <% end %>
+              <span class="text-xs font-medium <%= risk_config[:text] %>">
+                <%= risk_config[:label] %>
+              </span>
+              <% if risk %>
+                <span class="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full <%= risk_config[:color] %> text-[11px] font-semibold text-slate-950">
+                  <%= risk %>
+                </span>
+              <% end %>
+            </div>
+            <p class="text-xs text-slate-500">
+              <span class="text-slate-400">Previsori</span>
+              ·
+              <%= forecast.authors %>
+            </p>
           </div>
-          <span class="text-sky-400 group-hover:text-sky-300 transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-          </span>
+          <span class="text-slate-600 group-hover:text-sky-400 transition-colors text-lg leading-none">→</span>
         <% end %>
       <% end %>
     </div>
+    <% if @pagy.pages > 1 %>
+      <nav class="mt-8 flex items-center justify-center" aria-label="Paginazione archivio">
+        <ul class="inline-flex items-center gap-1 rounded-2xl border border-slate-800 bg-slate-900/80 px-2 py-2 shadow-2xl shadow-slate-950/60">
+          <% @pagy.send(:series).each do |item| %>
+            <% case item %>
+            <% when Integer %>
+              <li>
+                <%= link_to item, @pagy.page_url(item),
+                  class: "inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-colors" %>
+              </li>
+            <% when String %>
+              <li>
+                <span aria-current="page"
+                  class="inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-xl text-sm font-semibold text-slate-950 bg-sky-400 border border-sky-400">
+                  <%= item %>
+                </span>
+              </li>
+            <% when :gap %>
+              <li>
+                <span class="inline-flex items-center justify-center min-w-9 h-9 px-2 text-sm text-slate-500" aria-hidden="true">…</span>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </nav>
+      <p class="mt-3 text-center text-xs text-slate-500">
+        Pagina <%= @pagy.page %> di <%= @pagy.pages %> · <%= @pagy.count %> previsioni
+      </p>
+    <% end %>
   <% end %>
   <div class="mt-6">
     <%= link_to archivio_index_path, class: "inline-flex items-center text-xs font-medium text-sky-300 hover:text-sky-200 transition-colors" do %>

@@ -1,0 +1,66 @@
+<section class="relative overflow-hidden border-b border-slate-800 min-h-[600px] flex items-center">
+  <div class="absolute inset-0">
+    <%= image_tag "classificazione_tornado/tornado.png", class: "w-full h-full object-cover", alt: "Classificazione tornado" %>
+    <div class="absolute inset-0 bg-slate-950/25 bg-linear-to-b from-slate-950/400 via-slate-950/70 to-slate-900/90"></div>
+  </div>
+  <div class="relative max-w-6xl mx-auto px-4 py-6 md:py-16 w-full">
+    <div class="space-y-6 max-w-3xl">
+      <p class="inline-flex items-center rounded-full border border-sky-500/40 bg-slate-950/70 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm shadow-sky-500/20">
+        Segnalazioni
+      </p>
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight section-heading-accent">
+        Classificazione dei tornado italiani
+      </h1>
+      <p class="text-sm md:text-base text-slate-300 leading-relaxed">
+        Pretemp si occupa di identificare e catalogare i tornado che si verificano sul territorio nazionale, in collaborazione con il gruppo di Tornado in Italia. In assenza di enti ufficiali che si occupano di effettuare questa analisi, Pretemp risulta essere l'organizzazione di riferimento per l'identificazione e classificazione dei tornado italiani. Dal 2018 al 2025 sono stati identificati e classificati 318 episodi di tornado in Italia.
+      </p>
+    </div>
+  </div>
+</section>
+<section class="max-w-6xl mx-auto px-4 py-10 md:py-12">
+  <div class="space-y-8">
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4 ">
+      <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Obiettivo e metodologia</h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Il nostro obiettivo è di fornire le informazioni più dettagliate possibili riguardo agli eventi tornadici sul territorio nazionale, sia generatisi in terraferma che approdati dal mare. Le applicazioni di questa analisi sono sia di tipo climatologico che di migliore comprensione del fenomeno, con lo scopo ultimo di migliorarne la previsione. L'analisi parte dal ritrovamento di informazioni su possibili eventi vorticosi documentati tramite social networks, segnalazioni di utenti o informazioni fornite in tempo reale dai segnalatori che contribuiscono al database StormReport (Fig. 1).
+      </p>
+      <div class="rounded-xl border border-slate-700 bg-slate-800/60 overflow-hidden md:w-3/4 mx-auto">
+        <%= image_tag "classificazione_tornado/tornado.png", class: "w-full object-cover", alt: "Report di tornado raccolti nel periodo 2018-2025 in Italia" %>
+      </div>
+    </div>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Analisi e classificazione</h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Segue la ricerca di informazioni riguardanti eventuali danni causati dal tornado riscontrato, anche per verificarne l'effettiva natura vorticosa qualora fosse incerta, tramite geolocalizzazione e mappatura di indicatori e, se necessario, pattern di danno per valutare la presenza di vento convergente o rotante nei casi ambigui. In questa fase risultano fondamentali i sopralluoghi sul luogo, con lo scopo di ottenere la ricostruzione più completa possibile del percorso tornadico e relativi dati (diametro massimo, lunghezza, traccia del centro del vortice e area complessiva coinvolta). Come supporto vengono utilizzate anche immagini satellitari provenienti da diverse fonti: Sentinel-2, Google Earth e Microsoft Maps.
+      </p>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Infine, viene assegnata una classificazione preliminare secondo la scala International Fujita (IF, Fig. 2, ESSL, 2023) seguita dalla pubblicazione di una definitiva (più o meno vicina nel tempo a seconda di gravità dei danni e quantità di materiale a disposizione). La scala IF, realizzata dall'European Severe Storms Laboratory, propone 9 gradi di intensità basandosi su 22 indicatori di danno (D.I.) indicati tramite una sigla di lettere (più una valutazione in base a misurazione effettiva della velocità del vento) ed un grado di danno (D.o.D.) indicato da un numero. Al grado di intensità corrisponde una velocità del vento istantanea che si stima abbia causato quei danni. In caso di eventi gravi (potenzialmente di grado IF3 o oltre, come il tornado di Alfonsine (RA) del 22 luglio 2023, Fig. 3) vengono consultati anche esperti di ingegneria civile e direttamente l'ESSL per la valutazione più corretta.
+      </p>
+      <div class="rounded-xl border border-slate-700 bg-slate-800/60 overflow-hidden md:w-3/4 mx-auto">
+        <%= image_tag "classificazione_tornado/figura_1.png", class: "w-full object-cover", alt: "International Fujita scale (ESSL, 2023)" %>
+        <p class="text-xs text-slate-400 text-center py-4 px-3">
+          <span class="font-semibold text-slate-300">Figura 1:</span> report di tornado raccolti nel periodo 2018-2025 in Italia.
+        </p>
+      </div>
+    </div>
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4 md:p-6 space-y-4">
+      <h2 class="text-lg md:text-xl font-semibold tracking-tight section-heading-accent">Pubblicazione e ricerca storica</h2>
+      <p class="text-sm text-slate-300 leading-relaxed">
+        Il tutto viene riassunto, quando possibile, in una mappa presente nelle relative segnalazioni inserite nello StormReport e nell'ESWD. A volte i tornado vengono ritrovati a distanza di mesi se non anni; quindi, non è una ricerca costantemente in tempo reale ma anche retroattiva. Infatti, Federico Pavan, membro del gruppo Pretemp, si occupa anche della ricerca degli eventi storici di qualsiasi anno precedenti al 2018, in questo caso inseriti direttamente nell'ESWD per migliorare la climatologia dei tornado italiani nel tempo. In caso si voglia aiutare con questo progetto storico, si può contattare all'indirizzo
+        <%= mail_to "federico.pavan@pretemp.it", "federico.pavan@pretemp.it", class: "text-sky-300 hover:text-sky-200" %>.
+      </p>
+      <div class="rounded-xl border border-slate-700 bg-slate-800/60 overflow-hidden md:w-3/4 mx-auto">
+        <%= image_tag "classificazione_tornado/figura_2.png", class: "w-full object-cover", alt: "Esempio del 22 luglio 2023 di mappatura completa del percorso di un tornado" %>
+        <p class="text-xs text-slate-400 text-center py-4 px-3">
+          <span class="font-semibold text-slate-300">Figura 2:</span> Gradi d'intensità e corrispondenti velocità del vento istantanee stimate della International Fujita scale (ESSL, 2023)
+        </p>
+      </div>
+      <div class="rounded-xl border border-slate-700 bg-slate-800/60 overflow-hidden md:w-3/4 mx-auto">
+        <%= image_tag "classificazione_tornado/figura_3.png", class: "w-full object-cover", alt: "Esempio del 22 luglio 2023 di mappatura completa del percorso di un tornado" %>
+        <p class="text-xs text-slate-400 text-center py-4 px-3">
+          <span class="font-semibold text-slate-300">Figura 3:</span> Esempio del 22 luglio 2023 di mappatura completa del percorso di un tornado
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

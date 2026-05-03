@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   get "progetto_storm_report" => "pages#progetto_storm_report", as: :progetto_storm_report
   get "guida_storm_report" => "pages#guida_storm_report", as: :guida_storm_report
+  get "classificazione_tornado" => "pages#classificazione_tornado", as: :classificazione_tornado
   get "contatti" => "pages#contatti", as: :contatti
   get "pubblicazioni_scientifiche" => "pages#pubblicazioni_scientifiche", as: :pubblicazioni_scientifiche
   get "report_tecnici" => "pages#report_tecnici", as: :report_tecnici

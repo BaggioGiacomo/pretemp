@@ -35,6 +35,9 @@ class PagesController < ApplicationController
   def guida_storm_report
   end
 
+  def classificazione_tornado
+  end
+
   def contatti
   end
 

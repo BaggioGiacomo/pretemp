@@ -8,8 +8,52 @@
     </div>
     <h1 class="text-2xl md:text-4xl font-bold tracking-tight">I previsori di PRETEMP</h1>
     <p class="mt-3 text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
-      Il gruppo PRETEMP è composto da studenti universitari e professionisti nel settore della meteorologia, uniti dalla passione per i fenomeni convettivi.
+      Il gruppo PRETEMP è composto da meteorologi, scienziati e studenti nel settore della meteorologia, accomunati dall'interesse per i fenomeni convettivi.
     </p>
+  </div>
+  <% slideshow_images = %w[2016.jpg 2017.jpg 2018.jpg 2019_a.jpg 2019_b.jpg 2024.jpg] %>
+  <div class="mb-10 md:mb-14 max-w-3xl mx-auto"
+       data-controller="slideshow"
+       data-slideshow-interval-value="5000"
+       data-action="mouseenter->slideshow#stop mouseleave->slideshow#start">
+    <div class="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/60 card-storm-glow">
+      <div class="relative aspect-video w-full">
+        <% slideshow_images.each_with_index do |img, i| %>
+          <%= image_tag "team_slideshow/#{img}",
+                alt: "Team PRETEMP #{img.split('.').first}",
+                loading: (i.zero? ? "eager" : "lazy"),
+                data: { slideshow_target: "slide" },
+                class: "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out #{i.zero? ? 'opacity-100' : 'opacity-0 pointer-events-none'}" %>
+        <% end %>
+        <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
+        <button type="button"
+                data-action="slideshow#prev"
+                aria-label="Immagine precedente"
+                class="absolute left-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-slate-900/70 text-slate-200 hover:text-white hover:border-sky-500/60 hover:bg-slate-900 backdrop-blur transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <button type="button"
+                data-action="slideshow#next"
+                aria-label="Immagine successiva"
+                class="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-slate-900/70 text-slate-200 hover:text-white hover:border-sky-500/60 hover:bg-slate-900 backdrop-blur transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
+          <% slideshow_images.each_with_index do |_img, i| %>
+            <button type="button"
+                    data-slideshow-target="indicator"
+                    data-action="slideshow#goTo"
+                    data-slideshow-index-param="<%= i %>"
+                    aria-label="Vai all'immagine <%= i + 1 %>"
+                    class="h-2 rounded-full transition-all duration-300 <%= i.zero? ? 'w-6 bg-sky-400' : 'w-2 bg-slate-600' %> hover:bg-sky-300"></button>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
   <% if @users.any? %>
     <div class="space-y-6">

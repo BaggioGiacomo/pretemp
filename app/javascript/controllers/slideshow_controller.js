@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="slideshow"
 export default class extends Controller {
-  static targets = ["slide", "indicator"];
+  static targets = ["slide", "indicator", "year"];
   static values = {
     interval: { type: Number, default: 5000 },
     index: { type: Number, default: 0 },
@@ -65,6 +65,14 @@ export default class extends Controller {
         dot.classList.toggle("bg-slate-600", !active);
         dot.classList.toggle("w-2", !active);
         dot.setAttribute("aria-current", active ? "true" : "false");
+      });
+    }
+    if (this.hasYearTarget) {
+      this.yearTargets.forEach((badge, i) => {
+        const active = i === index;
+        badge.classList.toggle("opacity-100", active);
+        badge.classList.toggle("opacity-0", !active);
+        badge.classList.toggle("pointer-events-none", !active);
       });
     }
   }

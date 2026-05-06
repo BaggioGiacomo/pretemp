@@ -11,7 +11,7 @@
       Il gruppo PRETEMP è composto da meteorologi, scienziati e studenti nel settore della meteorologia, accomunati dall'interesse per i fenomeni convettivi.
     </p>
   </div>
-  <% slideshow_images = %w[2016.jpg 2017.jpg 2018.jpg 2019_a.jpg 2019_b.jpg 2024.jpg] %>
+  <% slideshow_images = %w[2016.jpg 2018.jpg 2019.jpg 2021.jpg 2024.jpg] %>
   <div class="mb-10 md:mb-14 max-w-3xl mx-auto"
        data-controller="slideshow"
        data-slideshow-interval-value="5000"
@@ -19,13 +19,20 @@
     <div class="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-slate-950/60 card-storm-glow">
       <div class="relative aspect-video w-full">
         <% slideshow_images.each_with_index do |img, i| %>
+          <% year = img.split('.').first %>
           <%= image_tag "team_slideshow/#{img}",
-                alt: "Team PRETEMP #{img.split('.').first}",
+                alt: "Team PRETEMP #{year}",
                 loading: (i.zero? ? "eager" : "lazy"),
-                data: { slideshow_target: "slide" },
+                data: { slideshow_target: "slide", year: year },
                 class: "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out #{i.zero? ? 'opacity-100' : 'opacity-0 pointer-events-none'}" %>
         <% end %>
         <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
+        <% slideshow_images.each_with_index do |img, i| %>
+          <span data-slideshow-target="year"
+                class="absolute top-3 right-3 inline-flex items-center px-3 py-1 rounded-full border border-slate-700 bg-slate-900/70 text-xs md:text-sm font-semibold text-sky-300 backdrop-blur transition-opacity duration-700 ease-in-out <%= i.zero? ? 'opacity-100' : 'opacity-0 pointer-events-none' %>">
+            <%= img.split('.').first %>
+          </span>
+        <% end %>
         <button type="button"
                 data-action="slideshow#prev"
                 aria-label="Immagine precedente"

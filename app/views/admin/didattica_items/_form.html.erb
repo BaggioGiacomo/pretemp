@@ -2,7 +2,7 @@
   <%= form_with(model: [:admin, @didattica_section, didattica_item], local: true, multipart: true, class: "space-y-6") do |form| %>
     <% if didattica_item.errors.any? %>
       <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg" role="alert">
-        <div class="font-semibold mb-2"><%= pluralize(didattica_item.errors.count, "errore", plural: "errori") %>:</div>
+        <div class="font-semibold mb-2"><%= pluralize(didattica_item.errors.count, "error") %>:</div>
         <ul class="list-disc list-inside space-y-1">
           <% didattica_item.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -24,10 +24,10 @@
       <% if didattica_item.pdf.attached? %>
         <div class="mb-2 flex items-center gap-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
           <span class="text-sm text-amber-900"><%= didattica_item.pdf.filename %></span>
-          <%= link_to "Apri", rails_blob_path(didattica_item.pdf, only_path: true), target: "_blank", rel: "noopener", class: "text-sm text-blue-600 hover:underline" %>
+          <%= link_to "Open", rails_blob_path(didattica_item.pdf, only_path: true), target: "_blank", rel: "noopener", class: "text-sm text-blue-600 hover:underline" %>
           <label class="ml-auto inline-flex items-center gap-2 text-sm text-red-700">
             <%= form.check_box :remove_pdf, { checked: false }, "1", "0" %>
-            Rimuovi PDF
+            Remove PDF
           </label>
         </div>
       <% end %>

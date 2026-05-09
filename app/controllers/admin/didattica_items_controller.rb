@@ -14,7 +14,7 @@ class Admin::DidatticaItemsController < AdminController
     @didattica_item = @didattica_section.didattica_items.build(item_params)
 
     if @didattica_item.save
-      redirect_to admin_didattica_section_didattica_items_path(@didattica_section), notice: "Elemento creato con successo."
+      redirect_to admin_didattica_section_didattica_items_path(@didattica_section), notice: "Item created successfully."
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class Admin::DidatticaItemsController < AdminController
     end
 
     if @didattica_item.update(item_params)
-      redirect_to admin_didattica_section_didattica_items_path(@didattica_section), notice: "Elemento aggiornato con successo."
+      redirect_to admin_didattica_section_didattica_items_path(@didattica_section), notice: "Item updated successfully."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class Admin::DidatticaItemsController < AdminController
 
   def destroy
     @didattica_item.destroy
-    redirect_to admin_didattica_section_didattica_items_path(@didattica_section), notice: "Elemento eliminato con successo."
+    redirect_to admin_didattica_section_didattica_items_path(@didattica_section), notice: "Item deleted successfully."
   end
 
   private

@@ -51,9 +51,7 @@ class PagesController < ApplicationController
   end
 
   def didattica
-  end
-
-  def swi
+    @didattica_sections = DidatticaSection.ordered.includes(didattica_items: { pdf_attachment: :blob })
   end
 
   def cambiamenti_climatici

@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   get "report_tecnici" => "pages#report_tecnici", as: :report_tecnici
   get "validazioni" => "pages#validazioni", as: :validazioni
   get "didattica" => "pages#didattica", as: :didattica
-  get "didattica/swi" => "pages#swi", as: :swi
   get "didattica/cambiamenti_climatici" => "pages#cambiamenti_climatici", as: :cambiamenti_climatici
   get "come_leggere_la_previsione" => "pages#come_leggere_la_previsione", as: :come_leggere_la_previsione
   get "significato_delle_sigle" => "pages#significato_delle_sigle", as: :significato_delle_sigle
@@ -89,6 +88,10 @@ Rails.application.routes.draw do
 
     resources :template_categories, except: :show do
       resources :templates, except: :show
+    end
+
+    resources :didattica_sections, except: :show do
+      resources :didattica_items, except: :show
     end
 
     resources :invitations, only: [ :index, :new, :create, :destroy ]

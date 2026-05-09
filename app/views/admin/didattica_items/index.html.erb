@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3 mb-1">
+            <%= link_to admin_didattica_sections_path, class: "text-gray-400 hover:text-gray-600 transition-colors" do %>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              </svg>
+            <% end %>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Elementi — <%= @didattica_section.name %></h1>
+          </div>
+          <p class="mt-1 sm:mt-2 text-gray-600 text-sm">Gestisci gli elementi di questa sezione</p>
+        </div>
+        <%= link_to "Nuovo Elemento", new_admin_didattica_section_didattica_item_path(@didattica_section), class: "px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-center" %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <% if @didattica_items.any? %>
+        <div class="divide-y divide-gray-200">
+          <% @didattica_items.each do |item| %>
+            <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <%= link_to edit_admin_didattica_section_didattica_item_path(@didattica_section, item), class: "flex-1 min-w-0" do %>
+                  <div>
+                    <h3 class="text-base sm:text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                      <%= item.title %>
+                    </h3>
+                    <div class="mt-1 flex items-center gap-2 flex-wrap">
+                      <% if item.pdf.attached? %>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">PDF caricato</span>
+                        <span class="text-xs text-gray-500 truncate"><%= item.pdf.filename %></span>
+                      <% elsif item.url.present? %>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-sky-100 text-sky-800">URL</span>
+                        <span class="text-xs text-gray-500 truncate"><%= item.url %></span>
+                      <% end %>
+                      <span class="text-xs text-gray-400">Posizione: <%= item.position %></span>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="flex items-center gap-2 sm:gap-3 sm:ml-4">
+                  <% if item.link_url.present? %>
+                    <%= link_to "Apri", item.link_url, target: "_blank", rel: "noopener noreferrer", class: "px-3 sm:px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium" %>
+                  <% end %>
+                  <%= button_to admin_didattica_section_didattica_item_path(@didattica_section, item),
+                      method: :delete,
+                      data: { turbo_confirm: "Sei sicuro di voler eliminare questo elemento?" },
+                      class: "px-3 sm:px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors font-medium" do %>
+                    Elimina
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="p-12 text-center">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">Nessun elemento</h3>
+          <p class="mt-1 text-sm text-gray-500">Inizia creando un nuovo elemento.</p>
+          <div class="mt-6">
+            <%= link_to "Nuovo Elemento", new_admin_didattica_section_didattica_item_path(@didattica_section), class: "inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

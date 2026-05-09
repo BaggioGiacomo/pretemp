@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_03_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_09_120000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -64,6 +64,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_000000) do
     t.index ["article_id", "user_id"], name: "index_articles_users_on_article_id_and_user_id", unique: true
     t.index ["article_id"], name: "index_articles_users_on_article_id"
     t.index ["user_id"], name: "index_articles_users_on_user_id"
+  end
+
+  create_table "didattica_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "didattica_section_id", null: false
+    t.integer "position", default: 0, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.string "url"
+    t.index ["didattica_section_id"], name: "index_didattica_items_on_didattica_section_id"
+  end
+
+  create_table "didattica_sections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "forecast_updates", force: :cascade do |t|
@@ -205,6 +223,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_000000) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles_users", "articles"
   add_foreign_key "articles_users", "users"
+  add_foreign_key "didattica_items", "didattica_sections", on_delete: :cascade
   add_foreign_key "forecast_updates", "forecasts"
   add_foreign_key "forecast_updates_users", "forecast_updates"
   add_foreign_key "forecast_updates_users", "users"

@@ -119,8 +119,20 @@
                   prose-headings:text-slate-100
                   prose-a:text-sky-300 hover:prose-a:text-sky-200
                   prose-strong:text-slate-100
-                  prose-p:my-5">
-        <%= @forecast.body %>
+                  prose-p:my-5
+                  flex flex-col gap-6">
+        <% if @forecast.short_text.present? %>
+          <div>
+            <h3 class="mb-2 text-white"><strong>TESTO BREVE</strong></h3>
+            <%= @forecast.short_text %>
+          </div>
+        <% end %>
+        <% if @forecast.discussion.present? %>
+          <div>
+            <h3 class="mb-2 text-white"><strong>DISCUSSIONE</strong></h3>
+            <%= @forecast.discussion %>
+          </div>
+        <% end %>
       </div>
     </div>
     <% if @forecast.summary.present? %>

@@ -3,12 +3,12 @@ class Forecast < ApplicationRecord
   has_many :forecast_updates, dependent: :destroy
 
   has_rich_text :summary
-  has_rich_text :body
+  has_rich_text :short_text
+  has_rich_text :discussion
   has_one_attached :image
 
   validates :date, presence: true
   validates :summary, presence: true
-  validates :body, presence: true
   validates :image, presence: true
 
   scope :ordered, -> { order(date: :desc) }
@@ -51,10 +51,6 @@ class Forecast < ApplicationRecord
   # If there are any users, return their first name and second name as a sentence, otherwise return "Staff PRETEMP"
   def authors
     users.any? ? users.map { |user| "#{user.first_name} #{user.last_name}" }.to_sentence : "Staff PRETEMP"
-  end
-
-  def body_preview
-    body.to_plain_text.gsub("TESTO BREVE", "")
   end
 
   def active_update

@@ -13,7 +13,7 @@ class ArchiveController < ApplicationController
     forecasts = forecasts.where("date <= ?", @date_to) if @date_to
     forecasts = forecasts.where(risk_level: @risk_level) if @risk_level && Forecast.risk_levels.key?(@risk_level)
 
-    @pagy, @forecasts = pagy(forecasts, limit: 30)
+    @pagy, @forecasts = pagy(forecasts, limit: 15)
   end
 
   private

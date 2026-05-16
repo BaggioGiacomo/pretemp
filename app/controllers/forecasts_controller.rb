@@ -16,6 +16,6 @@ class ForecastsController < ApplicationController
     end
 
     def forecast_params
-      params.require(:forecast).permit(:date, :image, :summary, :body)
+      params.require(:forecast).permit(:date, :image, :summary, :short_text, :discussion)
     end
 end

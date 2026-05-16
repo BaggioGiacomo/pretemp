@@ -7,104 +7,265 @@
       Consulta tutte le previsioni e tendenze del <%= @year %>, incluse quelle riformulate o sostituite (segnate come archiviate).
     </p>
   </div>
-  <% if @forecasts.empty? %>
-    <div class="p-6 md:p-8 border border-slate-800 rounded-2xl bg-slate-900/80 text-center">
-      <p class="text-sm text-slate-400">Nessuna previsione disponibile per l'anno <%= @year %></p>
-    </div>
-  <% else %>
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      <% @forecasts.each do |forecast| %>
-        <% risk = forecast.risk_level_before_type_cast %>
-        <% risk_config = case risk
+  <% risk_options = [
+       { value: "basso",       label: "Bassa",      dot: "bg-yellow-600" },
+       { value: "medio",       label: "Media",      dot: "bg-orange-600" },
+       { value: "alto",        label: "Alta",       dot: "bg-red-500" },
+       { value: "molto_alto",  label: "Molto alta", dot: "bg-purple-600" },
+     ] %>
+  <% selected_risk = risk_options.find { |o| o[:value] == @risk_level } %>
+  <%= turbo_frame_tag "archive_filters" do %>
+    <%= form_with url: archivio_path(@year), method: :get, local: true,
+        data: { controller: "auto-submit", action: "change->auto-submit#submit", turbo_frame: "archive_filters" },
+        class: "mb-8 p-4 md:p-5 border border-slate-800 rounded-2xl bg-slate-900/60" do |f| %>
+      <div class="grid gap-4 md:grid-cols-3">
+        <%# === Date from === %>
+        <div class="relative"
+           data-controller="date-picker"
+           data-date-picker-min-value="<%= "#{@year}-01-01" %>"
+           data-date-picker-max-value="<%= (@date_to || Date.new(@year.to_i, 12, 31)).to_s %>"
+           data-date-picker-placeholder-value="Qualsiasi data">
+          <label class="block text-[11px] uppercase tracking-wider font-medium text-slate-400 mb-1.5">Dal</label>
+          <%= f.hidden_field :date_from, value: @date_from&.to_s,
+              data: { date_picker_target: "input" } %>
+          <button type="button"
+                data-date-picker-target="trigger"
+                data-action="click->date-picker#toggle"
+            aria-haspopup="dialog" aria-expanded="false"
+            class="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-left hover:border-slate-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-colors">
+            <span class="inline-flex items-center gap-2 min-w-0">
+              <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span data-date-picker-target="label" class="truncate">Qualsiasi data</span>
+            </span>
+            <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div data-date-picker-target="panel"
+             class="hidden absolute z-30 mt-2 w-72 rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl shadow-slate-950/60 p-3">
+            <div class="flex items-center justify-between mb-2">
+              <button type="button" data-action="click->date-picker#prevMonth"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" aria-label="Mese precedente">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <span data-date-picker-target="title" class="text-sm font-semibold text-slate-100"></span>
+              <button type="button" data-action="click->date-picker#nextMonth"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" aria-label="Mese successivo">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+            <div data-date-picker-target="grid" class="grid grid-cols-7 gap-0.5"></div>
+            <div class="mt-2 pt-2 border-t border-slate-800 flex justify-end">
+              <button type="button" data-action="click->date-picker#clear"
+                class="text-xs font-medium text-slate-400 hover:text-white px-2 py-1 rounded-md hover:bg-slate-800 transition-colors">Cancella</button>
+            </div>
+          </div>
+        </div>
+        <%# === Date to === %>
+        <div class="relative"
+           data-controller="date-picker"
+           data-date-picker-min-value="<%= (@date_from || Date.new(@year.to_i, 1, 1)).to_s %>"
+           data-date-picker-max-value="<%= "#{@year}-12-31" %>"
+           data-date-picker-placeholder-value="Qualsiasi data">
+          <label class="block text-[11px] uppercase tracking-wider font-medium text-slate-400 mb-1.5">Al</label>
+          <%= f.hidden_field :date_to, value: @date_to&.to_s,
+              data: { date_picker_target: "input" } %>
+          <button type="button"
+                data-date-picker-target="trigger"
+                data-action="click->date-picker#toggle"
+            aria-haspopup="dialog" aria-expanded="false"
+            class="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-left hover:border-slate-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-colors">
+            <span class="inline-flex items-center gap-2 min-w-0">
+              <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span data-date-picker-target="label" class="truncate">Qualsiasi data</span>
+            </span>
+            <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div data-date-picker-target="panel"
+             class="hidden absolute z-30 mt-2 w-72 rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl shadow-slate-950/60 p-3">
+            <div class="flex items-center justify-between mb-2">
+              <button type="button" data-action="click->date-picker#prevMonth"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" aria-label="Mese precedente">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <span data-date-picker-target="title" class="text-sm font-semibold text-slate-100"></span>
+              <button type="button" data-action="click->date-picker#nextMonth"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" aria-label="Mese successivo">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+            <div data-date-picker-target="grid" class="grid grid-cols-7 gap-0.5"></div>
+            <div class="mt-2 pt-2 border-t border-slate-800 flex justify-end">
+              <button type="button" data-action="click->date-picker#clear"
+                class="text-xs font-medium text-slate-400 hover:text-white px-2 py-1 rounded-md hover:bg-slate-800 transition-colors">Cancella</button>
+            </div>
+          </div>
+        </div>
+        <%# === Risk level === %>
+        <div class="relative"
+           data-controller="custom-select"
+           data-custom-select-placeholder-value="Tutte">
+          <label class="block text-[11px] uppercase tracking-wider font-medium text-slate-400 mb-1.5">Pericolosità</label>
+          <%= f.hidden_field :risk_level, value: @risk_level,
+              data: { custom_select_target: "input" } %>
+          <button type="button"
+                data-custom-select-target="trigger"
+                data-action="click->custom-select#toggle"
+            aria-haspopup="listbox" aria-expanded="false"
+            class="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-left hover:border-slate-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-colors">
+            <span class="inline-flex items-center gap-2 min-w-0">
+              <% if selected_risk %>
+                <span class="inline-block w-2 h-2 rounded-full <%= selected_risk[:dot] %>"></span>
+              <% else %>
+                <span class="inline-block w-2 h-2 rounded-full bg-slate-600"></span>
+              <% end %>
+              <span data-custom-select-target="label" class="truncate"><%= selected_risk ? selected_risk[:label] : "Tutte" %></span>
+            </span>
+            <svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div data-custom-select-target="panel"
+             role="listbox"
+             class="hidden absolute z-30 mt-2 w-full rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl shadow-slate-950/60 p-1.5">
+            <button type="button" role="option"
+                  data-custom-select-target="option"
+                  data-action="click->custom-select#select"
+              data-value=""
+              data-label="Tutte"
+              class="w-full inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-left">
+              <span class="inline-block w-2 h-2 rounded-full bg-slate-600"></span>
+              <span>Tutte</span>
+            </button>
+            <% risk_options.each do |opt| %>
+              <button type="button" role="option"
+                    data-custom-select-target="option"
+                    data-action="click->custom-select#select"
+                data-value="<%= opt[:value] %>"
+                data-label="<%= opt[:label] %>"
+                class="w-full inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-left">
+                <span class="inline-block w-2 h-2 rounded-full <%= opt[:dot] %>"></span>
+                <span><%= opt[:label] %></span>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% if @date_from || @date_to || @risk_level %>
+        <div class="mt-4 flex justify-end">
+          <%= link_to archivio_path(@year),
+              class: "inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors" do %>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            Reimposta filtri
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if @forecasts.empty? %>
+      <div class="p-6 md:p-8 border border-slate-800 rounded-2xl bg-slate-900/80 text-center">
+        <p class="text-sm text-slate-400">Nessuna previsione disponibile per l'anno <%= @year %> con i filtri selezionati</p>
+      </div>
+    <% else %>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <% @forecasts.each do |forecast| %>
+          <% risk = forecast.risk_level_before_type_cast %>
+          <% risk_config = case risk
              when 0 then { color: "bg-yellow-600",  text: "text-yellow-300", bg: "bg-yellow-600/10",  label: "Pericolosità" }
              when 1 then { color: "bg-orange-600",  text: "text-orange-300", bg: "bg-orange-600/10",  label: "Pericolosità" }
              when 2 then { color: "bg-red-500", text: "text-red-300",bg: "bg-red-500/10", label: "Pericolosità" }
              when 3 then { color: "bg-purple-600", text: "text-purple-300",bg: "bg-purple-600/10", label: "Pericolosità" }
              else        { color: "bg-emerald-500",  text: "text-emerald-300", bg: "bg-emerald-500/10",  label: "Nessun pericolo" }
            end %>
-        <%= link_to forecast_path(forecast),
+          <%= link_to forecast_path(forecast),
               class: "group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-4 flex items-start justify-between gap-3 hover:border-slate-700 hover:bg-slate-900 hover:-translate-y-0.5 transition" do %>
-          <span class="absolute left-0 top-0 bottom-0 w-1 <%= risk_config[:color] %>"></span>
-          <div class="flex-1 min-w-0 pl-2">
-            <% if forecast.date %>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-[11px] uppercase tracking-wider font-medium text-slate-500">
-                  <%= I18n.l(forecast.date, format: "%d %b") %>
+            <span class="absolute left-0 top-0 bottom-0 w-1 <%= risk_config[:color] %>"></span>
+            <div class="flex-1 min-w-0 pl-2">
+              <% if forecast.date %>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-[11px] uppercase tracking-wider font-medium text-slate-500">
+                    <%= I18n.l(forecast.date, format: "%d %b") %>
+                  </span>
+                  <span class="text-slate-700">·</span>
+                  <span class="text-[11px] text-slate-500">
+                    <%= I18n.l(forecast.date, format: "%A") %>
+                  </span>
+                </div>
+                <p class="text-lg font-semibold text-slate-100 group-hover:text-white tracking-tight mb-3">
+                  <%= I18n.l(forecast.date, format: :long) %>
+                </p>
+              <% end %>
+              <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider <%= forecast.tendenza? ? "bg-indigo-500/10 text-indigo-300" : "bg-sky-500/10 text-sky-300" %>">
+                  <%= forecast.label %>
                 </span>
-                <span class="text-slate-700">·</span>
-                <span class="text-[11px] text-slate-500">
-                  <%= I18n.l(forecast.date, format: "%A") %>
-                </span>
+                <% if forecast.draft? %>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider bg-amber-500/10 text-amber-300">
+                    Archiviata
+                  </span>
+                <% end %>
               </div>
-              <p class="text-lg font-semibold text-slate-100 group-hover:text-white tracking-tight mb-3">
-                <%= I18n.l(forecast.date, format: :long) %>
+              <div class="inline-flex items-center gap-2 <%= risk_config[:bg] %> py-1 pr-1.5 pl-2.5 rounded-full mb-2.5">
+                <% if risk.nil? %>
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-500 ml-1"></span>
+                <% end %>
+                <span class="text-xs font-medium <%= risk_config[:text] %>">
+                  <%= risk_config[:label] %>
+                </span>
+                <% if risk %>
+                  <span class="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full <%= risk_config[:color] %> text-[11px] font-semibold text-slate-950">
+                    <%= risk %>
+                  </span>
+                <% end %>
+              </div>
+              <p class="text-xs text-slate-500">
+                <span class="text-slate-400">Previsori</span>
+                ·
+                <%= forecast.authors %>
               </p>
-            <% end %>
-            <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider <%= forecast.tendenza? ? "bg-indigo-500/10 text-indigo-300" : "bg-sky-500/10 text-sky-300" %>">
-                <%= forecast.label %>
-              </span>
-              <% if forecast.draft? %>
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider bg-amber-500/10 text-amber-300">
-                  Archiviata
-                </span>
-              <% end %>
             </div>
-            <div class="inline-flex items-center gap-2 <%= risk_config[:bg] %> py-1 pr-1.5 pl-2.5 rounded-full mb-2.5">
-              <% if risk.nil? %>
-                <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-500 ml-1"></span>
-              <% end %>
-              <span class="text-xs font-medium <%= risk_config[:text] %>">
-                <%= risk_config[:label] %>
-              </span>
-              <% if risk %>
-                <span class="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full <%= risk_config[:color] %> text-[11px] font-semibold text-slate-950">
-                  <%= risk %>
-                </span>
-              <% end %>
-            </div>
-            <p class="text-xs text-slate-500">
-              <span class="text-slate-400">Previsori</span>
-              ·
-              <%= forecast.authors %>
-            </p>
-          </div>
-          <span class="text-slate-600 group-hover:text-sky-400 transition-colors text-lg leading-none">→</span>
-        <% end %>
-      <% end %>
-    </div>
-    <% if @pagy.pages > 1 %>
-      <nav class="mt-8 flex items-center justify-center" aria-label="Paginazione archivio">
-        <ul class="inline-flex items-center gap-1 rounded-2xl border border-slate-800 bg-slate-900/80 px-2 py-2 shadow-2xl shadow-slate-950/60">
-          <% @pagy.send(:series).each do |item| %>
-            <% case item %>
-            <% when Integer %>
-              <li>
-                <%= link_to item, @pagy.page_url(item),
-                  class: "inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-colors" %>
-              </li>
-            <% when String %>
-              <li>
-                <span aria-current="page"
-                  class="inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-xl text-sm font-semibold text-slate-950 bg-sky-400 border border-sky-400">
-                  <%= item %>
-                </span>
-              </li>
-            <% when :gap %>
-              <li>
-                <span class="inline-flex items-center justify-center min-w-9 h-9 px-2 text-sm text-slate-500" aria-hidden="true">…</span>
-              </li>
-            <% end %>
+            <span class="text-slate-600 group-hover:text-sky-400 transition-colors text-lg leading-none">→</span>
           <% end %>
-        </ul>
-      </nav>
-      <p class="mt-3 text-center text-xs text-slate-500">
-        Pagina <%= @pagy.page %> di <%= @pagy.pages %> · <%= @pagy.count %> previsioni
-      </p>
+        <% end %>
+      </div>
+      <% if @pagy.pages > 1 %>
+        <nav class="mt-8 flex items-center justify-center" aria-label="Paginazione archivio">
+          <ul class="inline-flex items-center gap-1 rounded-2xl border border-slate-800 bg-slate-900/80 px-2 py-2 shadow-2xl shadow-slate-950/60">
+            <% @pagy.send(:series).each do |item| %>
+              <% case item %>
+              <% when Integer %>
+                <li>
+                  <%= link_to item, @pagy.page_url(item),
+                  class: "inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 border border-transparent hover:border-slate-700 transition-colors" %>
+                </li>
+              <% when String %>
+                <li>
+                  <span aria-current="page"
+                  class="inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-xl text-sm font-semibold text-slate-950 bg-sky-400 border border-sky-400">
+                    <%= item %>
+                  </span>
+                </li>
+              <% when :gap %>
+                <li>
+                  <span class="inline-flex items-center justify-center min-w-9 h-9 px-2 text-sm text-slate-500" aria-hidden="true">…</span>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </nav>
+        <p class="mt-3 text-center text-xs text-slate-500">
+          Pagina <%= @pagy.page %> di <%= @pagy.pages %> · <%= @pagy.count %> previsioni
+        </p>
+      <% end %>
     <% end %>
   <% end %>
   <div class="mt-6">
-    <%= link_to archivio_index_path, class: "inline-flex items-center text-xs font-medium text-sky-300 hover:text-sky-200 transition-colors" do %>
+    <%= link_to archivio_index_path, data: { turbo_frame: "_top" }, class: "inline-flex items-center text-xs font-medium text-sky-300 hover:text-sky-200 transition-colors" do %>
       <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
       </svg>

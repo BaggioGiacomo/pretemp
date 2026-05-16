@@ -5,15 +5,21 @@
       Consulta tutte le previsioni pubblicate dal 2015 ad oggi.
     </p>
   </div>
-  <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+  <div class="grid gap-3 sm:grid-cols md:grid-cols-2 lg:grid-cols-3">
     <% (2015..Time.current.year).to_a.reverse.each do |year| %>
       <%= link_to archivio_path(year),
-          class: "group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 flex items-center justify-between hover:border-sky-500/60 hover:bg-slate-900 transition" do %>
-        <div>
-          <p class="text-lg font-semibold text-slate-100 group-hover:text-white"><%= year %></p>
+          class: "group relative overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-900/40 p-5 flex items-center gap-3 hover:border-sky-500/60 hover:from-slate-800/80 hover:to-slate-900 hover:shadow-lg hover:shadow-sky-500/10 hover:-translate-y-0.5 transition-all duration-200" do %>
+        <span class="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-sky-400/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></span>
+        <span class="shrink-0 flex items-center justify-center w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 ring-1 ring-inset ring-sky-500/20 group-hover:bg-sky-500/20 group-hover:text-sky-300 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p class="text-lg font-semibold text-slate-100 group-hover:text-white leading-tight"><%= year %></p>
           <p class="text-xs text-slate-500">Archivio previsioni</p>
         </div>
-        <span class="text-sky-400 group-hover:text-sky-300 transition">
+        <span class="shrink-0 text-sky-400 group-hover:text-sky-300 group-hover:translate-x-1 transition-transform">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
           </svg>

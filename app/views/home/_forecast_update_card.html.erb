@@ -11,7 +11,14 @@
     </span>
   </div>
   <div class="prose prose-invert prose-sm max-w-none text-slate-300 prose-p:my-1">
-    <%= forecast_update.body %>
+    <% if forecast_update.short_text.present? %>
+      <p><strong>TESTO BREVE</strong></p>
+      <%= forecast_update.short_text %>
+    <% end %>
+    <% if forecast_update.discussion.present? %>
+      <p><strong>DISCUSSIONE</strong></p>
+      <%= forecast_update.discussion %>
+    <% end %>
   </div>
   <% if forecast_update.image.attached? %>
     <div class="flex items-center justify-center bg-slate-950/50 p-2 rounded-lg max-w-[300px] overflow-hidden">

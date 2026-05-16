@@ -2,10 +2,10 @@ class ForecastUpdate < ApplicationRecord
   belongs_to :forecast
   has_and_belongs_to_many :users
 
-  has_rich_text :body
+  has_rich_text :short_text
+  has_rich_text :discussion
   has_one_attached :image
 
-  validates :body, presence: true
   validates :forecast, presence: true
   validates :valid_until, presence: true
 

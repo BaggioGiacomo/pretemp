@@ -47,6 +47,6 @@ class Admin::ForecastUpdatesController < AdminController
     end
 
     def forecast_update_params
-      params.require(:forecast_update).permit(:body, :image, :status, :valid_until, :remove_image, user_ids: [])
+      params.require(:forecast_update).permit(:short_text, :discussion, :image, :status, :valid_until, :remove_image, user_ids: [])
     end
 end

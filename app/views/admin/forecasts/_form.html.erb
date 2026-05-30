@@ -1,5 +1,5 @@
 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-  <%= form_with(model: [:admin, forecast], local: true, class: "space-y-6") do |form| %>
+  <%= form_with(model: [:admin, forecast], local: true, class: "space-y-6", data: { controller: "admin-forecast-date" }) do |form| %>
     <% if forecast.errors.any? %>
       <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg" role="alert">
         <div class="font-semibold mb-2"><%= pluralize(forecast.errors.count, "error") %> prohibited this forecast from being saved:</div>
@@ -10,9 +10,61 @@
         </ul>
       </div>
     <% end %>
-    <div>
-      <%= form.label :date, "Date", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= form.date_field :date, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors", value: forecast.date || Date.today %>
+    <%# Tendenza Checkbox %>
+    <div class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg bg-gray-50">
+      <label class="flex items-center gap-3 cursor-pointer flex-1">
+        <%= form.check_box :tendenza, 
+            { class: "w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500", 
+              data: { "admin-forecast-date-target" => "checkbox", action: "change->admin-forecast-date#onTendenzaChange" } } %>
+        <span class="text-sm font-medium text-gray-700">Tendenza?</span>
+      </label>
+      <span class="text-xs text-gray-500">Trend forecasts can only be set from day after tomorrow onwards</span>
+    </div>
+    <%# Date Picker %>
+    <div class="relative"
+         data-controller="date-picker"
+         data-admin-forecast-date-target="datePickerContainer"
+         data-date-picker-min-value="<%= forecast.tendenza? ? (Date.today + 2).to_s : Date.new(2015, 1, 1).to_s %>"
+         data-date-picker-max-value="<%= (Date.today + 60).to_s %>"
+         data-date-picker-placeholder-value="Seleziona una data">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Data</label>
+      <%= form.hidden_field :date, value: forecast.date || Date.today,
+          data: { date_picker_target: "input" } %>
+      <button type="button"
+              data-date-picker-target="trigger"
+              data-action="click->date-picker#toggle"
+        aria-haspopup="dialog" aria-expanded="false"
+        class="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm text-left hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors">
+        <span class="inline-flex items-center gap-2 min-w-0">
+          <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span data-date-picker-target="label" class="truncate text-gray-700">Seleziona una data</span>
+        </span>
+        <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div data-date-picker-target="panel"
+           class="hidden absolute z-30 mt-2 w-80 rounded-2xl border border-gray-200 bg-white shadow-lg p-3">
+        <div class="flex items-center justify-between mb-3">
+          <button type="button" data-action="click->date-picker#prevMonth"
+            class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Previous month">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <span data-date-picker-target="title" class="text-sm font-semibold text-gray-900"></span>
+          <button type="button" data-action="click->date-picker#nextMonth"
+            class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Next month">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div data-date-picker-target="grid" class="grid grid-cols-7 gap-1 mb-3"></div>
+        <div class="pt-2 border-t border-gray-200 flex justify-between">
+          <button type="button" data-action="click->date-picker#clear"
+            class="text-xs font-medium text-gray-600 hover:text-gray-900 px-2 py-1 rounded hover:bg-gray-100 transition-colors">Cancella</button>
+          <span class="text-xs text-gray-400">Click to select</span>
+        </div>
+      </div>
     </div>
     <div>
       <%= form.label :status, "Status", class: "block text-sm font-medium text-gray-700 mb-2" %>

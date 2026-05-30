@@ -42,6 +42,6 @@ class Admin::ForecastsController < AdminController
     end
 
     def forecast_params
-      params.require(:forecast).permit(:date, :summary, :short_text, :discussion, :image, :risk_level, :status, :remove_image, user_ids: [])
+      params.require(:forecast).permit(:date, :summary, :short_text, :discussion, :image, :risk_level, :status, :tendenza, :remove_image, user_ids: [])
     end
 end

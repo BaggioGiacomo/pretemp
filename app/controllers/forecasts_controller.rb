@@ -2,11 +2,14 @@ class ForecastsController < ApplicationController
   before_action :set_forecast, only: %i[show]
 
   def index
-    @forecasts = Forecast.ordered
+    @forecasts = Forecast.published.ordered
   end
 
   def show
     @active_update = @forecast.active_update
+    unless @forecast.published? || @forecast.archived?
+      redirect_to root_path, status: :not_found
+    end
   end
 
   private

@@ -39,6 +39,8 @@ export default class extends Controller {
 
     this._onDocClick = this._onDocClick.bind(this);
     this._onKeydown = this._onKeydown.bind(this);
+    this._onMinMaxChanged = this._onMinMaxChanged.bind(this);
+    this._onInputChange = this._onInputChange.bind(this);
 
     const initial = this._parse(this.inputTarget.value);
     const minD = this._parse(this.minValue);
@@ -50,11 +52,30 @@ export default class extends Controller {
       initial ||
       (minD && today < minD ? minD : maxD && today > maxD ? maxD : today);
     this._renderLabel();
+
+    // Listen for min/max changes
+    this.element.addEventListener("minMaxChanged", this._onMinMaxChanged);
+    // Listen for external changes to the input value
+    this.inputTarget.addEventListener("change", this._onInputChange);
   }
 
   disconnect() {
     document.removeEventListener("click", this._onDocClick);
     document.removeEventListener("keydown", this._onKeydown);
+    this.element.removeEventListener("minMaxChanged", this._onMinMaxChanged);
+    this.inputTarget.removeEventListener("change", this._onInputChange);
+  }
+
+  _onMinMaxChanged(event) {
+    // Re-render when min/max bounds change
+    if (this.panelTarget && !this.panelTarget.classList.contains("hidden")) {
+      this._render();
+    }
+  }
+
+  _onInputChange(event) {
+    // Update label when input value changes externally
+    this._renderLabel();
   }
 
   toggle(event) {
@@ -144,12 +165,12 @@ export default class extends Controller {
     if (this.hasLabelTarget) {
       if (current) {
         this.labelTarget.textContent = this._formatHuman(current);
-        this.labelTarget.classList.remove("text-slate-500");
-        this.labelTarget.classList.add("text-slate-100");
+        this.labelTarget.classList.remove("text-gray-400");
+        this.labelTarget.classList.add("text-gray-900");
       } else {
         this.labelTarget.textContent = this.placeholderValue;
-        this.labelTarget.classList.add("text-slate-500");
-        this.labelTarget.classList.remove("text-slate-100");
+        this.labelTarget.classList.add("text-gray-400");
+        this.labelTarget.classList.remove("text-gray-900");
       }
     }
   }
@@ -175,7 +196,7 @@ export default class extends Controller {
     // Weekday header
     for (const w of this.weekDays) {
       cells.push(
-        `<div class="text-center text-[10px] uppercase tracking-wider font-medium text-slate-500 py-1.5">${w}</div>`,
+        `<div class="text-center text-[10px] uppercase tracking-wider font-medium text-gray-500 py-1.5">${w}</div>`,
       );
     }
 
@@ -214,15 +235,17 @@ export default class extends Controller {
     let classes =
       "relative h-8 w-8 mx-auto flex items-center justify-center text-xs rounded-lg transition-colors";
     if (disabled) {
-      classes += " text-slate-700 cursor-not-allowed";
+      classes += " text-gray-300 cursor-not-allowed";
     } else if (isSelected) {
-      classes += " bg-sky-500 text-slate-950 font-semibold";
+      classes += " bg-blue-500 text-white font-semibold";
+    } else if (isToday) {
+      classes += " text-gray-900 font-semibold hover:bg-gray-100";
     } else if (muted) {
-      classes += " text-slate-600 hover:bg-slate-800/60 hover:text-slate-300";
+      classes += " text-gray-400 hover:bg-gray-100 hover:text-gray-600";
     } else {
-      classes += " text-slate-200 hover:bg-slate-800";
+      classes += " text-gray-700 hover:bg-gray-100";
     }
-    if (isToday && !isSelected) classes += " ring-1 ring-sky-500/60";
+    if (isToday && !isSelected) classes += " ring-1 ring-blue-400/60";
 
     return `<button type="button" class="${classes}"
               ${disabled ? "disabled" : ""}

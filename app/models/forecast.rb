@@ -14,6 +14,9 @@ class Forecast < ApplicationRecord
   scope :ordered, -> { order(date: :desc) }
   scope :published, -> { where(status: "published") }
   scope :drafted, -> { where(status: "draft") }
+  scope :archived, -> { where(status: "archived") }
+  scope :visible, -> { where(status: [ "published", "archived" ]) }
+  scope :tendenze, -> { where(tendenza: true) }
 
   before_validation :set_default_date, on: :create
   before_validation :set_default_status, on: :create
@@ -23,13 +26,8 @@ class Forecast < ApplicationRecord
 
   DEFAULT_SUMMARY = "<div><!--block--><strong>PRETEMP è un gruppo di lavoro che si pone l'obiettivo di studiare e prevedere i fenomeni temporaleschi severi sul territorio italiano. PRETEMP NON EMETTE ALLERTE bensì previsioni probabilistiche sperimentali. PRETEMP inoltre svolge attività di raccolta di segnalazioni dei fenomeni severi avvenuti in collaborazione con l'associazione Meteonetwork e l'European Severe Storms Laboratory attraverso il database Storm Report al fine di verificare le previsioni emesse.&nbsp;<br><br>PER ALLERTAMENTO UFFICIALE AFFIDARSI SEMPRE AL DIPARTIMENTO DI PROTEZIONE CIVILE NAZIONALE.</strong></div>"
 
-  # A forecast is a "Tendenza" if, at the time it was created, the target date
-  # was 2 or more days after the creation date. Otherwise it is a "Previsione".
-  # The label is frozen at creation time and does not change as days pass.
   def tendenza?
-    return false if date.nil?
-    reference = (created_at || Time.current).to_date
-    (date - reference).to_i >= 2
+    self.tendenza == true
   end
 
   def draft?
@@ -38,6 +36,10 @@ class Forecast < ApplicationRecord
 
   def published?
     status == "published"
+  end
+
+  def archived?
+    status == "archived"
   end
 
   def label
@@ -61,6 +63,10 @@ class Forecast < ApplicationRecord
     published.find_by(date: Date.today)
   end
 
+  def self.tomorrow
+    published.find_by(date: Date.tomorrow)
+  end
+
   private
 
     def set_default_date
@@ -79,6 +85,6 @@ class Forecast < ApplicationRecord
 
       scope = self.class.where(date: date, status: "published")
       scope = scope.where.not(id: id) if persisted?
-      scope.update_all(status: "draft", updated_at: Time.current)
+      scope.update_all(status: "archived", updated_at: Time.current)
     end
 end

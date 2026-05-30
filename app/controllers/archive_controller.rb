@@ -8,7 +8,7 @@ class ArchiveController < ApplicationController
     @date_to   = parse_date(params[:date_to])
     @risk_level = params[:risk_level].presence
 
-    forecasts = Forecast.where("strftime('%Y', date) = ?", @year).ordered
+    forecasts = Forecast.visible.where("strftime('%Y', date) = ?", @year).ordered
     forecasts = forecasts.where("date >= ?", @date_from) if @date_from
     forecasts = forecasts.where("date <= ?", @date_to) if @date_to
     forecasts = forecasts.where(risk_level: @risk_level) if @risk_level && Forecast.risk_levels.key?(@risk_level)

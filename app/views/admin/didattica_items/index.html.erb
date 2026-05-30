@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="admin-page py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mb-6">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -13,10 +13,10 @@
           </div>
           <p class="mt-1 sm:mt-2 text-gray-600 text-sm">Manage the items of this section</p>
         </div>
-        <%= link_to "New Item", new_admin_didattica_section_didattica_item_path(@didattica_section), class: "px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-center" %>
+        <%= link_to "New Item", new_admin_didattica_section_didattica_item_path(@didattica_section), class: "admin-btn-primary text-center" %>
       </div>
     </div>
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <div class="admin-surface overflow-hidden">
       <% if @didattica_items.any? %>
         <div class="divide-y divide-gray-200">
           <% @didattica_items.each do |item| %>
@@ -62,7 +62,7 @@
           <h3 class="mt-2 text-sm font-medium text-gray-900">No items</h3>
           <p class="mt-1 text-sm text-gray-500">Start by creating a new item.</p>
           <div class="mt-6">
-            <%= link_to "New Item", new_admin_didattica_section_didattica_item_path(@didattica_section), class: "inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium" %>
+            <%= link_to "New Item", new_admin_didattica_section_didattica_item_path(@didattica_section), class: "admin-btn-primary" %>
           </div>
         </div>
       <% end %>

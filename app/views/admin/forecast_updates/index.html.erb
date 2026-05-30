@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="admin-page py-6">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="mb-6">
       <div class="flex items-center gap-4 mb-2">
@@ -11,10 +11,10 @@
       </div>
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p class="mt-1 sm:mt-2 text-gray-600 text-sm">Manage forecast updates</p>
-        <%= link_to "New Update", new_admin_forecast_forecast_update_path(@forecast), class: "px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-center" %>
+        <%= link_to "New Update", new_admin_forecast_forecast_update_path(@forecast), class: "admin-btn-primary text-center" %>
       </div>
     </div>
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <div class="admin-surface overflow-hidden">
       <% if @forecast_updates.any? %>
         <div class="divide-y divide-gray-200">
           <% @forecast_updates.each do |forecast_update| %>
@@ -64,7 +64,7 @@
           <h3 class="mt-2 text-sm font-medium text-gray-900">No updates yet</h3>
           <p class="mt-1 text-sm text-gray-500">Create an update for this forecast.</p>
           <div class="mt-6">
-            <%= link_to "New Update", new_admin_forecast_forecast_update_path(@forecast), class: "inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium" %>
+            <%= link_to "New Update", new_admin_forecast_forecast_update_path(@forecast), class: "admin-btn-primary" %>
           </div>
         </div>
       <% end %>

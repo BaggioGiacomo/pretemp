@@ -57,9 +57,6 @@ class PagesController < ApplicationController
   def cambiamenti_climatici
   end
 
-  def come_leggere_la_previsione
-  end
-
   def significato_delle_sigle
   end
 

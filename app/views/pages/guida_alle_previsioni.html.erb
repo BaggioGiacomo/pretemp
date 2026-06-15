@@ -2,11 +2,8 @@
   <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,.18),transparent_55%),radial-gradient(circle_at_bottom,rgba(250,204,21,.12),transparent_55%)]"></div>
   <div class="relative max-w-6xl mx-auto px-4 py-6 md:py-16 w-full">
     <div class="space-y-6 max-w-3xl">
-      <p class="inline-flex items-center rounded-full border border-sky-500/40 bg-slate-950/70 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm shadow-sky-500/20">
-        Guida alle Previsioni
-      </p>
       <h1 class="text-3xl md:text-4xl font-semibold tracking-tight section-heading-accent">
-        La Previsione
+        Guida alle previsioni
       </h1>
       <p class="text-sm md:text-base text-slate-300">
         I punti di riferimento che hanno portato ad elaborare questo modello di previsione sono stati principalmente l'<%= link_to "European Storm Forecast Experiment (ESTOFEX)", "https://www.estofex.org/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %> dell'<%= link_to "European Severe Storm Laboratory (ESSL)", "https://www.essl.org/cms/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %>, con cui PRETEMP collabora, e lo <%= link_to "Storm Prediction Center (SPC)", "https://www.spc.noaa.gov/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %> della <%= link_to "National Oceanic and Atmospheric Administration (NOAA)", "https://www.noaa.gov/", class: "text-sky-300 hover:text-sky-200", target: "_blank" %>. Questi esempi sono stati adattati alle caratteristiche dell'Italia e all'esperienza maturata negli anni di previsione di temporali forti in Italia.
@@ -87,7 +84,7 @@
           </tr>
           <tr class="bg-slate-950/50 hover:bg-slate-900/50 transition">
             <td class="px-4 py-3 font-medium text-slate-100">
-              <%= link_to "Bollettino", bollettino_path, class: "text-sky-300 hover:text-sky-200 underline" %>
+              <%= link_to "Previsione", bollettino_path, class: "text-sky-300 hover:text-sky-200 underline" %>
             </td>
             <td class="px-4 py-3 text-slate-300">24 h</td>
             <td class="px-4 py-3 text-slate-400">La prima idea viene migliorata utilizzando i modelli ad area limitata più recenti, vengono forniti dettagli sulle aree colpite, i fenomeni attesi e le tempistiche dell'evento.</td>
@@ -105,7 +102,4 @@
       </table>
     </div>
   </div>
-  <p class="mt-6 text-center text-xs text-slate-500">
-    PRETEMP *** 27/12/2025 ***
-  </p>
 </section>

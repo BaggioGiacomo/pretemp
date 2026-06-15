@@ -17,6 +17,7 @@ class Forecast < ApplicationRecord
   scope :archived, -> { where(status: "archived") }
   scope :visible, -> { where(status: [ "published", "archived" ]) }
   scope :tendenze, -> { where(tendenza: true) }
+  scope :published_tendenze, -> { where(status: "published", tendenza: true) }
 
   before_validation :set_default_date, on: :create
   before_validation :set_default_status, on: :create

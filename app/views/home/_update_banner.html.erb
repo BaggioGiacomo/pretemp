@@ -1,0 +1,26 @@
+<div data-controller="modal" class="relative border-b border-amber-500/30 bg-amber-500/10">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
+    <span class="inline-flex items-center justify-center w-8 h-8 shrink-0 rounded-full bg-amber-500/20 text-amber-200">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+    </span>
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-semibold text-amber-100">
+        Aggiornamento attivo sulla previsione del <%= I18n.l(update.forecast.date, format: "%-d %B") if update.forecast.date %>
+      </p>
+      <p class="text-xs text-amber-200/80 truncate">
+        Valido fino alle <%= I18n.l(update.valid_until, format: "%H:%M") %>
+      </p>
+    </div>
+    <%= link_to "Leggi l'aggiornamento", forecast_path(update.forecast),
+          class: "shrink-0 inline-flex items-center justify-center rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-slate-950 shadow-lg shadow-amber-500/30 hover:bg-amber-400 transition whitespace-nowrap" %>
+    <button type="button" data-action="modal#close"
+            class="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full text-amber-200/70 hover:text-amber-100 hover:bg-amber-500/20 transition"
+            aria-label="Chiudi avviso">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+</div>

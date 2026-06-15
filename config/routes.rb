@@ -36,7 +36,6 @@ Rails.application.routes.draw do
   get "validazioni" => "pages#validazioni", as: :validazioni
   get "didattica" => "pages#didattica", as: :didattica
   get "didattica/cambiamenti_climatici" => "pages#cambiamenti_climatici", as: :cambiamenti_climatici
-  get "come_leggere_la_previsione" => "pages#come_leggere_la_previsione", as: :come_leggere_la_previsione
   get "significato_delle_sigle" => "pages#significato_delle_sigle", as: :significato_delle_sigle
 
   get "aggiornamento" => "pages#aggiornamento", as: :aggiornamento

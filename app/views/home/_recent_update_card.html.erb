@@ -28,7 +28,7 @@
   <% end %>
   <div class="flex items-center justify-between pt-2 flex-1 items-end">
     <p class="text-[11px] text-amber-400/70">
-      Valido fino alle <%= I18n.l(forecast_update.valid_until, format: :short) %>
+      Valido fino alle <%= I18n.l(forecast_update.valid_until, format: "%H:%M") %>
     </p>
     <p class="text-[11px] text-slate-500">
       <%= time_ago_in_words(forecast_update.created_at) %> fa

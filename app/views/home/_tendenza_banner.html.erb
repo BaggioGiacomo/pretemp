@@ -1,22 +1,22 @@
-<div data-controller="modal" class="relative border-b border-purple-500/30 bg-purple-500/10">
+<div data-controller="modal" class="relative border-b border-orange-500/30 bg-orange-500/10">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
-    <span class="inline-flex items-center justify-center w-8 h-8 shrink-0 rounded-full bg-purple-500/20 text-purple-200">
+    <span class="inline-flex items-center justify-center w-8 h-8 shrink-0 rounded-full bg-orange-500/20 text-orange-200">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
       </svg>
     </span>
     <div class="min-w-0 flex-1">
-      <p class="text-sm font-semibold text-purple-100">
-        È disponibile una tendenza per <%= I18n.l(tendenza.date, format: "%-d %B") %>
+      <p class="text-sm font-semibold text-orange-100">
+        È disponibile una tendenza per il <%= I18n.l(tendenza.date, format: "%-d %B") %>
       </p>
-      <p class="text-xs text-purple-200/80 truncate">
+      <p class="text-xs text-orange-200/80 truncate">
         Consulta la tendenza prevista per i prossimi giorni.
       </p>
     </div>
     <%= link_to "Vai alla tendenza", forecast_path(tendenza),
-          class: "shrink-0 inline-flex items-center justify-center rounded-lg bg-purple-500 px-3 py-1.5 text-xs font-semibold text-slate-950 shadow-lg shadow-purple-500/30 hover:bg-purple-400 transition whitespace-nowrap" %>
+          class: "shrink-0 inline-flex items-center justify-center rounded-lg bg-orange-500 px-3 py-1.5 text-xs font-semibold text-slate-950 shadow-lg shadow-orange-500/30 hover:bg-orange-400 transition whitespace-nowrap" %>
     <button type="button" data-action="modal#close"
-            class="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full text-purple-200/70 hover:text-purple-100 hover:bg-purple-500/20 transition"
+            class="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full text-orange-200/70 hover:text-orange-100 hover:bg-orange-500/20 transition"
             aria-label="Chiudi avviso">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>

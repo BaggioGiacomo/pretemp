@@ -12,6 +12,7 @@ class ForecastUpdate < ApplicationRecord
   scope :ordered, -> { order(created_at: :desc) }
 
   before_validation :set_defaults, on: :create
+  after_create :update_forecast_issue_date
 
   VALIDITY_HOURS = 6
 
@@ -40,5 +41,9 @@ class ForecastUpdate < ApplicationRecord
     def set_defaults
       self.status ||= "published"
       self.valid_until ||= VALIDITY_HOURS.hours.from_now
+    end
+
+    def update_forecast_issue_date
+      forecast.update!(issue_date: Time.current)
     end
 end

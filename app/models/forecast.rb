@@ -21,6 +21,7 @@ class Forecast < ApplicationRecord
 
   before_validation :set_default_date, on: :create
   before_validation :set_default_status, on: :create
+  before_validation :set_default_issue_date, on: :create
   before_save :draft_other_forecasts_for_same_date
 
   enum :risk_level, { basso: 0, medio: 1, alto: 2, molto_alto: 3 }, prefix: :risk
@@ -76,6 +77,10 @@ class Forecast < ApplicationRecord
 
     def set_default_status
       self.status ||= "draft"
+    end
+
+    def set_default_issue_date
+      self.issue_date ||= Time.current
     end
 
     # When this forecast becomes the published one for its date, mark any

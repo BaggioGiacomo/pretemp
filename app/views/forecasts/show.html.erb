@@ -59,7 +59,7 @@
           <span class="font-medium text-slate-300"><%= @forecast.authors %></span>
         </p>
         <span class="hidden sm:inline text-slate-700">&middot;</span>
-        <p>Aggiornato il <%= I18n.l(@forecast.updated_at, format: :long) %></p>
+        <p>Aggiornato il <%= I18n.l(@forecast.issue_date, format: "%-d %B %Y, %H:%M") %></p>
       </div>
     </div>
     <% if @active_update %>
@@ -95,7 +95,7 @@
         <% end %>
         <div class="flex items-center justify-between mt-3 text-[11px] text-slate-500">
           <p><%= @active_update.authors %></p>
-          <p><%= time_ago_in_words(@active_update.created_at) %> fa</p>
+          <p><%= time_ago_in_words(@active_update.issue_date) %> fa</p>
         </div>
       </div>
     <% end %>

@@ -33,8 +33,8 @@ module ForecastUserSyncTask
     html = File.read(archive_path, encoding: "UTF-8")
     doc = Nokogiri::HTML(html)
 
-    previsori_by_kind = parse_previsori_by_kind(doc, year, report)
     users_by_last_name = build_users_index
+    previsori_by_kind = parse_previsori_by_kind(doc, year, report, users_by_last_name.keys)
 
     date_range = Date.new(year, 1, 1)..Date.new(year, 12, 31)
 
@@ -159,7 +159,7 @@ module ForecastUserSyncTask
     nil
   end
 
-  def parse_previsori_by_kind(doc, year, report)
+  def parse_previsori_by_kind(doc, year, report, known_last_names = [])
     maps = { forecast: {}, tendenza: {}, aggiornamento: {} }
     sources = { forecast: {}, tendenza: {}, aggiornamento: {} }
 
@@ -186,7 +186,7 @@ module ForecastUserSyncTask
         next
       end
 
-      names = extract_previsori(text)
+      names = extract_previsori(text, known_last_names)
 
       if names.blank?
         report[:errors] << "No previsore found in archive entry: '#{text}'"
@@ -258,15 +258,25 @@ module ForecastUserSyncTask
     nil
   end
 
-  def extract_previsori(text)
-    # Matches "Previsore: X", "Previsori: X/Y", "Previsore. X", "Previsore X"
-    match = text.match(/PREVISOR[EI][\s:.\-]*(.+)\z/i)
-    return nil unless match
+  # Resolves the previsori for an entry by scanning its text for surnames that
+  # exist in the DB, regardless of the entry's wording (labelled with
+  # "Previsore:"/"Revisore:" or not, e.g. "... GIUGNO (3) - NEGRO"). Longer,
+  # overlapping matches win (keeps "DE MARTIN" over a stray "MARTIN") and results
+  # are returned in the order they appear. Returns [] when nothing matches.
+  def extract_previsori(text, known_last_names = [])
+    return [] if known_last_names.blank?
 
-    raw = match[1].to_s.strip
-    return nil if raw.blank?
+    normalized = normalize_name(text)
 
-    raw.split(%r{\s*/\s*}).map(&:strip).reject(&:blank?)
+    spans = known_last_names.uniq.reject(&:blank?).filter_map do |last_name|
+      match = normalized.match(/\b#{Regexp.escape(last_name)}\b/)
+      { name: last_name, start: match.begin(0), finish: match.end(0) } if match
+    end
+
+    spans
+      .reject { |span| spans.any? { |o| !o.equal?(span) && o[:start] <= span[:start] && o[:finish] >= span[:finish] } }
+      .sort_by { |span| span[:start] }
+      .map { |span| span[:name] }
   end
 
   def write_report(report)

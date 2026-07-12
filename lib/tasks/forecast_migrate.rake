@@ -17,12 +17,16 @@ namespace :forecast do
       exit 1
     end
 
-    # Get the first user
+    # Get the first user (used as a fallback when no forecaster is found)
     first_user = User.first
     if first_user.nil?
       puts "No users found in the database. Please create a user first."
       exit 1
     end
+
+    # Index all users by last name so we can match forecasters mentioned in
+    # each forecast page (same approach as forecast:sync_users).
+    users_by_last_name = ForecastUserSyncTask.build_users_index
 
     # Initialize report
     report = {
@@ -39,7 +43,7 @@ namespace :forecast do
 
     html_files.each do |file_path|
       begin
-        result = migrate_single_file(file_path, first_user)
+        result = migrate_single_file(file_path, first_user, users_by_last_name)
         if result[:status] == :success
           report[:successful] += 1
           report[:details] << "✓ #{File.basename(file_path)}: #{result[:message]}"
@@ -71,12 +75,12 @@ namespace :forecast do
 
   private
 
-  def migrate_single_file(file_path, user)
+  def migrate_single_file(file_path, fallback_user, users_by_last_name)
     content = File.read(file_path, encoding: "UTF-8")
     doc = Nokogiri::HTML(content)
 
     if update_file?(file_path, doc)
-      return migrate_update_file(doc, user)
+      return migrate_update_file(doc, fallback_user, users_by_last_name)
     end
 
     is_tendenza = tendenza_file?(file_path, doc)
@@ -119,8 +123,8 @@ namespace :forecast do
     forecast.short_text = ActionText::RichText.new(body: "<div>#{short_text}</div>") if short_text.present?
     forecast.discussion = ActionText::RichText.new(body: "<div>#{discussion}</div>") if discussion.present?
 
-    # Attach first user
-    forecast.users << user
+    # Attach the forecasters mentioned on the forecast page
+    forecast.users = resolve_users_from_doc(doc, fallback_user, users_by_last_name)
 
     # Attach image if found
     if image_url.present?
@@ -143,7 +147,7 @@ namespace :forecast do
     { status: :error, message: "Invalid HTML: #{e.message}" }
   end
 
-  def migrate_update_file(doc, user)
+  def migrate_update_file(doc, fallback_user, users_by_last_name)
     forecast_date = extract_forecast_date_from_validity(doc)
     return { status: :error, message: "Could not parse forecast date for update" } if forecast_date.nil?
 
@@ -177,7 +181,7 @@ namespace :forecast do
     update.short_text = ActionText::RichText.new(body: "<div>#{short_text}</div>") if short_text.present?
     update.discussion = ActionText::RichText.new(body: "<div>#{discussion}</div>") if discussion.present?
 
-    update.users << user
+    update.users = resolve_users_from_doc(doc, fallback_user, users_by_last_name)
 
     if image_url.present?
       begin
@@ -193,6 +197,17 @@ namespace :forecast do
     else
       { status: :error, message: "Validation failed: #{update.errors.full_messages.join(', ')}" }
     end
+  end
+
+  # Search the forecast page text for the last names of known users and return
+  # every matching user. Falls back to the given user when no forecaster is
+  # found so the record still has an author. Reuses the matching logic from
+  # forecast:sync_users.
+  def resolve_users_from_doc(doc, fallback_user, users_by_last_name)
+    names = ForecastUserSyncTask.extract_previsori(doc.text.to_s, users_by_last_name.keys)
+    matched = names.flat_map { |name| users_by_last_name[name] }.compact.uniq
+
+    matched.presence || [ fallback_user ]
   end
 
   def update_file?(file_path, doc)
@@ -216,7 +231,7 @@ namespace :forecast do
     filename = File.basename(file_path, ".html")
 
     # Remove known prefixes used in legacy archives
-    filename = filename.sub(/\A(?:tend|agg)_/i, "")
+    filename = filename.sub(/\A(?:tend|agg|prev)_/i, "")
 
     # Normalize filename variations: 01_04_2026, 01-04-2026
     normalized_filename = filename.gsub("-", "_")

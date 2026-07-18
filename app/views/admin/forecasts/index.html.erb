@@ -51,6 +51,37 @@
             </div>
           <% end %>
         </div>
+        <% if @pagy.pages > 1 %>
+          <div class="border-t border-gray-200 px-4 py-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p class="text-sm text-gray-500 order-2 sm:order-1">
+              Page <%= @pagy.page %> of <%= @pagy.pages %> · <%= @pagy.count %> forecasts
+            </p>
+            <nav class="order-1 sm:order-2" aria-label="Pagination">
+              <ul class="inline-flex items-center gap-1">
+                <% @pagy.send(:series).each do |item| %>
+                  <% case item %>
+                  <% when Integer %>
+                    <li>
+                      <%= link_to item, @pagy.page_url(item),
+                        class: "inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-lg text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 border border-transparent transition-colors" %>
+                    </li>
+                  <% when String %>
+                    <li>
+                      <span aria-current="page"
+                        class="inline-flex items-center justify-center min-w-9 h-9 px-3 rounded-lg text-sm font-semibold text-white bg-blue-600 border border-blue-600">
+                        <%= item %>
+                      </span>
+                    </li>
+                  <% when :gap %>
+                    <li>
+                      <span class="inline-flex items-center justify-center min-w-9 h-9 px-2 text-sm text-gray-400" aria-hidden="true">…</span>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </nav>
+          </div>
+        <% end %>
       <% else %>
         <div class="p-12 text-center">
           <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

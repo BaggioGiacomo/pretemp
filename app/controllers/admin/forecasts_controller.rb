@@ -2,7 +2,7 @@ class Admin::ForecastsController < AdminController
   before_action :set_forecast, only: [ :edit, :update, :destroy ]
 
   def index
-    @forecasts = Forecast.ordered
+    @pagy, @forecasts = pagy(Forecast.ordered, limit: 25)
   end
 
   def new

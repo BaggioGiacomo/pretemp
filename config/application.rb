@@ -18,6 +18,11 @@ module Pretemp
 
     config.active_storage.variant_processor = :vips
 
+    # Allow SVG attachments (e.g. forecast maps) to be served inline so they
+    # render in <img> tags. Rails excludes SVG by default because it can embed
+    # scripts; this is acceptable here since only trusted admins upload images.
+    config.active_storage.content_types_allowed_inline += [ "image/svg+xml" ]
+
     config.i18n.default_locale = :it
 
     # Configuration for the application, engines, and railties goes here.

@@ -95,7 +95,7 @@
         <% end %>
         <div class="flex items-center justify-between mt-3 text-[11px] text-slate-500">
           <p><%= @active_update.authors %></p>
-          <p><%= time_ago_in_words(@active_update.issue_date) %> fa</p>
+          <p><%= time_ago_in_words(@active_update.created_at) %> fa</p>
         </div>
       </div>
     <% end %>

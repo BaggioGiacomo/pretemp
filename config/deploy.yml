@@ -22,7 +22,9 @@ servers:
 #
 proxy:
   ssl: true
-  host: pretemp.duckdns.org
+  hosts:
+    - pretemp.it
+    - www.pretemp.it
 
 # Where you keep your container images.
 registry:

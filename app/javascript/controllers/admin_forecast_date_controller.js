@@ -49,20 +49,19 @@ export default class extends Controller {
       minDate = new Date(today);
       minDate.setDate(minDate.getDate() + 2);
     } else {
-      // Regular forecasts: disable past dates
-      minDate = new Date(today);
+      // Regular forecasts: allow past dates (floor matches the form's
+      // server-rendered minimum so the calendar isn't unbounded).
+      minDate = new Date(2015, 0, 1);
     }
 
     // Update the data attribute
-    datePickerContainer.setAttribute(
-      "data-date-picker-min-value",
-      this._formatDate(minDate),
-    );
+    const minValue = this._formatDate(minDate);
+    datePickerContainer.setAttribute("data-date-picker-min-value", minValue);
 
     // Trigger a custom event to notify the date picker controller
     // This will cause it to re-render with the new bounds
     const event = new CustomEvent("minMaxChanged", {
-      detail: { minValue: this._formatDate(minDate) },
+      detail: { minValue },
       bubbles: true,
     });
     datePickerContainer.dispatchEvent(event);

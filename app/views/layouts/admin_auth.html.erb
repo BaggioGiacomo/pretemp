@@ -6,7 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_importmap_tags_with_shim %>
     <%= favicon_link_tag "favicon.png", type: "image/png" %>
   </head>
   <body class="admin-ui min-h-screen flex items-center justify-center">

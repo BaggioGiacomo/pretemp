@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_importmap_tags_with_shim %>
   </head>
   <body class="bg-slate-950 text-slate-50 antialiased main">
     <div class="min-h-screen flex flex-col">

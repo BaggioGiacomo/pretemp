@@ -5,7 +5,7 @@ class HomeController < ApplicationController
     @today_forecast = Forecast.today
 
     @active_update = @latest_forecast&.active_update
-    @recent_active_updates = ForecastUpdate.where(status: "published").where("valid_until > ?", Time.current).ordered.limit(3)
+    @recent_active_updates = ForecastUpdate.active.ordered.limit(3)
 
     # Banner: is there a published tendenza for the day after tomorrow?
     @tendenza_banner = Forecast.published_tendenze.find_by(date: Date.current + 2)

@@ -58,7 +58,7 @@ class Forecast < ApplicationRecord
   end
 
   def active_update
-    forecast_updates.where(status: "published").where("valid_until > ?", Time.current).order(created_at: :desc).first
+    forecast_updates.active.ordered.first
   end
 
   def self.today

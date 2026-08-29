@@ -26,7 +26,7 @@
                       <%= forecast_update.title %>
                     </h3>
                     <div class="mt-2 flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-gray-500">
-                      <span class="px-2 py-1 rounded-full text-xs font-medium <%= forecast_update.status == 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                      <span class="px-2 py-1 rounded-full text-xs font-medium <%= forecast_update.published? ? 'bg-green-100 text-green-800' : forecast_update.archived? ? 'bg-gray-100 text-gray-800' : 'bg-yellow-100 text-yellow-800' %>">
                         <%= forecast_update.status&.capitalize %>
                       </span>
                       <% if forecast_update.active? %>
@@ -35,7 +35,7 @@
                         </span>
                       <% elsif forecast_update.expired? %>
                         <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                          Expired
+                          Expired — archived, hidden from the forecast
                         </span>
                       <% end %>
                       <span class="text-xs text-gray-400">

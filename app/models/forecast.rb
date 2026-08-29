@@ -18,6 +18,8 @@ class Forecast < ApplicationRecord
   scope :visible, -> { where(status: [ "published", "archived" ]) }
   scope :tendenze, -> { where(tendenza: true) }
   scope :published_tendenze, -> { where(status: "published", tendenza: true) }
+  scope :previsioni, -> { where(tendenza: false) }
+  scope :published_previsioni, -> { where(status: "published", tendenza: false) }
 
   before_validation :set_default_date, on: :create
   before_validation :set_default_status, on: :create
@@ -61,12 +63,19 @@ class Forecast < ApplicationRecord
     forecast_updates.active.ordered.first
   end
 
-  def self.today
-    published.find_by(date: Date.today)
+  def self.previsione_for(date)
+    published_previsioni.find_by(date: date)
   end
 
-  def self.tomorrow
-    published.find_by(date: Date.tomorrow)
+  # Forecast to highlight in the home page hero: always a previsione, never a
+  # tendenza (those get their own banner above the hero).
+  def self.featured_previsione
+    previsione_for(Date.tomorrow) || previsione_for(Date.current) || published_previsioni.ordered.first
+  end
+
+  # Nearest tendenza still ahead of us, shown in the home page banner.
+  def self.upcoming_tendenza
+    published_tendenze.where(date: Date.current..).order(:date).first
   end
 
   private

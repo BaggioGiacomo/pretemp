@@ -63,6 +63,16 @@ class Forecast < ApplicationRecord
     forecast_updates.active.ordered.first
   end
 
+  # Updates the public site may show, newest first. Filtered in Ruby so that a
+  # preloaded association (list views) is reused instead of firing one query
+  # per forecast.
+  def visible_updates
+    forecast_updates.to_a
+                    .select { |forecast_update| ForecastUpdate::VISIBLE_STATUSES.include?(forecast_update.status) }
+                    .sort_by(&:created_at)
+                    .reverse
+  end
+
   def self.previsione_for(date)
     published_previsioni.find_by(date: date)
   end

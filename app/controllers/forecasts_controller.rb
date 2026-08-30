@@ -6,10 +6,17 @@ class ForecastsController < ApplicationController
   end
 
   def show
-    @active_update = @forecast.active_update
     unless @forecast.published? || @forecast.archived?
-      redirect_to root_path, status: :not_found
+      return redirect_to root_path, status: :not_found
     end
+
+    # Newest first: the top one is the current picture, the ones below are kept
+    # as history. Drafts never reach the public page.
+    @forecast_updates = @forecast.forecast_updates.visible.ordered
+                                 .includes(:users)
+                                 .with_rich_text_short_text_and_embeds
+                                 .with_rich_text_discussion_and_embeds
+                                 .with_attached_image
   end
 
   private

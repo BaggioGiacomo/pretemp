@@ -10,6 +10,9 @@ class ForecastUpdate < ApplicationRecord
   validates :valid_until, presence: true
 
   STATUSES = %w[draft published archived].freeze
+  # Everything the public site may show: drafts stay admin-only, archived ones
+  # remain readable as history on the forecast page.
+  VISIBLE_STATUSES = %w[published archived].freeze
 
   validates :status, inclusion: { in: STATUSES }
 
@@ -17,6 +20,7 @@ class ForecastUpdate < ApplicationRecord
   scope :drafted, -> { where(status: "draft") }
   scope :published, -> { where(status: "published") }
   scope :archived, -> { where(status: "archived") }
+  scope :visible, -> { where(status: VISIBLE_STATUSES) }
   scope :expired, -> { where(valid_until: ..Time.current) }
   scope :active, -> { published.where("valid_until > ?", Time.current) }
 

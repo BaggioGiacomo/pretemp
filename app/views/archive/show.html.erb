@@ -182,56 +182,88 @@
              when 3 then { color: "bg-purple-600", text: "text-purple-300",bg: "bg-purple-600/10", label: "Pericolosità" }
              else        { color: "bg-emerald-500",  text: "text-emerald-300", bg: "bg-emerald-500/10",  label: "Nessun pericolo" }
            end %>
-          <%= link_to forecast_path(forecast),
-              class: "group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 p-4 flex items-start justify-between gap-3 hover:border-slate-700 hover:bg-slate-900 hover:-translate-y-0.5 transition",
-              data: { turbo_frame: "_top" } do %>
+          <% card_title = forecast.date ? I18n.l(forecast.date, format: :long) : forecast.label %>
+          <div class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 hover:border-slate-700 hover:bg-slate-900 hover:-translate-y-0.5 transition">
             <span class="absolute left-0 top-0 bottom-0 w-1 <%= risk_config[:color] %>"></span>
-            <div class="flex-1 min-w-0 pl-2">
-              <% if forecast.date %>
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="text-[11px] uppercase tracking-wider font-medium text-slate-500">
-                    <%= I18n.l(forecast.date, format: "%d %b") %>
-                  </span>
-                  <span class="text-slate-700">·</span>
-                  <span class="text-[11px] text-slate-500">
-                    <%= I18n.l(forecast.date, format: "%A") %>
-                  </span>
-                </div>
+            <div class="relative p-4 flex items-start justify-between gap-3">
+              <div class="flex-1 min-w-0 pl-2">
+                <% if forecast.date %>
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-[11px] uppercase tracking-wider font-medium text-slate-500">
+                      <%= I18n.l(forecast.date, format: "%d %b") %>
+                    </span>
+                    <span class="text-slate-700">·</span>
+                    <span class="text-[11px] text-slate-500">
+                      <%= I18n.l(forecast.date, format: "%A") %>
+                    </span>
+                  </div>
+                <% end %>
                 <p class="text-lg font-semibold text-slate-100 group-hover:text-white tracking-tight mb-3">
-                  <%= I18n.l(forecast.date, format: :long) %>
+                  <%# Stretched link: it covers the header only, so the update rows below stay
+                      links of their own instead of being nested inside this one. %>
+                  <%= link_to card_title, forecast_path(forecast),
+                      class: "after:absolute after:inset-0 after:content-['']",
+                      data: { turbo_frame: "_top" } %>
                 </p>
-              <% end %>
-              <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
-                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider <%= forecast.tendenza? ? "bg-indigo-500/10 text-indigo-300" : "bg-sky-500/10 text-sky-300" %>">
-                  <%= forecast.label %>
-                </span>
-                <% if forecast.archived? %>
-                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider bg-amber-500/10 text-amber-300">
-                    Archiviata
+                <div class="flex flex-wrap items-center gap-1.5 mb-2.5">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider <%= forecast.tendenza? ? "bg-indigo-500/10 text-indigo-300" : "bg-sky-500/10 text-sky-300" %>">
+                    <%= forecast.label %>
                   </span>
-                <% end %>
-              </div>
-              <div class="inline-flex items-center gap-2 <%= risk_config[:bg] %> py-1 pr-1.5 pl-2.5 rounded-full mb-2.5">
-                <% if risk.nil? %>
-                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-500 ml-1"></span>
-                <% end %>
-                <span class="text-xs font-medium <%= risk_config[:text] %>">
-                  <%= risk_config[:label] %>
-                </span>
-                <% if risk %>
-                  <span class="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full <%= risk_config[:color] %> text-[11px] font-semibold text-slate-950">
-                    <%= risk %>
+                  <% if forecast.archived? %>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider bg-amber-500/10 text-amber-300">
+                      Archiviata
+                    </span>
+                  <% end %>
+                </div>
+                <div class="inline-flex items-center gap-2 <%= risk_config[:bg] %> py-1 pr-1.5 pl-2.5 rounded-full mb-2.5">
+                  <% if risk.nil? %>
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-500 ml-1"></span>
+                  <% end %>
+                  <span class="text-xs font-medium <%= risk_config[:text] %>">
+                    <%= risk_config[:label] %>
                   </span>
-                <% end %>
+                  <% if risk %>
+                    <span class="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full <%= risk_config[:color] %> text-[11px] font-semibold text-slate-950">
+                      <%= risk %>
+                    </span>
+                  <% end %>
+                </div>
+                <p class="text-xs text-slate-500">
+                  <span class="text-slate-400">Previsori</span>
+                  ·
+                  <%= forecast.authors %>
+                </p>
               </div>
-              <p class="text-xs text-slate-500">
-                <span class="text-slate-400">Previsori</span>
-                ·
-                <%= forecast.authors %>
-              </p>
+              <span class="text-slate-600 group-hover:text-sky-400 transition-colors text-lg leading-none">→</span>
             </div>
-            <span class="text-slate-600 group-hover:text-sky-400 transition-colors text-lg leading-none">→</span>
-          <% end %>
+            <% updates = forecast.visible_updates %>
+            <% if updates.any? %>
+              <div class="border-t border-slate-800 divide-y divide-slate-800/60 bg-slate-950/40">
+                <% updates.each_with_index do |forecast_update, index| %>
+                  <%# Each row deep-links to its block in the stack on the forecast page. %>
+                  <%= link_to forecast_path(forecast, anchor: "aggiornamento-#{forecast_update.id}"),
+                      class: "flex items-center gap-2 py-2 pl-6 pr-4 text-[11px] text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-colors",
+                      data: { turbo_frame: "_top" } do %>
+                    <svg class="w-3 h-3 shrink-0 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="truncate">
+                      Aggiornamento del <%= I18n.l(forecast_update.created_at, format: :short) %>
+                    </span>
+                    <% if index.zero? && forecast_update.active? %>
+                      <span class="ml-auto shrink-0 inline-flex items-center px-1.5 py-0.5 rounded-full border border-amber-500/40 bg-amber-500/10 text-[10px] font-medium text-amber-300">
+                        Valido
+                      </span>
+                    <% else %>
+                      <span class="ml-auto shrink-0 inline-flex items-center px-1.5 py-0.5 rounded-full border border-slate-700 bg-slate-800/60 text-[10px] font-medium text-slate-400">
+                        <%= index.zero? ? "Scaduto" : "Superato" %>
+                      </span>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       </div>
       <% if @pagy.pages > 1 %>
